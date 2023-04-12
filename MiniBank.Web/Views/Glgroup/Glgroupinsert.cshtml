@@ -1,0 +1,247 @@
+﻿
+@model Bank.Domain.GlGroup.GlgroupEntity
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "GlgroupRegistation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.msg != null)
+{
+<script>
+    if (@ViewBag.msg == " Registation Succesfully !!!")
+    {
+        location.href = "../Glgroup/Glgroupinsert";
+    }
+    else if (@ViewBag.msg == "update successfully")
+    {
+        location.href = "../Glgroup/Glgroupinsert";
+    }
+    @*else
+    {
+          window.location.href = "../Glgroup/Glgroupinsert";
+        alert("@ViewBag.msg");
+    }*@
+
+
+
+
+
+</script>
+}
+else
+{
+
+}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/bootbox.js"></script>
+</head>
+
+
+<div class="page-title">
+    <div class="title-details">
+        @*<h4>Approval Configuration</h4>*@
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Glgroup Registaion</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-controller="Glgroup" asp-action="Glgroupinsert" data-toggle="tooltip" id="SchemeExcalAdd">
+
+                            Add
+                        </a>
+                        <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="Glgroup" asp-action="GlgroupView" id="SchemeExcalView">
+
+                            View
+                        </a>
+
+                    </ul>
+                    <div class="indicatorslist">
+                        <p class="text-danger">(*) Indicates mandatory </p>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <form id="frmCreateREesignation" enctype="multipart/form-data" method="post" asp-controller="Glgroup" asp-action="Glgroupinsert">
+                        @if (Model != null && Model.GlGroup_id != 0)
+                        {
+                            <input type="hidden" id="hdnTxtBName" asp-for="GlGroup_id" value="@Model.GlGroup_id" />
+                        }
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge-light">Group ID<span class="text-danger">*</span></label>
+                                <select class="form-control" id="ddlBranchId" asp-for="grouptype_id" onchange="Valuecheck()" asp-items="@(new SelectList(ViewBag.groupID, "grouptype_id","grouptype_name"));">
+                                    <option value="0">--Select One--</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge-light">Group code<span class="text-danger">*</span></label>
+                                <input type="text" id="txtCode" asp-for="GlGroup_code" placeholder="Please Enter Group code" readonly="readonly" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge-light">Group Name<span class="text-danger">*</span></label>
+                                <input type="text" id="txtName" asp-for="GlGroup_name" maxlength="20" placeholder="Please Enter Group Name" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <input type="submit" value="@ViewBag.Button" onclick="return validate()">
+                            <input type="reset" onclick="reset()" class="button" value="reset">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=submit] {
+        background-color: #04AA6D;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+
+
+    .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    input[type=reset] {
+        background-color: orangered;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
+
+<script>
+    function reset() {
+        $('#txtID').val(" ");
+        //$('#BAdress').val(" ");
+        //$('#BAsig').val(" ");
+    }
+
+    function validate() {
+
+        var GroupId = document.getElementById("txtID").value;
+        var Groupcode = document.getElementById("txtCode").value;
+        var GroupName = document.getElementById("txtName").value;
+
+        if (GroupId == "") {
+            bootbox.alert("Please enter your ID ")
+            return false;
+        }
+        else if (Groupcode == "") {
+            bootbox.alert("Please enter Groupcode")
+            return false;
+        }
+        else if (GroupName == "") {
+            bootbox.alert("Please enter GroupName")
+            return false;
+        }
+
+
+        return true;
+
+    }
+
+</script>
+<script>
+    function Valuecheck() {
+        var GlGroup_code = $("#ddlBranchId").val();
+        debugger;
+        var url = '../Glgroup/Checkdetails';
+        $.getJSON(url, { grouptype_id: GlGroup_code, }, function (data) {
+            var obj = data.data
+            //  var item = "<option value='0'>--Select One--</option>";
+
+            $('#txtCode').val(obj);
+        });
+
+        // $.ajax({
+        //type: "POST",
+        //url: "/Glgroup/Checkdetails",
+        //data: { INTLEVELID: $("#ddlBranchId").val() },
+
+        //success: function (data) {
+        //    debugger;
+        //    if (data != null) {
+        //        $("#txtCode").val(data.status);
+        //      //  $('#inputDate').val(data.serveR_DATE);
+        //    }
+        //    else {
+        //        $("#txtCode").val("");
+        //       // $('#inputDate').val("");
+        //    }
+
+        //},
+        //error: function (xhr, textStatus, errorThrown) {
+        //    // TODO: Show error
+
+        //}
+        //});
+
+    }
+
+</script>
+
+@*<script>
+        $('#Bsignature').on('change', function (e) {
+            var file = $('#Bsignature')[0].files[0].name;
+            $('#lblBsignature').text(file);
+            $('#hdnBsignature').val(file);
+            //if (!ValidateFile('uplcovid19cert', 'Valid Document', 'lblpassbookupload')) {
+            //    $('#hdncovid19poscert').val("");
+            //    return false;
+            //};
+            //if (!CheckFileType('uplcovid19cert', '1', 'lblpassbookupload')) {
+            //    $('#hdncovid19poscert').val("");
+            //    return false;
+            //};
+        });
+    </script>*@

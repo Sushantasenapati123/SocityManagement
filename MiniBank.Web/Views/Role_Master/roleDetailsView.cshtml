@@ -1,0 +1,298 @@
+﻿
+@model Bank.Domain.Role.RoleEntity
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    //ViewData["Title"] = "RoleView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/bootbox.js"></script>
+</head>
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Role Management view</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link " asp-controller="Role_Master" asp-action="Roleinsert" data-toggle="tooltip" id="SchemeExcalAdd">
+
+                            Add
+                        </a>
+                        <a class="nav-item nav-link active" data-toggle="tooltip" asp-controller="Role_Master" asp-action="roleDetailsView" id="SchemeExcalView">
+
+                            View
+                        </a>
+
+                    </ul>
+                </div>
+                <input type="hidden" id="hdnid" />
+                <div class="card-body">
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="badge-light">Select you Role Name<span class="text-danger">*</span></label>
+                            <select class="form-control" id="ddlrolename" asp-for="ROLE_NAME" asp-items="@(new SelectList(ViewBag.RoleName, "ROLE_ID", "ROLE_NAME"));">
+                                <option value="0">--Select One--</option>
+                            </select>
+                        </div>
+                    </div><br />
+                    <div>
+
+                    </div>
+                    <div class="row" id="che">
+
+                        <div class="col-md-4">
+                            <input type="checkbox" asp-for="ALLOW_GL" id="Check1" readonly="readonly">
+                            <span>Access to General Ledger</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check2" asp-for="ALLOW_CC" readonly="readonly">
+                            <span>New Customer Creation</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check3" asp-for="ALLOW_EC" readonly="readonly">
+                            <span>Editing Customer Creation</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check4" asp-for="ALLOW_AC" readonly="readonly">
+                            <span>Authority to approve customers created by others</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check5" asp-for="ALLOW_SPCL" readonly="readonly">
+                            <span>Special Instruction Posting</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check6" asp-for="ALLOW_NEW_DEPO" readonly="readonly">
+                            <span>Creation of new Deposit A/Cs</span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check7" asp-for="ALLOW_NEW_LOAN" readonly="readonly">
+                            <span>Creation of new Loan A/Cs</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check8" asp-for="ALLOW_INT_PARA" readonly="readonly">
+                            <span>Access to Interest Parameters</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check9" asp-for="ALLOW_VCH" readonly="readonly">
+                            <span>Voucher Entry</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check10" asp-for="ALLOW_DISBURSE" readonly="readonly">
+                            <span>Disbursement Entry</span>
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check11" asp-for="ALLOW_LN_REPAY" readonly="readonly">
+                            <span>Loan Repayment Entry</span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check12" asp-for="ALLOW_VCH_AP" readonly="readonly">
+                            <span>Voucher Approval</span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check13" asp-for="ALLOW_DEPO_AP" readonly="readonly">
+                            <span>Deposit A/C Approval</span><br>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check14" asp-for="ALLOW_LN_AP" readonly="readonly">
+                            <span>Loan Approval</span><br>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check15" asp-for="ALLOW_CR_USR" readonly="readonly">
+                            <span>Creation of New Users</span><br>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check16" asp-for="ALLOW_BNK_INFO" readonly="readonly">
+                            <span>User to Change Bank Information</span><br>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check17" asp-for="ALLOW_RENEW_EXP" readonly="readonly">
+                            <span>User to Renew Other expired users</span><br>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="checkbox" id="Check18" asp-for="ALLOW_VCH_EDIT" readonly="readonly">
+                            <span>Editing of Vouchers</span><br>
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+
+                        <div class="col-md-4">
+
+                            <input type="submit" value="Edit" onclick="filldata()">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    input[type=submit] {
+        background-color: blue;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+<script>
+ 
+
+
+    $('#ddlrolename').change(function () {
+
+        var html = '';
+        $.ajax({
+             url: "@Url.Action("Checkdetails", "Role_Master")",
+            data: { INTLEVELID: $("#ddlrolename").val()  },
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                var Response = data.data;
+                if (Response.alloW_GL == "true") {
+                    $("#Check1").prop("checked", true);
+                }
+                else {
+                    $("#Check1").prop("checked", false);
+                }
+                if (Response.alloW_CC == "true") {
+                    $("#Check2").prop("checked", true);
+                }
+                else {
+                    $("#Check2").prop("checked", false);
+                }
+                if (Response.alloW_EC == "true") {
+                    $("#Check3").prop("checked", true);
+                }
+                else {
+                    $("#Check3").prop("checked", false);
+                }
+                if (Response.alloW_AC == "true") {
+                    $("#Check4").prop("checked", true);
+                }
+                else {
+                    $("#Check4").prop("checked", false);
+                }
+                if (Response.alloW_SPCL == "true") {
+                    $("#Check5").prop("checked", true);
+                }
+                else {
+                    $("#Check5").prop("checked", false);
+                }
+                if (Response.alloW_NEW_DEPO == "true") {
+                    $("#Check6").prop("checked", true);
+                }
+                else {
+                    $("#Check6").prop("checked", false);
+                }
+                if (Response.alloW_NEW_LOAN == "true") {
+                    $("#Check7").prop("checked", true);
+                }
+                else {
+                    $("#Check7").prop("checked", false);
+                }
+                if (Response.alloW_INT_PARA == "true") {
+                    $("#Check8").prop("checked", true);
+                }
+                else {
+                    $("#Check8").prop("checked", false);
+                }
+                if (Response.alloW_VCH == "true") {
+                    $("#Check9").prop("checked", true);
+                }
+                else {
+                    $("#Check9").prop("checked", false);
+                }
+                if (Response.alloW_DISBURSE == "true") {
+                    $("#Check10").prop("checked", true);
+                }
+                else {
+                    $("#Check10").prop("checked", false);
+                }
+                if (Response.alloW_LN_REPAY == "true") {
+                    $("#Check11").prop("checked", true);
+                }
+                else {
+                    $("#Check11").prop("checked", false);
+                }
+                if (Response.alloW_VCH_AP == "true") {
+                    $("#Check12").prop("checked", true);
+                }
+                else {
+                    $("#Check12").prop("checked", false);
+                }
+                if (Response.alloW_DEPO_AP == "true") {
+                    $("#Check13").prop("checked", true);
+                }
+                else {
+                    $("#Check13").prop("checked", false);
+                }
+                if (Response.alloW_LN_AP == "true") {
+                    $("#Check14").prop("checked", true);
+                }
+                else {
+                    $("#Check14").prop("checked", false);
+
+                }
+                if (Response.alloW_CR_USR == "true") {
+                    $("#Check15").prop("checked", true);
+                }
+                else {
+                    $("#Check15").prop("checked", false);
+                }
+                if (Response.alloW_BNK_INFO == "true") {
+                    $("#Check16").prop("checked", true);
+                }
+                else {
+                    $("#Check16").prop("checked", false);
+                }
+                if (Response.alloW_RENEW_EXP == "true") {
+                    $("#Check17").prop("checked", true);
+                }
+                else {
+                    $("#Check17").prop("checked", false);
+                }
+                if (Response.alloW_VCH_EDIT == "true") {
+                    $("#Check18").prop("checked", true);
+                }
+                else {
+                    $("#Check18").prop("checked", false);
+                }
+
+            },
+        });
+
+
+     });
+
+
+
+</script>
+
+<script>
+    function filldata() {
+        location.href = "../Role_Master/Roleinsert?Rolename=" + $("#ddlrolename option:selected").text() + "&id=" + $("#ddlrolename").val();
+
+    }
+</script>

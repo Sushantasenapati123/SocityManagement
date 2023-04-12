@@ -1,0 +1,144 @@
+﻿@model Bank.Domain.AccountOpening.AccountopeningEntity
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "AddLabTest";
+   // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Role == "Manager")//Executive Assistant
+{
+    Layout = "~/Views/Shared/ManagerLayout.cshtml";
+}
+else if ((ViewBag.Role == "Executive Assistant"))
+{
+    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+
+
+</head>
+
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb p-0 mb-0 bg-transparent" id="navigation">
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+                    <a class="nav-item nav-link active" asp-controller="LabTest" asp-action="AddLabTest">Add</a>
+                    <a class="nav-item nav-link " asp-controller="LabTest" asp-action="ViewLabTest">View</a>
+                </ul>
+                <div class="indicatorslist">
+                    <a title="" href="javascript:void(0)" id="backIcon" data-toggle="tooltip" data-placement="top" data-original-title="Back"><i class="icon-arrow-left1"></i></a>
+                    <p class="ml-2">(*) Indicates mandatory </p>
+                </div>
+            </div>
+            @*//  BASIC FORM ELEMENTS
+                //  ===================================================*@
+
+            <div class="card-body">
+                <div class="form-group row">
+                    <input type="hidden" value="0" id="hdnDignosisConfigId" />
+                    @*<div class="col-xs-12 col-md-4 col-xl-4">
+                            <label class="control-label">Dignosis<span class="text-danger">*</span></label>
+                            <select id="ddlDignosisValue" class="form-control" asp-items="@(new SelectList(ViewBag.Name,"DignosisID","Name"))" asp-for="DignosisID">
+                                <option value="0">--Select--</option>
+                            </select>
+                        </div>*@
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Choose  Date<span class="text-danger">*</span></label>
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <input id="txtdate" type="date" class="form-control" />
+
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+
+                    <input id="hdnLabTestId" class="form-control" hidden />
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-md-2 col-xl-2 control-label"></label>
+                    <div class="col-12 col-md-6 col-xl-4 justify-content-center">
+                        <input type="button" onclick="UpdateServerDate()" class="btn btn-success" value="Update Server Date" @*style="margin-left:350px;margin-bottom:20px"*@>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        //breadcumb
+        loadNavigation('AddLabTest', 'gldata', 'plsubmission', 'AddLabTest', '', 'AddLabTest');
+        var LabTestId = getUrlVars()["LabTestId"];
+        if (LabTestId != undefined) {
+            $("#btnSubmit").html("Update");
+            $("#btnCancel").html("Cancel");
+            Edit(LabTestId)
+        }
+
+    });
+
+</script>
+
+<script type="text/javascript">
+
+    function UpdateServerDate() {
+        debugger
+        if ($('#txtdate').val() == '') {
+            alert("Plz Choose Date");
+            return false;
+        }
+
+        $.ajax({
+            url: "/Custmer/UpdateServerDate?date=" + $('#txtdate').val(),
+            typr: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                debugger
+                if (result == 15) {
+                    swal({
+                        title: "Update Server Date Successfully",
+                        text: "",
+                        icon: "success",
+                        button: "oh yes!",
+                    }).then((value) => {
+                        if (true) {
+                            location.href = "/Custmer/ViewUpdateServerDate";
+                        }
+                    })
+
+
+                }
+
+
+
+
+            },
+            error: function (errormessage) {
+                alert("error");
+            }
+        });
+    }
+
+
+
+
+</script>

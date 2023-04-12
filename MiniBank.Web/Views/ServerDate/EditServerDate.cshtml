@@ -1,0 +1,377 @@
+﻿@model Bank.Domain.ServerData.ServerDateEntity
+
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Edit Server Date";
+   // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Role == "Manager")
+{
+    Layout = "~/Views/Shared/ManagerLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="@Url.Content("~/js/bootbox.js")"></script>
+</head>
+@if (ViewBag.msg != null)
+{
+    <script>
+        alert("@ViewBag.msg");
+        window.location.href = "../ServerDate/ViewServerDate";
+    </script>
+}
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Server Date</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-controller="ServerDate" asp-action="EditServerDate" data-toggle="tooltip" id="">
+                            Edit
+                        </a>
+                        <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="ServerDate" asp-action="ViewServerDate" id="">
+                            View
+                        </a>
+                    </ul>
+                    <div class="indicatorslist">
+                        <p class="text-danger">(*) Indicates mandatory </p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="frmCreateServerDate" method="post" asp-controller="ServerDate" asp-action="EditServerDate">
+                        <input type="hidden" asp-for="Server_id" />
+                        <input type="hidden" asp-for="BRANCH_id" />
+                        <input type="hidden" asp-for="SERVER_DATE" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge-light">Status<span class="text-danger">*</span></label>
+                                <select asp-for="STATUS" id="sts">
+                                    <option value="0">--Select--</option>
+                                    <option value="1">E</option>
+                                    <option value="2">B</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge-light">Enter Branch<span class="text-danger">*</span></label>
+                                <select disabled class="form-control" id="ddlBranch" asp-for="BRANCH_id"
+                                        asp-items="@(new SelectList(ViewBag.BranchName, "BRANCH_id", "Branch_Name"))">
+                                    <option value="0">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge-light">Server Date<span class="text-danger">*</span></label>
+                                <input disabled type="date" asp-for="SERVER_DATE" class="form-control" id="inputSDate" runat="server" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="submit" value="Submit" id="btnAdd" />
+                                <input type="reset" class="button" value="Reset" onclick="return reset()" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=submit] {
+        background-color: #04AA6D;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+
+
+    .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    input[type=reset] {
+        background-color: orangered;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
+
+<script>
+    //$("#dropdownID").attr("disabled", "disabled");
+</script>
+
+
+
+@*@if (ViewBag.msg != null)
+    {
+        <script>
+            bootbox.alert("@ViewBag.msg", function () {
+                window.location.reload();
+            });
+        </script>
+    }
+    <a asp-controller="ServerDate" asp-action="ViewServerDate">View All Server Date</a>
+    <div class="container">
+        <div class="row">
+            <form asp-controller="ServerDate" asp-action="EditServerDate" onsubmit="return Val();">
+                <input type="hidden" asp-for="Server_id" />
+                <div class="form-group">
+                    <label class="badge-light">Server Date<span class="text-danger">*</span></label>
+                    <input type="datetime-local" asp-for="SERVER_DATE" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="badge-light">Enter Branch<span class="text-danger">*</span></label>
+                    <input type="text" asp-for="BRANCH_id" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <input type="text" asp-for="STATUS" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-outline-success" value="Submit" id="btnadd" />
+                    <input type="reset" class="btn btn-outline-danger" value="Reset" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <script>
+        function Val() {
+            if ($('#grouptype_name').val() == "") {
+                bootbox.alert("Please enter Group name");
+                return false;
+            }
+        }
+    </script>*@
+@*@model Bank.Domain.ServerData.ServerDateEntity*@
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Edit Server Date";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="@Url.Content("~/js/bootbox.js")"></script>
+</head>
+@if (ViewBag.msg != null)
+{
+    <script>
+        alert("@ViewBag.msg");
+        window.location.href = "../ServerDate/ViewServerDate";
+    </script>
+}
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Server Date</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-controller="ServerDate" asp-action="EditServerDate" data-toggle="tooltip" id="">
+                            Edit
+                        </a>
+                        <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="ServerDate" asp-action="ViewServerDate" id="">
+                            View
+                        </a>
+                    </ul>
+                    <div class="indicatorslist">
+                        <p class="text-danger">(*) Indicates mandatory </p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="frmCreateServerDate" method="post" asp-controller="ServerDate" asp-action="EditServerDate">
+                        <input type="hidden" asp-for="Server_id" />
+                        <input type="hidden" asp-for="BRANCH_id" />
+                        <input type="hidden" asp-for="SERVER_DATE" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge-light">Status<span class="text-danger">*</span></label>
+                                <select asp-for="STATUS" id="sts">
+                                    <option value="0">--Select--</option>
+                                    <option value="1">E</option>
+                                    <option value="2">B</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge-light">Enter Branch<span class="text-danger">*</span></label>
+                                <select disabled class="form-control" id="ddlBranch" asp-for="BRANCH_id"
+                                        asp-items="@(new SelectList(ViewBag.BranchName, "BRANCH_id", "Branch_Name"))">
+                                    <option value="0">--Select--</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge-light">Server Date<span class="text-danger">*</span></label>
+                                <input disabled type="date" asp-for="SERVER_DATE" class="form-control" id="inputSDate" runat="server" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="submit" value="Submit" id="btnAdd" />
+                                <input type="reset" class="button" value="Reset" onclick="return reset()" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=submit] {
+        background-color: #04AA6D;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+
+
+    .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    input[type=reset] {
+        background-color: orangered;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
+
+<script>
+    //$("#dropdownID").attr("disabled", "disabled");
+</script>
+
+
+
+@*@if (ViewBag.msg != null)
+    {
+        <script>
+            bootbox.alert("@ViewBag.msg", function () {
+                window.location.reload();
+            });
+        </script>
+    }
+    <a asp-controller="ServerDate" asp-action="ViewServerDate">View All Server Date</a>
+    <div class="container">
+        <div class="row">
+            <form asp-controller="ServerDate" asp-action="EditServerDate" onsubmit="return Val();">
+                <input type="hidden" asp-for="Server_id" />
+                <div class="form-group">
+                    <label class="badge-light">Server Date<span class="text-danger">*</span></label>
+                    <input type="datetime-local" asp-for="SERVER_DATE" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="badge-light">Enter Branch<span class="text-danger">*</span></label>
+                    <input type="text" asp-for="BRANCH_id" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <input type="text" asp-for="STATUS" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-outline-success" value="Submit" id="btnadd" />
+                    <input type="reset" class="btn btn-outline-danger" value="Reset" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <script>
+        function Val() {
+            if ($('#grouptype_name').val() == "") {
+                bootbox.alert("Please enter Group name");
+                return false;
+            }
+        }
+    </script>*@

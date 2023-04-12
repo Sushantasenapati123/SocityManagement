@@ -1,0 +1,140 @@
+﻿
+@model Bank.Domain.Branch.BranchEntity
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@if (ViewBag.msg != null)
+{
+    <script>
+        alert("@ViewBag.msg");
+        window.location.href = "/Branch/AddBranchs";
+    </script>
+}
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/bootbox.js"></script>
+</head>
+
+<body>
+    <div class="page-title">
+        <div class="title-details">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Society Management</li>
+                    <li class="breadcrumb-item active" aria-current="page"><b>Branch Registration</b></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs nav-fill" role="tablist">
+                            <a class="nav-item nav-link active" asp-controller="Branch" asp-action="AddBranchs" data-toggle="tooltip" id="SchemeExcalAdd">
+
+                                Add
+                            </a>
+                            <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="Branch" asp-action="ViewBranchs" id="SchemeExcalView">
+
+                                View
+                            </a>
+
+                        </ul>
+                        <div class="indicatorslist">
+                            <p class="text-danger">(*) Indicates mandatory </p>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <form asp-controller="Branch" asp-action="AddBranchs" onsubmit="return validate() ">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Enter Branch Name</label>
+                                         
+                                            <input type="text" asp-for="Branch_Name" class="form-control" id="txtbranchname" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Enter Branch Address</label>
+                                            <input type="text" asp-for="Branch_address" class="form-control" id="Txtaddress" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Select the Signature</label>
+                                            <input type="file" asp-for="photosignature" class="form-control-file" id="lblBsignature" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-outline-success" value="Submit" id="btnadd" />
+                                            <input type="reset" class="btn btn-outline-danger" value="Reset" />
+                                            <h2>@ViewBag.msg</h2>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+<script>
+
+
+    function reset() {
+        $('#Bname').val(" ");
+        $('#BAdress').val(" ");
+        $('#BAsig').val(" ");
+    }
+
+    function validate() {
+
+        var Branchname = document.getElementById("txtbranchname").value;
+        var Branchaddress = document.getElementById("Txtaddress").value;
+        var BranchSignature = document.getElementById("lblBsignature").value;
+
+        if (Branchname == "") {
+            alert("Please enter Branch name")
+            return false;
+        }
+        else if (Branchaddress == "") {
+            alert("Please enter Branch Address")
+            return false;
+        }
+        else if (BranchSignature == "") {
+           alert("Please enter Signature")
+            return false;
+        }
+
+        return true;
+
+    }
+
+</script>

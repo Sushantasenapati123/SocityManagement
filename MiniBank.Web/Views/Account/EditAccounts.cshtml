@@ -1,0 +1,184 @@
+﻿@model Bank.Domain.Account.AccountEntity
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{ ViewData["Title"] = "AccountRegistration";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+@if (ViewBag.Role == "Manager")
+{
+    Layout = "~/Views/Shared/ManagerLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/bootbox.js"></script>
+</head>
+
+
+@if (ViewBag.msg != null)
+{
+<script>
+        alert("@ViewBag.msg");
+        window.location.href = "../Account/ViewAccounts";
+</script>}
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Accounts Registration</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            @*------------------------Card--------------------------- *@
+            <div class="card">
+                @*------------------------Card Header Start--------------------------- *@
+                <div class="card-header">
+
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-controller="Account" asp-action="AddAccounts" data-toggle="tooltip" id="AccountDetailsEdit">
+                            Add
+                        </a>
+                        <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="Account" asp-action="ViewAccounts" id="AccountDetailsView">
+                            View
+                        </a>
+
+                    </ul>
+                    <div class="indicatorslist">
+                        <p class="text-danger">(*) Indicates mandatory </p>
+                    </div>
+
+                </div>
+                @*------------------------WCard Header End--------------------------- *@
+
+                @*------------------------Card Body Start--------------------------- *@
+                <div class="card-body">
+                    <form id="AccountRegistration" asp-controller="Account" asp-action="EditAccounts" method="post">
+                        <input type="hidden" asp-for="Account_id" />
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="badge-light">Branch<span class="text-danger">*</span></label>
+                                <select class="form-control" id="ddlBranchId" asp-for="branch_id" asp-items="@(new SelectList(ViewBag.BranchName, "branch_id","Branch_Name"));">
+                                    <option value="0">--Select One--</option>
+                                </select>
+
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="badge-light">Account Type<span class="text-danger">*</span></label>
+                                <select class="form-control" id="ddlacctypeId" asp-for="accounttype_id" asp-items="@(new SelectList(ViewBag.acctypelist, "accounttype_id","GL_NAME"));">
+                                    <option value="0">--Select One--</option>
+                                </select>
+
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="badge-light">GlOB Type<span class="text-danger">*</span></label>
+                                <select class="form-control" id="ddlglobId" asp-for="GlOb_Type">
+                                    <option value="0">--Select One--</option>
+                                    <option value="CR">CR</option>
+                                    <option value="DR">DR</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="badge-light">GlOB Date<span class="text-danger">*</span></label>
+                                <input type="Date" class="form-control" asp-for="GlOb_date" id="globDate" placeholder="" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="badge-light">GlOB Amount<span class="text-danger">*</span></label>
+                                <input type="text" asp-for="GlOb_Amount" class="form-control" id="globAmount" placeholder="Please Enter GLOB Amount" required />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="badge-light">Gl Status<span class="text-danger">*</span></label>
+                                <select class="form-control" id="ddlglobstatus" asp-for="Gl_Status">
+                                    <option value="0">--Select One--</option>
+                                    <option value="A">A</option>
+                                    <option value="I">I</option>
+                                    <option value="F">F</option>
+                                    <option value="C">C</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+
+                                <label class="badge-light">Lad Percentage<span class="text-danger">*</span></label>
+                                <input type="text" asp-for="Lad_Percentage" class="form-control" id="ladPercentage" placeholder="Please Enter Lad Percentage" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="badge-light">Penal Rate<span class="text-danger">*</span></label>
+                                <input type="text" asp-for="Penal_Rate" class="form-control" id="penalRate" placeholder="Please Enter Penal Rate" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <input type="submit" class="btn btn-outline-success" value="Update" onclick="return validate();" id="btnadd" />
+                                <input type="reset" class="btn btn-outline-danger" value="Reset" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                @*------------------------Card Body End--------------------------- *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validate() {
+
+        var BranchId = document.getElementById("ddlBranchId").value;
+        var acctypeId = document.getElementById("ddlacctypeId").value;
+        var globId = document.getElementById("ddlglobId").value;
+        var globDate = document.getElementById("globDate").value;
+        var globAmount = document.getElementById("globAmount").value;
+        var globstatus = document.getElementById("ddlglobstatus").value;
+        var ladPercentage = document.getElementById("ladPercentage").value;
+        var penalRate = document.getElementById("penalRate").value;
+
+        if (BranchId == "0") {
+            bootbox.alert("Please Select Branch")
+            return false;
+        }
+        else if (acctypeId == "0") {
+            bootbox.alert("Please Select Account Type")
+            return false;
+        }
+        else if (globId == "0") {
+            bootbox.alert("Please Select GLOB")
+            return false;
+        }
+        else if (globDate == "") {
+            bootbox.alert("Please Enter Globdate")
+            return false;
+        }
+        else if (globAmount == "") {
+            bootbox.alert("Please Enter GLOBAmount")
+            return false;
+        }
+
+        else if (globstatus == "0") {
+            bootbox.alert("Please Select GLOBstatus")
+            return false;
+        }
+
+        else if (ladPercentage == "") {
+            bootbox.alert("Please Enter Lad Percentage")
+            return false;
+        }
+        else if (penalRate == "") {
+            bootbox.alert("Please Enter Penal Rate")
+            return false;
+        }
+        return true;
+
+    }</script>

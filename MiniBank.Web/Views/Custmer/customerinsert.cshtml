@@ -1,0 +1,1383 @@
+﻿
+@model Bank.Domain.Customer.CustmerEntity
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@if (ViewBag.Role == "Manager")//Executive Assistant
+{
+    Layout = "~/Views/Shared/ManagerLayout.cshtml";
+}
+else if ((ViewBag.Role == "Executive Assistant"))
+{
+    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.msg == "Update Succesfully")
+{
+    <script>
+        alert("@ViewBag.msg")
+        window.location.href = "../Custmer/ViewCustomer";
+    </script>
+}
+else if (ViewBag.msg == "Customer registation Succesfully !!!")
+{
+    <script>
+        alert("@ViewBag.msg")
+        window.location.href = "../Custmer/customerinsert";
+    </script>
+}
+
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/js"></script>
+</head>
+<head runat="server">
+    <title></title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="page-title">
+        <div class="title-details">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Society Management</li>
+                    <li class="breadcrumb-item active" aria-current="page"><b>Customer Insert</b></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs nav-fill" role="tablist">
+                            <a class="nav-item nav-link active" asp-controller="Custmer" asp-action="customerinsert">Add</a>
+                            <a class="nav-item nav-link" asp-controller="Custmer" asp-action="ViewCustomer">View</a>
+
+                        </ul>
+                        <div class="indicatorslist">
+                            <p class="text-danger">(*) Indicates mandatory </p>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            @*<form id="form1" runat="server" asp-controller="Custmer" asp-action="customerinsert" onsubmit="return Validate()">*@
+                            <div class="container">
+
+                                <table class="auto-style18" style="left:10px">
+                                    <tr>
+                                        <td class="auto-style7">
+                                            <table class="auto-style6">
+                                                <tr style="padding-left:100px">
+                                                    <td class="auto-style24"><strong>Customer Code</strong></td>
+                                                    <td class="auto-style25">
+                                                        <table class="auto-style17">
+                                                            <tr>
+                                                                <td class="auto-style2">
+                                                                    <strong>
+                                                                        <input id="Textcustmerid" type="text" asp-for="CUSTOMER_id" hidden />
+                                                                        <input id="TextcustmerCode" type="text" asp-for="Customer_Code" />
+
+                                                                    </strong>
+                                                                </td>
+                                                                <td class="auto-style5">
+                                                                    <strong>
+                                                                        <img src="~/images/search.png" height="30" width="30" />
+                                                                    </strong>
+                                                                </td>
+                                                                <td class="auto-style23">
+                                                                    <strong>
+
+                                                                        <input id="Button1" type="button" value="Query" onclick="return BindFrequency()" />
+                                                                    </strong>
+                                                                </td>
+                                                                <td class="auto-style23"></td>
+                                                                <td class="auto-style23"></td>
+                                                                <td class="auto-style27"><strong></strong></td>
+                                                                @*<td class="auto-style22"><strong>Created By</strong></td>
+                                                                <td class="auto-style23">
+                                                                    <strong>
+                                                                        <input id="Txtcreatedby" class="auto-style8" type="text" asp-for="CREATED_BY" />
+                                                                    </strong>
+                                                                </td>*@
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr style="border:double"></tr>
+                                                <tr>
+                                                    <td class="auto-style28"><strong>Name of the Customer<span class="text-danger">*</span></strong></td>
+                                                    <td class="auto-style29">
+                                                        <strong>
+                                                            <select id="drpinitial" class="auto-style10" asp-for="NAME_INITIALS">
+                                                                <option value="Mr">Mr</option>
+                                                                <option value="Mrs">Mrs</option>
+                                                                <option value="Miss">Miss</option>
+                                                            </select>
+                                                            <input id="txtcustmername" class="auto-style11" type="text" asp-for="CUSTOMER_NAME" ;" />
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="auto-style26"><strong>Father/Husband&#39;s Name<span class="text-danger">*</span></strong></td>
+                                                    <td>
+                                                        <table class="auto-style16">
+                                                            <tr>
+                                                                <td class="auto-style12">
+                                                                    <strong>
+                                                                        <input id="TxtFatherName" type="text" asp-for="FATHER_HUSBAND" onkeypress="return allowOnlyLetters(event,this);" />
+                                                                    </strong>
+                                                                </td>
+                                                                <td class="auto-style15">
+                                                                    <strong>
+                                                                        <select id="Select2" name="B_REL_1" asp-for="B_REL_1">
+                                                                            <option value="0">Select</option>
+                                                                            <option value="Husband">Husband</option>
+                                                                            <option value="Father">Father</option>
+                                                                        </select>
+                                                                    </strong>
+                                                                </td>
+                                                                <td class="auto-style14"><strong>Mother/Wife&#39;s Name<span class="text-danger">*</span></strong></td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <input id="Txtmothername" type="text" asp-for="MOTHER_WIFE" onkeypress="return allowOnlyLetters(event,this);" />
+                                                                        <input type="text" id="custid" hidden asp-for="CUSTOMER_id">
+                                                                    </strong>
+                                                                </td>
+                                                                <td>
+                                                                    <strong>
+                                                                        <select id="Select3" name="B_REL_2" class="col-xs-offset-0" asp-for="B_REL_2">
+                                                                            <option value="0">Select</option>
+                                                                            <option value="Wife">Wife</option>
+                                                                            <option value="Mother">Mother</option>
+                                                                        </select>
+                                                                    </strong>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            <table class="nav-tabs">
+                                                <tr>
+                                                    <td class="">
+                                                        Sex<span class="text-danger">*</span>
+                                                    </td>
+                                                    <td class="col-sm-4">
+                                                        Caste<span class="text-danger">*</span>
+                                                    </td>
+                                                    <td class="col-sm-4">
+                                                        Minor?<span class="text-danger">*</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="">
+                                                        <input id="M" type="radio"  name="SEX" asp-for="SEX" value="Male" class="SEX" checked/>&nbsp;
+                                                        Male
+                                                        <input id="F" type="radio" name="SEX"  asp-for="SEX" value="Female" class="SEX" />&nbsp;
+                                                        Female
+                                                    </td>
+                                                    <td class="col-sm-4">
+                                                        <input id="gen" type="radio" name="caste"  asp-for="CASTE" value="GEN" class="caste" checked/>&nbsp;
+                                                        GEN
+                                                        <input id="sc" type="radio" name="caste"  asp-for="CASTE" value="SC" class="caste" />&nbsp;
+                                                        SC
+                                                        <input id="st" type="radio" name="caste"  asp-for="CASTE" value="ST" class="caste" />&nbsp;
+                                                        ST
+                                                        <input id="obc" type="radio" name="caste"  asp-for="CASTE" value="OBC" class="caste" />
+                                                        OBC
+                                                        <input id="other" type="radio" name="caste"  asp-for="CASTE" value="Other" class="caste" />
+                                                        Other
+                                                    </td>
+                                                    <td class="col-sm-4">
+                                                        <input id="minor1" type="radio" name="IS_MINOR"  asp-for="IS_MINOR" value="Yes" class="IS_MINOR" checked/>&nbsp;
+                                                        Yes
+                                                        <input id="minor2" type="radio" name="IS_MINOR"  asp-for="IS_MINOR" value="No" class="IS_MINOR" />&nbsp;
+                                                        No
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="">Staff?<span class="text-danger">*</span></td>
+                                                    <td class="col-sm-4">Senior Citizen?<span class="text-danger">*</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="">
+                                                        <input id="staff1" type="radio" name="IS_STAFF"  asp-for="IS_STAFF" value="Yes" class="IS_STAFF" checked/>&nbsp;
+                                                        Yes
+                                                        <input id="staff2" type="radio" name="IS_STAFF"  asp-for="IS_STAFF" value="No" class="IS_STAFF" />&nbsp;
+                                                        No
+                                                    </td>
+
+                                                    <td class="col-sm-4">
+                                                        <input id="snrcitizen1" type="radio" name="SENIOR_CITIZEN"  asp-for="SENIOR_CITIZEN" value="Yes" class="SENIOR_CITIZEN" checked/>&nbsp;
+                                                        Yes
+                                                        <input id="snrcitizen2" type="radio" name="SENIOR_CITIZEN"  asp-for="SENIOR_CITIZEN" value="No" class="SENIOR_CITIZEN" />&nbsp;
+                                                        No
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="">
+                                                        <strong>Choose Photo</strong>@*<input type="file" id="photo" />*@
+                                                    </td>
+                                                    <td class="">
+                                                        <strong>Enter Email</strong>@*<input type="text"  id="Email" onchange="emailValidate('Email','lblErrorEmail')" />*@
+                                                    </td>
+
+
+
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="file" id="photo" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"  id="Email" onchange="emailValidate('Email','lblErrorEmail')" /><br />
+                                                        <span id="lblErrorEmail" style="color:red"></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <img alt="" class="auto-style19" src="~/prodimage/Nouser.png" id="image" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <h5 class="auto-style21"><strong>MAILING ADDRESS/ADDRESS OF CORRESPONDANCE</strong></h5>
+
+                                <table style="left:10px" class="address">
+                                    @*//background-color:lightblue;*@
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tr style="background-color:">
+                                                    <th align="center">1.PRESENT ADDRESS</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Villege/Street<span class="text-danger">*</span> :</td>
+                                                    <td><input type="text" id="txtaddress1" asp-for="PER_ADDRESS_1" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Post Office<span class="text-danger">*</span>:</td>
+                                                    <td><input type="text" id="txtaddress2" asp-for="PER_ADDRESS_2" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Dist/City/State<span class="text-danger">*</span>:</td>
+                                                    <td><input type="text" id="txtaddress3" asp-for="PER_ADDRESS_3" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Pin Code<span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <input type="number" id="Txtpin" asp-for="PIN" onchange="Pinvalidate('Txtpin','lblErrorPin')" /><br />
+                                                        <span id="lblErrorPin" style="color:red"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>contact No(s)<span class="text-danger">*</span>:</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Landline :</td>
+                                                    <td>
+                                                        <input type="number" id="Txtmbl1" asp-for="PHONE_NO_1" onchange="Phonevalidate('Txtmbl1','lblErrorLand')" /><br />
+                                                        <span id="lblErrorLand" style="color:red"></span>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td> Mobile<span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <input type="number" id="Txtmbl2" asp-for="PHONE_NO_2" onchange="Phonevalidate('Txtmbl2','lblErrorMobile')" /><br />
+                                                        <span id="lblErrorMobile" style="color:red"></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table>
+                                                <tr style="background-color:">
+                                                    <th align="center">2.CURRENT ADDRESS</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Villege/Street<span class="text-danger"></span> :</td>
+                                                    <td><input type="text" id="txtcaddress1" asp-for="CUR_ADDRESS_1" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Post Office<span class="text-danger"></span>:</td>
+                                                    <td><input type="text" id="txtcaddress2" asp-for="CUR_ADDRESS_2" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Dist/City/State<span class="text-danger"></span>:</td>
+                                                    <td><input type="text" id="txtcaddress3" asp-for="CUR_ADDRESS_3" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Pin Code<span class="text-danger"></span>:</td>
+                                                    <td>
+                                                        <input type="number" id="CurrentPIN" asp-for="CurrentPIN" onchange="Pinvalidate('CurrentPIN','lblCurErrorPin')" /><br />
+                                                        <span id="lblCurErrorPin" class="sp" style="color:red"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>contact No(s):</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;Landline:</td>
+                                                    <td>
+                                                        <input type="number" id="CurPHONE_NO_1" asp-for="CurPHONE_NO_1" onchange="PhonevalidateO('CurPHONE_NO_1','lblErrorLandCurrent')" /><br />
+                                                        <span id="lblErrorLandCurrent" class="sp" style="color:red"></span>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Mobile<span class="text-danger"></span>:</td>
+                                                    <td>
+                                                        <input type="number" id="CurPHONE_NO_2" asp-for="CurPHONE_NO_2" onchange="PhonevalidateO('CurPHONE_NO_2','lblErrorMobileCurrent')" /><br />
+                                                        <span id="lblErrorMobileCurrent" class="sp" style="color:red"></span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                                <br />
+
+                                <table class="address">
+                                    <tr>
+                                        <td>
+                                            <table>
+
+                                                <tr>
+                                                    <td>Legalheir's Name <span class="text-danger">*</span>:</td>
+                                                    <td><input type="text" id="txtligalhairname" asp-for="LEGAL_HAIR_NAME" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Introducer:</td>
+                                                    <td><input type="text" id="Introducer" asp-for="Introducer" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Date of Birth<span class="text-danger">*</span>:</td>
+                                                    <td> <input type="date" id="dtbirthday" style="width:147px" asp-for="DOB" name="DOB"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Date Of Marriage<span class="text-danger">*</span>:</td>
+                                                    <td><input type="date" id="datemrg" style="width:147px" asp-for="DOM" name="DOM"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Date Enrolled<span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <input type="date" id="dateEnl" style="width:147px" asp-for="DATE_ENROLLED" name="DATE_ENROLLED">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>PAN No<span class="text-danger"></span>:</td>
+                                                    <td>
+                                                        <input type="text" asp-for="PAN_NO" id="PAN_NO" onchange="ValidPan_No('PAN_NO','lblErrorPan')" /><br />
+                                                        <span id="lblErrorPan" style="color:red"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td>Type of Residence<span class="text-danger">*</span>:</td>
+                                                    <td><input type="text" id="Txtresidence" asp-for="RESIDENCE_TYPE" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Qualification<span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <select id="drpqualfication" style="width:147px" name="QUALIFICATION" asp-for="QUALIFICATION">
+                                                            <option value="0">--Select--</option>
+                                                            <option value="10th">10th</option>
+                                                            <option value="+2th">+2th</option>
+                                                            <option value="Diploma">Diploma</option>
+                                                            <option value="Graduation">Graduation</option>
+                                                            <option value="Post Graduation">Post Graduation</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Occupation<span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <select class="tit" id="drpOccupation" style="width:147px" asp-for="OCCUPATION" name="OCCUPATION">
+                                                            <option value="0">--Select One--</option>
+                                                            <option value="Single">Farmer</option>
+                                                            <option value="Married">Employee</option>
+                                                            <option value="Divorced">Businessman</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>If salaried then Employed with<span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <select class="tit" style="width:147px" asp-for="SALARIED_WITH">
+                                                            <option value="0">--Select One--</option>
+                                                            <option value="20000">20000</option>
+                                                            <option value="40000">40000</option>
+                                                            <option value="60000">60000</option>
+                                                        </select>
+                                                    </td>
+                                                
+                                                </tr>
+                                            </table>
+                                        </td>
+
+                                        <td>
+                                            <table>
+                                                <tr>
+
+                                                   
+                                                </tr>
+                                              
+                                                <tr>
+                                                    <td>Natural of Business<span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <select class="tit" style="width:147px" asp-for="NATURE_OF_BUS">
+                                                            <option value="0">--Select One--</option>
+                                                            <option value="industry"> industry</option>
+                                                            <option value="products">products</option>
+                                                            <option value="services">services</option>
+
+
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Date of Incorparation<span class="text-danger">*</span>:</td>
+                                                    <td><input type="date" style="width:147px" id="dticome" asp-for="DATE_OF_INCORPORATION" /> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Type of Company/ Film <span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <select class="tit" style="width:147px" asp-for="TYPE_OF_COMP">
+                                                            <option value="0">--Select One--</option>
+                                                            <option value="Sole Proprietorships">Sole Proprietorships</option>
+                                                            <option value="Partnerships">Partnerships</option>
+                                                            <option value="Limited Liability Companies (LLC)">Limited Liability Companies (LLC)</option>
+                                                            <option value="Corporations">Corporations</option>
+                                                        </select>
+                                                    </td>
+
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td>Self Employed Professional<span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <select class="tit" style="width:147px" asp-for="SELF_EMP_PROFESSIONAL">
+                                                            <option value="0">--Select One--</option>
+                                                            <option value="self-employment">self-employment</option>
+                                                            <option value="self-employment">lawyers</option>
+                                                            <option value="self-employment">accountants</option>
+                                                            <option value=" investors"> investors</option>
+                                                        </select>
+                                                    </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Address Proof Type<span class="text-danger"></span>:</td>
+                                                    <td>
+                                                        <select class="tit" style="width:147px" id="AddreeProofType">
+                                                            <option value="0">-Select One-</option>
+                                                            <option value="1">Pan Card</option>
+                                                            <option value="2">Adhar Card</option>
+                                                            <option value="3">Driving Licence</option>
+                                                            <option value="4"> Voter Card</option>
+                                                        </select>
+                                                    </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Upload Address Proof<span class="text-danger"></span>:</td>
+                                                    <td>
+                                                        <input type="file" id="AddreeProofCopy" />
+                                                    </td>
+                                                    @*<td>
+                                                        <img height="40" width="40" id="AddreeProofCopyimg" src="" />
+                                                    </td>*@
+
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Identification Number<span class="text-danger"></span>:</td>
+                                                    <td>
+                                                        <input type="text" id="IdentificationNo" />
+                                                    </td>
+                                                  
+
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Source of Funds<span class="text-danger">*</span>:</td>
+                                                    <td>
+                                                        <select class="tit" style="width:147px" asp-for="SOURCE_OF_FUNDS">
+                                                            <option value="0">--Select One--</option>
+                                                            <option value="equitycapital"> equity capital</option>
+                                                        </select>
+                                                    </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Gross Annual Income<span class="text-danger">*</span> </td>
+                                                    <td>
+                                                        <select class="tit" style="width:147px" asp-for="ANNUAL_INCOME_1">
+                                                            <option value="0">--Select One--</option>
+                                                            <option value="150000">150000</option>
+                                                            <option value="300000">300000</option>
+                                                            <option value="500000">500000</option>
+                                                            <option value="1500000">1500000</option>
+                                                        </select>
+                                                    </td>
+
+                                                </tr>
+
+
+
+                                            </table>
+                                        </td>
+
+                                    </tr>
+                                </table>
+
+                                <div class="row bt">
+                                    @*<input type="submit" class="btn-success bt"  >
+                                        <button class="btn-danger" id="btnCancel">Reset</button>*@
+
+                                    <button class="btn btn-primary mb-1" id="btnSubmit">Submit</button>
+
+                                    <input type="button" value="Reset" class="btn btn-danger mb-1" id="btnCancel" />
+
+                                </div>
+
+
+
+                            </div>
+                            @*</form>*@
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script>
+    //allowPhoneNumber
+    function allowOnlyLetters(e, t) {
+        if (window.event) {
+            var charCode = window.event.keyCode;
+        }
+        else if (e) {
+            var charCode = e.which;
+        }
+        else { return true; }
+        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 32)
+            return true;
+        else {
+            alert("Please enter only alphabets");
+            return false;
+        }
+    }
+
+    function allowPhoneNumber(e, t) {
+        if (window.event) {
+            var charCode = window.event.keyCode;
+        }
+        else if (e) {
+            var charCode = e.which;
+        }
+        else { return true; }
+        if ((charCode >= 48 && charCode <= 57))
+            return true;
+        else {
+            alert("Please enter only alphabets");
+            return false;
+        }
+    }
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        //breadcumb
+
+        loadNavigation('Add Department', 'gldata', 'plsubmission', 'Add Department', '', 'Add Department');
+        var Id = getUrlVars()["id"];
+        var Cod = getUrlVars()["Code"];
+        if (Id != undefined || Cod != undefined) {
+            $("#btnSubmit").html("Update");
+            $("#btnCancel").val("Cancel");
+            Edit(Id,Cod);
+        }
+    });
+
+    $("#btnSubmit").click(function () {
+       
+        var Photo = $("#photo").val();
+        var addresprof = $("#AddreeProofCopy").val();
+
+        if (Photo == "") {
+            alert("Please select Photo")
+            return false;
+        }
+      
+
+
+
+
+        var files = $('#photo').prop("files");
+        formData = new FormData();
+        formData.append("MyUploader", files[0]);
+        $.ajax({
+            data: formData,
+            url: '@Url.Action("UploadImage", "Custmer")',
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType:"json",
+            
+            success: function (data) {
+                if (data.status == "success") {
+                  
+                }
+            },
+            error: function () {
+                alert("Error occurs");
+            }
+
+        });
+        
+        var files1 = $('#AddreeProofCopy').prop("files");
+        formData = new FormData();
+        formData.append("MyUploaderadh", files1[0]);
+
+          $.ajax({
+            data: formData,
+            url: '@Url.Action("UploadAadhar", "Custmer")',
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType:"json",
+          
+            success: function (data) {
+                if (data.status == "success") {
+                }
+            },
+            error: function () {
+                alert("Error occurs");
+            }
+
+        });
+
+
+
+
+        var doc = {
+            CUSTOMER_id: $("#Textcustmerid").val(),
+            Customer_Code: $("#TextcustmerCode").val(),
+            NAME_INITIALS: $("#drpinitial").val(),
+            CUSTOMER_NAME: $("#txtcustmername").val(),
+            FATHER_HUSBAND: $("#TxtFatherName").val(),
+            B_REL_1: $("#Select2").val(),
+            MOTHER_WIFE: $("#Txtmothername").val(),
+            B_REL_2: $("#Select3").val(),
+            PER_ADDRESS_1: $("#txtaddress1").val(),
+            PER_ADDRESS_2: $("#txtaddress2").val(),
+            PER_ADDRESS_3: $("#txtaddress3").val(),
+            PIN: $("#Txtpin").val(),
+            PHONE_NO_1: $("#Txtmbl1").val(),
+            PHONE_NO_2: $("#Txtmbl2").val(),
+            CUR_ADDRESS_1: $("#txtcaddress1").val(),
+            CUR_ADDRESS_2: $("#txtcaddress2").val(),
+            CUR_ADDRESS_3: $("#txtcaddress3").val(),
+            CurrentPIN: $("#CurrentPIN").val(),
+            PHONE_NO_1: $("#Txtmbl1").val(),
+            PHONE_NO_2: $("#Txtmbl2").val(),
+            Introducer: $("#Introducer").val(),
+            LEGAL_HAIR_NAME: $("#txtligalhairname").val(),
+            DOB: $("#dtbirthday").val(),
+            DOM: $("#datemrg").val(),
+            DATE_ENROLLED: $("#dateEnl").val(),
+            PAN_NO: $("#PAN_NO").val(),
+            RESIDENCE_TYPE: $("#Txtresidence").val(),
+            QUALIFICATION: $("#drpqualfication").val(),
+            OCCUPATION: $("#drpOccupation").val(),
+            SALARIED_WITH: $("#SALARIED_WITH").val(),
+            NATURE_OF_BUS: $("#NATURE_OF_BUS").val(),
+            DATE_OF_INCORPORATION: $("#dticome").val(),
+            TYPE_OF_COMP: $("#TYPE_OF_COMP").val(),
+            SELF_EMP_PROFESSIONAL: $("#SELF_EMP_PROFESSIONAL").val(),
+            SOURCE_OF_FUNDS: $("#SOURCE_OF_FUNDS").val(),
+            ANNUAL_INCOME_1: $("#ANNUAL_INCOME_1").val(),
+            CurrentPIN: $("#CurrentPIN").val(),
+            CurPHONE_NO_1: $("#CurPHONE_NO_1").val(),
+            CurPHONE_NO_2: $("#CurPHONE_NO_2").val(),
+            SEX: $(".SEX:checked").val(),
+            CASTE: $(".caste:checked").val(),
+            Email: $("#Email").val(),
+            IS_MINOR: $(".IS_MINOR:checked").val(),
+            IS_STAFF: $(".IS_STAFF:checked").val(),
+            SENIOR_CITIZEN: $(".SENIOR_CITIZEN:checked").val(),
+            Photo: $("#photo").val(),
+            AddreeProofType: $("#AddreeProofType").val(),
+            AddreeProofCopy: $("#AddreeProofCopy").val(),
+            IdentificationNo: $("#IdentificationNo").val(),
+
+
+        };
+
+        if (validate() && Pinvalidate('Txtpin', 'lblErrorPin') == true && Phonevalidate('Txtmbl1', 'lblErrorLand') == true &&
+            Phonevalidate('Txtmbl2', 'lblErrorMobile') == true
+            && PhonevalidateO('CurPHONE_NO_1', 'lblErrorLandCurrent') == true
+            && PhonevalidateO('CurPHONE_NO_2', 'lblErrorMobileCurrent') == true && emailValidate('Email', 'lblErrorEmail') == true) {
+            if ($("#CurrentPIN").val() == "") {
+
+                if (confirm("Are you sure you want to Submit ?")) {
+                    $.ajax({
+                        url: "/Custmer/customerinsert",
+                        data: doc,
+                        type: "POST",
+                        success: function (result) {
+                            if (getUrlVars()["id"] != undefined) {
+                                alert(result)
+                                window.location.href = "/Custmer/ViewCustomer";
+                            }
+                            else {
+                                alert(result);
+                                window.location.href = "/Custmer/ViewCustomer";
+
+                            }
+                        },
+                        error: function (errormessage) {
+                            alert(errormessage.responseText);
+                        }
+                    });
+                }
+
+            }
+            else if (Pinvalidate('CurrentPIN', 'lblCurErrorPin') == true)
+            {
+
+
+                            if (confirm("Are you sure you want to Submit ?")) {
+                                $.ajax({
+                                    url: "/Custmer/customerinsert",
+                                    data: doc,
+                                    type: "POST",
+                                    success: function (result) {
+                                        if (getUrlVars()["id"] != undefined) {
+                                            alert(result)
+                                            window.location.href = "/Custmer/ViewCustomer";
+                                        }
+                                        else {
+                                            alert(result);
+                                            window.location.href = "/Custmer/ViewCustomer";
+
+                                        }
+
+
+                                    },
+                                    error: function (errormessage) {
+                                        alert(errormessage.responseText);
+                                    }
+                                });
+                            }
+              }
+            }
+
+
+    });
+
+    $("#btnCancel").click(function () {
+
+        if ($("#Textcustmerid").val() != '') {
+            window.location.href = "/Custmer/ViewCustomer";
+        }
+        else {
+
+            $('#drpinitial').val(0);
+            $("#txtcustmername").val("");
+            $('#TxtFatherName').val("");
+            $("#Select2").val(0);
+            $('#Txtmothername').val("");
+
+            $('#txtaddress1').val("");
+            $("#txtaddress2").val("");
+            $('#txtaddress3').val("");
+            $("#Txtpin").val("");
+            $('#Txtmbl1').val("");
+            $("#Txtmbl2").val("");
+
+            $('#txtcaddress1').val("");
+            $("#txtcaddress2").val("");
+            $('#txtcaddress3').val("");
+            $("#txtPIN").val("");
+            $('#Txtmbl1').val("");
+            $("#Txtmbl2").val("");
+            $('#Introducer').val("");
+
+
+
+
+            $('#CurrentPIN').val("");
+            $("#CurPHONE_NO_1").val("");
+            $('#CurPHONE_NO_2').val("");
+
+            $('#txtligalhairname').val("");
+            $("#dtbirthday").val("");
+            $('#datemrg').val("");
+            $("#dateEnl").val("");
+            $('#PAN_NO').val("");
+            $("#Txtresidence").val("");
+
+
+            $('#drpqualfication').val("0");
+            $("#drpOccupation").val("0");
+            $('#SALARIED_WITH').val("0");
+            $("#NATURE_OF_BUS").val("0");
+            $('#dticome').val("");
+            $("#TYPE_OF_COMP").val("0");
+            $("#SELF_EMP_PROFESSIONAL").val("0");
+            $('#SOURCE_OF_FUNDS').val("0");
+            $("#ANNUAL_INCOME_1").val("0");
+
+
+        }
+
+    })
+
+    function Edit(Id, Cod) {
+        debugger
+        $.ajax({
+            url: "/Custmer/GetByIdCustomer?id=" + Cod,
+            typr: "GET",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                //custid
+                $('#Textcustmerid').val(Id);
+                $('#TextcustmerCode').val(Cod);
+                $('#drpinitial').val(result.NAME_INITIALS);
+                $("#txtcustmername").val(result.CUSTOMER_NAME);
+                $('#TxtFatherName').val(result.FATHER_HUSBAND);
+                $("#Select2").val(result.B_REL_1);
+                $('#Txtmothername').val(result.MOTHER_WIFE);
+                $('#Email').val(result.Email);
+                $("#Select3").val(result.B_REL_2);
+                $("input[name=SEX]:radio").each(function () {
+                    if ($(this).val() == result.SEX) {
+                        $(this).attr('checked', 'checked');
+                    }
+                });
+                $("input[name=caste]:radio").each(function () {
+                    if ($(this).val() == result.CASTE) {
+                        $(this).attr('checked', 'checked');
+                    }
+                });
+                $("input[name=IS_MINOR]:radio").each(function () {
+                    if ($(this).val() == result.IS_MINOR) {
+                        $(this).attr('checked', 'checked');
+                    }
+                });
+                $("input[name=IS_STAFF]:radio").each(function () {
+                    if ($(this).val() == result.IS_STAFF) {
+                        $(this).attr('checked', 'checked');
+                    }
+                });
+                $("input[name=SENIOR_CITIZEN]:radio").each(function () {
+                    if ($(this).val() == result.SENIOR_CITIZEN) {
+                        $(this).attr('checked', 'checked');
+                    }
+                });
+                $("#image").attr('src', "../" + result.Photo);
+                $("#AddreeProofCopyimg").attr('src', "../" + result.AddreeProofCopy);
+                $('#txtaddress1').val(result.PER_ADDRESS_1);
+                $("#txtaddress2").val(result.PER_ADDRESS_2);
+                $('#txtaddress3').val(result.PER_ADDRESS_3);
+                $("#Txtpin").val(result.PIN);
+                $('#Txtmbl1').val(result.PHONE_NO_1);
+                $("#Txtmbl2").val(result.PHONE_NO_2);
+
+                $('#txtcaddress1').val(result.CUR_ADDRESS_1);
+                $("#txtcaddress2").val(result.CUR_ADDRESS_2);
+                $('#txtcaddress3').val(result.CUR_ADDRESS_3);
+                $("#txtPIN").val(result.PIN);
+                $('#Txtmbl1').val(result.PHONE_NO_1);
+                $("#Txtmbl2").val(result.PHONE_NO_2);
+                $('#Introducer').val(result.Introducer);
+
+
+                $('#txtligalhairname').val(result.LEGAL_HAIR_NAME);
+                $("#dtbirthday").val(result.DOB);
+                $('#datemrg').val(result.DOM);
+                $("#dateEnl").val(result.DATE_ENROLLED);
+                $('#PAN_NO').val(result.PAN_NO);
+                $("#Txtresidence").val(result.RESIDENCE_TYPE);
+
+                $('#drpqualfication').val(result.QUALIFICATION);
+                $("#drpOccupation").val(result.OCCUPATION);
+                $('#SALARIED_WITH').val(result.SALARIED_WITH);
+                $("#NATURE_OF_BUS").val(result.NATURE_OF_BUS);
+                $('#dticome').val(result.DATE_OF_INCORPORATION);
+                $("#TYPE_OF_COMP").val(result.TYPE_OF_COMP);
+                $("#SELF_EMP_PROFESSIONAL").val(result.SELF_EMP_PROFESSIONAL);
+                $('#SOURCE_OF_FUNDS').val(result.SOURCE_OF_FUNDS);
+                $("#ANNUAL_INCOME_1").val(result.ANNUAL_INCOME_1);
+                $("#CurrentPIN").val(result.CurrentPIN);
+                $('#CurPHONE_NO_1').val(result.CurPHONE_NO_1);
+                $("#CurPHONE_NO_2").val(result.CurPHONE_NO_2);
+
+                $("#AddreeProofType").val(result.AddreeProofType);
+                $("#IdentificationNo").val(result.IdentificationNo);
+
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+    function BindFrequency() {
+        var GlGroup_code = $("#TextcustmerCode").val();
+        debugger;
+
+        var url = '@Url.Action("customerBind", "Custmer")';
+        $.getJSON(url, { grouptype_id: GlGroup_code, }, function (data) {
+            if (data.data!= null) {
+                var obj = data.data
+                $('#Txtcreatedby').val(obj.createD_BY);
+                $('#drpinitial').val(obj.namE_INITIALS);
+                $('#txtcustmername').val(obj.customeR_NAME); 
+                $('#TxtFatherName').val(obj.fatheR_HUSBAND);
+                $('#Txtmothername').val(obj.motheR_WIFE);
+                $("input[name='SEX'][value='" + obj.sex + "']").prop('checked', true);
+                $("input[name=caste]:radio").each(function () {
+                    if ($(this).val() == obj.caste) {
+                        $(this).attr('checked', 'checked');
+                    }
+                });
+                $('#Email').val(obj.email);
+                /*$("input[name='caste'][value='" + obj.caste + "']").prop('checked', true);*/
+                $("input[name='IS_MINOR'][value='" + obj.iS_MINOR + "']").prop('checked', true);
+                $("input[name='IS_STAFF'][value='" + obj.iS_STAFF + "']").prop('checked', true);
+                $("input[name='SENIOR_CITIZEN'][value='" + obj.senioR_CITIZEN + "']").prop('checked', true);
+                $('#txtaddress1').val(obj.peR_ADDRESS_1);
+                $('#txtaddress2').val(obj.peR_ADDRESS_2);
+                $('#txtaddress3').val(obj.peR_ADDRESS_3);
+                $('#Txtpin').val(obj.pin);
+                $('#Txtmbl1').val(obj.phonE_NO_1);
+                $('#Txtmbl2').val(obj.phonE_NO_2);
+                $("#image").attr('src', "../" + obj.photo);
+                $('#txtligalhairname').val(obj.legaL_HAIR_NAME);
+                $('#dtbirthday').val(obj.dob);
+                $('#datemrg').val(obj.dom);
+                $('#dateEnl').val(obj.datE_ENROLLED);
+                $('#PAN_NO').val(obj.paN_NO);
+                $('#Txtresidence').val(obj.residencE_TYPE);
+                $('#Textcustmerid').val(obj.customeR_id);
+                $('#drpqualfication').val(obj.qualification);
+                $('#drpOccupation').val(obj.occupation);
+                $('#SALARIED_WITH').val(obj.salarieD_WITH);
+                $('#NATURE_OF_BUS').val(obj.naturE_OF_BUS);
+                $('#Introducer').val(obj.introducer);
+                $('#dticome').val(obj.datE_OF_INCORPORATION);
+                $('#TYPE_OF_COMP').val(obj.typE_OF_COMP);
+                $('#SELF_EMP_PROFESSIONAL').val(obj.selF_EMP_PROFESSIONAL);
+                $('#SOURCE_OF_FUNDS').val(obj.sourcE_OF_FUNDS);
+                $('#ANNUAL_INCOME_1').val(obj.annuaL_INCOME_1);
+            }
+            else {
+                alert("No Record Found");
+                $('#drpinitial').val('Mr');
+                $("#txtcustmername").val("");
+                $('#TxtFatherName').val("");
+                $("#Select2").val(0);
+                $('#Txtmothername').val("");
+
+                $('#txtaddress1').val("");
+                $("#txtaddress2").val("");
+                $('#txtaddress3').val("");
+                $("#Txtpin").val("");
+                $('#Txtmbl1').val("");
+                $("#Txtmbl2").val("");
+
+                $('#txtcaddress1').val("");
+                $("#txtcaddress2").val("");
+                $('#txtcaddress3').val("");
+                $("#txtPIN").val("");
+                $('#Txtmbl1').val("");
+                $("#Txtmbl2").val("");
+                $('#Introducer').val("");
+
+
+
+
+                $('#CurrentPIN').val("");
+                $("#CurPHONE_NO_1").val("");
+                $('#CurPHONE_NO_2').val("");
+
+                $('#txtligalhairname').val("");
+                $("#dtbirthday").val("");
+                $('#datemrg').val("");
+                $("#dateEnl").val("");
+                $('#PAN_NO').val("");
+                $("#Txtresidence").val("");
+
+
+                $('#drpqualfication').val("0");
+                $("#drpOccupation").val("0");
+                $('#SALARIED_WITH').val("0");
+                $("#NATURE_OF_BUS").val("0");
+                $('#dticome').val("");
+                $("#TYPE_OF_COMP").val("0");
+                $("#SELF_EMP_PROFESSIONAL").val("0");
+                $('#SOURCE_OF_FUNDS').val("0");
+                $("#ANNUAL_INCOME_1").val("0");
+            }
+           
+        });
+
+
+    }
+
+
+
+
+
+</script>
+<script>
+    function validate() {//validate
+
+        var name = document.getElementById("txtcustmername").value;
+        var Fathername = document.getElementById("TxtFatherName").value;
+        var Mothername = document.getElementById("Txtmothername").value;
+        var address1 = document.getElementById("txtaddress1").value;
+        var address2 = document.getElementById("txtaddress2").value;
+        var address3 = document.getElementById("txtaddress3").value;
+        var pin = document.getElementById("Txtpin").value;
+        var mbl2 = document.getElementById("Txtmbl2").value;
+        var HAIR_NAME = document.getElementById("txtligalhairname").value;
+        var birthday = document.getElementById("dtbirthday").value;
+        var Datemrg = document.getElementById("datemrg").value;
+        var dateEnl = document.getElementById("dateEnl").value;
+        var PAN_NO = document.getElementById("PAN_NO").value;
+        var Residence = document.getElementById("Txtresidence").value;
+        var qualfication = document.getElementById("drpqualfication").value;
+        var drpOccupation = document.getElementById("drpOccupation").value;
+        var SALARIED_WITH = document.getElementById("SALARIED_WITH").value;
+        var NATUREBusiness = document.getElementById("NATURE_OF_BUS").value;
+        var Dateincorpation = document.getElementById("dticome").value;
+        var Companytype = document.getElementById("TYPE_OF_COMP").value;
+        var selfprofessional = document.getElementById("SELF_EMP_PROFESSIONAL").value;
+        var Fundsource = document.getElementById("SOURCE_OF_FUNDS").value;
+        var ANNUALINCOME = document.getElementById("ANNUAL_INCOME_1").value;
+
+        var Email = document.getElementById("Email").value;
+
+
+        if (name == "") {
+            alert("Please Enter Name");
+            return false;
+        }
+
+
+        if (Fathername == "") {
+            alert("Please Enter Fathername")
+            return false;
+        }
+        if (Mothername == "") {
+            alert("Please Enter Mothername")
+            return false;
+        }
+
+        if (Email == "") {
+            alert("Please Enter Email")
+            return false;
+        }
+        if (isChecked('M') || isChecked('F')) {
+
+        }
+        else {
+            alert("please Select  Gender")
+            return false;
+        }
+        if (isChecked('gen') || isChecked('obc') || isChecked('sc') || isChecked('st') || isChecked('other')) {
+
+        }
+        else {
+            alert("please Select  Caste")
+            return false;
+        }
+        if (isChecked('minor1') || isChecked('minor2')) {
+
+        }
+        else {
+            alert("please Select  minor")
+            return false;
+        }
+        if (isChecked('staff1') || isChecked('staff2')) {
+
+        }
+        else {
+            alert("please Select  staff")
+            return false;
+        }
+        if (isChecked('snrcitizen1') || isChecked('snrcitizen2')) {
+
+        }
+        else {
+            alert("please Select  Senior citizen")
+            return false;
+        }
+
+
+        function isChecked(id) {
+
+            return document.getElementById(id).checked; //returns true if any options are selected
+
+        }
+        if (address1 == "") {
+            alert(" Enter Your Villege Name")
+            return false;
+        }
+        if (address2 == "") {
+            alert(" Enter Your  Post Name")
+            return false;
+        }
+        if (address3 == "") {
+            alert("Enter address Distict Name")
+            return false;
+        }
+        if (pin == "") {
+            alert(" Please Enter Pin code")
+            return false;
+        }
+        if (mbl2 == "") {
+            alert("Enter Your Mobile Number ")
+            return false;
+        }
+        if (HAIR_NAME == "") {
+            alert(" Please Enter your ligal hair Name")
+            return false;
+        }
+        if (birthday == "") {
+            alert("Select your birthday ")
+            return false;
+        }
+        if (Datemrg == "") {
+            alert("Select your Date of Marriage ")
+            return false;
+        }
+        if (dateEnl == "") {
+            alert("Select Date Of Enrollment ")
+            return false;
+        }
+        
+        if (Residence == "") {
+            alert("Please Enter Residence Name ")
+            return false;
+        }
+        if (qualfication == "0") {
+            alert("Please Select Qualification!!!!!!");
+            return false;
+        }
+
+        if (drpOccupation == "0") {
+            alert("Select your Occupation ")
+            return false;
+        }
+        if (SALARIED_WITH == "0") {
+            alert("Please Selected Your Salaries ")
+            return false;
+        }
+        if (NATUREBusiness == "0") {
+            alert("Please Selected Your Nature of Business ")
+            return false;
+        }
+        if (Dateincorpation == "") {
+            alert("Select  Date of Incorpation ")
+            return false;
+        }
+        if (Companytype == "0") {
+            alert("Please Selected Companytype ")
+            return false;
+        }
+        if (selfprofessional == "0") {
+            alert("Please Selected selfprofessional ")
+            return false;
+        }
+        if (Fundsource == "0") {
+            alert("Please Selected Fundsource ")
+            return false;
+        }
+        if (ANNUALINCOME == "0") {
+            alert("Please Selected ANNUALINCOME ")
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+
+<style type="text/css">
+    .address table td {
+        padding-right: 70px;
+    }
+
+    table td {
+        padding: 5px 0;
+    }
+
+    .bt {
+        margin-left: 343px;
+    }
+
+    .auto-style2 {
+        width: 134px;
+        height: 42px;
+    }
+
+    .auto-style4 {
+        width: 35px;
+        height: 27px;
+    }
+
+    .auto-style5 {
+        width: 39px;
+        height: 42px;
+    }
+
+    .auto-style6 {
+        width: 99%;
+        height: 53px;
+    }
+
+    .auto-style7 {
+        width: 1155px;
+    }
+
+    .auto-style8 {
+        margin-left: 0px;
+    }
+
+    body {
+        font-family: Calibri, Helvetica, sans-serif;
+        background-color: pink;
+    }
+
+    .auto-style10 {
+        width: 44px;
+        height: 27px;
+    }
+
+    .auto-style11 {
+        width: 87%;
+    }
+
+    .auto-style12 {
+        width: 81px
+    }
+
+    .auto-style14 {
+        width: 143px
+    }
+
+    .auto-style15 {
+        width: 514px;
+    }
+
+    .auto-style16 {
+        width: 100%;
+        height: 41px;
+    }
+
+    .auto-style17 {
+        width: 100%;
+        height: 33px;
+    }
+
+    .auto-style18 {
+        width: 98%;
+        height: 173px;
+    }
+
+    .auto-style19 {
+        width: 123px;
+        height: 139px;
+        margin-left: 36px;
+        margin-right: 47px;
+        margin-top: -156px;
+    }
+
+    .auto-style20 {
+        width: 95%;
+        height: 65px;
+    }
+
+    .auto-style21 {
+        text-decoration: underline;
+    }
+
+
+
+    .container {
+        padding: 5px;
+        background-color: white;
+    }
+
+
+
+    input[type=text]:focus, input[type=password]:focus {
+        background-color: orange;
+        outline: none;
+    }
+
+    input[type=reset] {
+        background-color: orangered;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        align-content: center;
+    }
+
+    input[type=submit] {
+        background-color: #04AA6D;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+
+
+    hr {
+        border: 1px solid #f1f1f1;
+        margin-bottom: 25px;
+    }
+
+  
+</style>

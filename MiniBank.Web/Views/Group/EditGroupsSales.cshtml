@@ -1,0 +1,69 @@
+﻿
+
+
+
+@model Bank.Domain.Group.group_entity
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{ //ViewData["Title"] = "RoleView";
+    Layout = "~/Views/Shared/SalesLayout.cshtml"; }
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/bootbox.js"></script>
+</head>
+@if (ViewBag.msg != null)
+{
+<script>
+        alert("@ViewBag.msg");
+        window.location.href = "../Group/ViewGroups";
+
+</script>}
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Group Registration</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-controller="Group" asp-action="AddGroupsSales" data-toggle="tooltip" id="GroupDetailsAdd">
+                            Add
+                        </a>
+                        <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="Group" asp-action="ViewGroupsSales" id="GroupDetailsView">
+                            View
+                        </a>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <form id="groupRegistration" asp-controller="Group" asp-action="EditGroups" method="post">
+                        <input type="hidden" asp-for="Grouptype_id" />
+                        <div class="form-group col-md-4">
+                            <label class="badge-light">Enter Group Name <span class="text-danger">*</span></label>
+                            <input type="text" asp-for="grouptype_name" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input type="submit" class="btn btn-outline-success" value="Update" onclick="return Val();" id="btnadd" />
+                            <input type="reset" class="btn btn-outline-danger" value="Reset" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>function Val() {
+        if ($('#grouptype_name').val() == "") {
+            bootbox.alert("Please enter Group name");
+            return false;
+        }
+    }</script>
+

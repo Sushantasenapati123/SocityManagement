@@ -1,0 +1,71 @@
+﻿@{
+    var listdata = ViewBag.Grouplist as Task<List<Bank.Domain.Branch.BranchEntity>>;
+}
+@if (ViewBag.msg != null && ViewBag.msg== "Data Update Successfully")
+{
+    <script>
+        alert("@ViewBag.msg");
+       // window.location.href = "/Branch/AddBranchs";
+    </script>
+}
+<div class="page-title">
+    <div class="title-details">
+        @*<h4>Approval Configuration</h4>*@
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Branch view</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link " asp-controller="Branch" asp-action="AddBranchs" data-toggle="tooltip" id="SchemeExcalAdd">
+
+                            Add
+                        </a>
+                        <a class="nav-item nav-link active" data-toggle="tooltip" asp-controller="Branch" asp-action="ViewBranchs" id="SchemeExcalView">
+
+                            View
+                        </a>
+
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th>Sl no.</th>
+                                <th>Branch Name</th>
+                                <th>Branch Address</th>
+                                <th>Photosignature</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int count = 1;}
+                            @foreach (var items in listdata.Result)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@items.Branch_Name</td>
+                                    <td>@items.Branch_address</td>
+                                    <td>@items.photosignature</td>
+                                    <td><a class="btn btn-outline-secondary" href="/Branch/EditBranchs?id=@items.branch_id">Edit</a>|<a class="btn btn-outline-danger" href="/Branch/DeleteBranchs?id=@items.branch_id">Delete</a></td>
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

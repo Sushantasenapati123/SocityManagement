@@ -1,0 +1,155 @@
+﻿@model Bank.Domain.AccountType.AccountTypeModel
+@addTagHelper*,Microsoft.AspNetCore.Mvc.TagHelpers
+@{ ViewData["Title"] = "Account Manage";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+@if (ViewBag.msg != null)
+{
+
+<script>
+
+             alert("@ViewBag.msg");
+              window.location.href = "../AccountType/Addaccount";
+</script>
+}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/bootbox.js"></script>
+</head>
+
+
+
+
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Account Manage</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-controller="AccountType" asp-action="Addaccount" data-toggle="tooltip" id="SchemeExcalAdd">
+
+                            Add
+                        </a>
+                        <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="AccountType" asp-action="ViewAccount" id="SchemeExcalView">
+
+                            View
+                        </a>
+                    </ul>
+                    <div class="indicatorslist">
+                        <p class="text-danger">(*) Indicates Mandantory</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="AccountType" asp-action="Addaccount" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label class="badge-light">Group Name<span class="text-danger">*</span></label>
+                                <select asp-for="GlGroup_code" class="form-control" id="ddlGIGroupCode" onchange="gicodefill()" asp-items="@(new SelectList(ViewBag.Grouplist1, "GlGroup_code","GlGroup_name"));">
+                                    <option value="0">--Select One--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label class="badge-light"> GI Code<span class="text-danger">*</span></label>
+                                <input type="text" asp-for="gl_code" id="txtgicode" class="form-control" readonly="readonly" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label class="badge-light">GI Nature<span class="text-danger">*</span></label>
+                                <select asp-for="gl_nature" class="form-control" id="ddlginature">
+                                    <option value="0">--Select One--</option>
+                                    <option value="RI Invest">RI Invest</option>
+                                    <option value="Bank">Bank</option>
+                                    <option value="SB">SB</option>
+                                    <option value="FD">FD</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label class="badge-light">GI Name<span class="text-danger">*</span> </label>
+                                <input type="text" asp-for="GL_NAME" placeholder="Enter GI Name" class="form-control" id="txtglname" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <input type="submit" onclick="return validate();" class="btn btn-outline-success" value="Submit" id="btnadd" />
+                                <input type="reset" class="btn btn-outline-danger" value="Reset" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+        function Val() {
+            if ($('#ddlGIGroupCode').val() == "") {
+                bootbox.alert("Please enter Group name");
+                return false;
+            }
+        }
+    </script>*@
+
+
+
+<script>function validate() {
+        var GIGroupCode = document.getElementById("ddlGIGroupCode").value;
+        var gicode = document.getElementById("txtgicode").value;
+        var ginature = document.getElementById("ddlginature").value;
+        var giname = document.getElementById("txtglname").value;
+
+        if (GIGroupCode == "0") {
+            bootbox.alert("Please Select Group Name")
+            return false;
+        }
+        else if (gicode == "") {
+            bootbox.alert("Please enter Gicode")
+            return false;
+        }
+        else if (ginature == "0") {
+            bootbox.alert("Please Select Nature")
+            return false;
+        }
+        else if (giname == "") {
+            bootbox.alert("Please Enter giname")
+            return false;
+        }
+
+        return true;
+    }</script>
+
+
+
+
+
+
+<script>function gicodefill() {
+        var GlGroup_code = $("#ddlGIGroupCode").val();
+        debugger;
+        var url = '../AccountType/BindGIcode';
+        $.getJSON(url, { GlGroup_code: GlGroup_code }, function (data) {
+            var obj = data.data
+            //   var item = "<option value='0'>--Select One--</option>";
+            // $("#Dcheck").empty();
+            //   $.each(JSON.parse(result), function (i, data) {
+            $('#txtgicode').val(obj);
+        });
+
+    }</script>

@@ -1,0 +1,181 @@
+﻿@model Bank.Domain.User.UserEntity
+@addTagHelper*,Microsoft.AspNetCore.Mvc.TagHelpers
+@{ ViewData["Title"] = "AdminRegistation";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+@*<head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    </head>*@
+@if (ViewBag.msg != null)
+{
+<script>
+
+        location.href = "../AkbUser/ViewUsers";
+        alert("@ViewBag.msg");
+
+</script>}
+<script src="~/js/bootbox.js"></script>
+
+<div class="card">
+    <div class="card-header">
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+            <a class="nav-item nav-link active" asp-controller="AkbUser" asp-action="EditUsers" data-toggle="tooltip" id="SchemeExcalAdd">
+
+                Add
+            </a>
+            <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="AkbUser" asp-action="ViewUsers" id="SchemeExcalView">
+
+                View
+            </a>
+        </ul>
+        <div class="indicatorslist">
+            <p class="text-danger">(*) Indicates mandatory </p>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <form asp-controller="AkbUser" asp-action="EditUsers">
+                <input type="hidden" asp-for="ID" />
+                @*<input type="hidden" asp-for="ROLE_ID" />
+                    <input type="hidden" asp-for="USER_STATUS" />
+                    <input type="hidden" asp-for="BRANCH_id" />*@
+                <div class="row">
+
+                    <div class="form-group col-md-4">
+                        <label class="badge-light">Branch <span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlBranchId" asp-for="BRANCH_id" asp-items="@(new SelectList(ViewBag.BranchName, "BRANCH_id","Branch_Name"));" required>
+                            <option value="0">--Select One--</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label class="badge-light">Role <span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlRoleId" asp-for="ROLE_ID"
+                                asp-items="@(new SelectList(ViewBag.RoleName, "ROLE_ID","ROLE_NAME"));">
+                            <option value="0">--Select One--</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+
+                        <label class="badge-light">User Id<span class="text-danger">*</span></label>
+                        <input type="text" asp-for="USER_ID" id="txtuserid" class="form-control" placeholder="Please Enter UserId" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="badge-light"> Status<span class="text-danger">*</span></label>
+                        <select class="form-control" id="ddlstatus" asp-for="USER_STATUS">
+                            <option value="0">--Select One--</option>
+                            <option value="E">E</option>
+                            <option value="B">B</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="badge-light">From Date<span class="text-danger">*</span></label>
+                        <input type="Date" class="form-control" asp-for="FROM_DATE" id="FDate" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="badge-light">To Date<span class="text-danger">*</span></label>
+                        <input type="Date" class="form-control" asp-for="TO_DATE" id="TDate" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="badge-light">Name<span class="text-danger">*</span></label>
+                        <input type="text" id="textUname" asp-for="USER_NAME" class="form-control" placeholder="Please Enter Your name..">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label class="badge-light">Email<span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" asp-for="USER_EMAIL" id="email" placeholder="Enter your email." required>
+                    </div>
+                    <div class="form-group col-md-4">
+
+                        <label class="badge-light"> Mobile<span class="text-danger">*</span></label>
+                        <input type="text" id="textMobile" asp-for="USER_MOBILE" class="form-control" placeholder="Please Enter Mobile number.." required>
+                    </div>
+                    @*<div class="form-group col-md-4">
+
+                            <label class="badge-light">Password<span class="text-danger">*</span></label>
+                            <input type="password" id="textPwd" asp-for="USER_PASSWORD" class="form-control" placeholder="Please Enter Your pwd">
+                        </div>
+                        <div class="form-group col-md-4">
+
+                            <label class="badge-light"> Confirm Password<span class="text-danger">*</span></label>
+                            <input type="password" id="textPwd" asp-for="CONFIRM_PASSWORD" class="form-control" placeholder="Please Enter Your pwd">
+                        </div>*@
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <input type="submit" class="btn btn-outline-success" onclick="return validate();" value="Update" id="btnadd" />
+                        <input type="reset" class="btn btn-outline-danger" value="Reset" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function validate() {
+        var branchid = document.getElementById("ddlBranchId").value;
+        var RollId = document.getElementById("ddlRoleId").value;
+        var userid = document.getElementById("txtuserid").value;
+        var status = document.getElementById("ddlstatus").value;
+        var Fromdate = document.getElementById("FDate").value;
+        var Todate = document.getElementById("TDate").value;
+        var uname = document.getElementById("textUname").value;
+        var email = document.getElementById("email").value;
+        var mobile = document.getElementById("textMobile").value;
+        //var password = document.getElementById("textPwd").value;
+        //var confirmPassword = document.getElementById("textCPwd").value;
+
+        if (branchid == "0") {
+            bootbox.alert("Please Select branchid")
+            return false;
+        }
+        else if (RollId == "0") {
+            bootbox.alert("Please enter RollId")
+            return false;
+        }
+        else if (userid == "") {
+            bootbox.alert("Please enter userid")
+            return false;
+        }
+        else if (status == "0") {
+            bootbox.alert("Please Select status")
+            return false;
+        }
+        else if (Fromdate == "") {
+            bootbox.alert("Please enter From date")
+            return false;
+        }
+        else if (Todate == "") {
+            bootbox.alert("Please enter Todate")
+            return false;
+        }
+
+        else if (uname == "") {
+            bootbox.alert("Please enter user name")
+            return false;
+        }
+        else if (email == "") {
+            bootbox.alert("Please enter email name")
+            return false;
+        }
+        else if (mobile == "") {
+            bootbox.alert("Please enter mobile number")
+            return false;
+        }
+        //else if (password == "") {
+        //    bootbox.alert("Please enter password")
+        //    return false;
+        //}
+        //else if (confirmPassword == "") {
+        //    bootbox.alert("please re-enter password")
+        //    return false;
+        //}
+        //else if (password != confirmPassword) {
+        //    alert("Passwords do not match.");
+        //    return false;
+        //}
+        return true;
+    }</script>

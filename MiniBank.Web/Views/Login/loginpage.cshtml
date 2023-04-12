@@ -1,0 +1,72 @@
+﻿@model Bank.Domain.Login.LoginEntity
+@addTagHelper*,Microsoft.AspNetCore.Mvc.TagHelpers*@
+@{
+
+    Layout = null;
+}
+@if (ViewBag.msg != null)
+{
+    <script>
+
+        alert("@ViewBag.msg");
+
+    </script>
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link href="~/css/aa.css" rel="stylesheet" />
+<body>
+    <section class="login">
+        <div class="login_box">
+            <div class="left">
+                <div class="contact">
+                    <form class="" name="myform" id="submit" asp-controller="Login" asp-action="loginpage" method="post">
+
+                        <h3>SIGN IN</h3>
+                        <input type="text" class="" asp-for="USER_ID" placeholder="USERID">
+                        @*<input type="text" asp-for="USER_ID" placeholder="USERNAME">*@
+                        <input type="password" asp-for="USER_PASSWORD" placeholder="PASSWORD">
+                        <button class="submit" onclick=" return myfunction() ">LET'S GO</button>
+                    </form>
+                </div>
+            </div>
+            <div class="right">
+                <div class="right-text">
+                    <h2>SMS</h2>
+                    <h5>YOUR PERFECT BANKING PARTNER</h5>
+                </div>
+                @*<div class="right-inductor"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKjeFJJzZrbtAJ7dqYA0v3SdEWJIERyFPQAj9JqGw5c5pEwnQX5lR18QYmyWPp9XFv4k4&usqp=CAU" alt=""></div>*@
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+
+        function myfunction() {
+            if (document.myform.USER_ID.value == "") {
+          alert("ENTER USERNAME");
+                document.myform.USER_ID.focus();
+        return false;
+        }
+            if (document.myform.USER_PASSWORD.value == "") {
+                alert("ENTER PASSWORD");
+                document.myform.USER_PASSWORD.focus();
+        return false;
+        }
+        //else {
+        //    alert("logged in"); return true;
+        //}
+        return true;
+    }
+    @*$("#submit").submit(function () {
+                debugger;
+                if ($('#txtname').val() == "@ViewBag.uname" && $('#txtpassword').val() == "@ViewBag.psw") {
+
+                    window.location.href = "../AccountOpening/insertpage";
+                    alert(" Login succefully");
+
+                }
+                else {
+                    alert("Invalid Login");
+                }
+            });*@
+</script>

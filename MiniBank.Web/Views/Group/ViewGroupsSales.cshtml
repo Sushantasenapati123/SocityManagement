@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "ViewGroupsSales";
+    Layout = "~/Views/Shared/SalesLayout.cshtml";
+}
+
+
+
+
+
+@{ var listdata = ViewBag.Grouplist as Task<IEnumerable<Bank.Domain.Group.group_entity>>; }
+@if (ViewBag.msg != null)
+{
+<script>
+        alert("@ViewBag.msg");
+        window.location.href = "../Account/ViewGroups";
+
+</script>}
+<style>
+    tr {
+        text-align: center;
+    }
+</style>
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Group Registration</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-controller="Group" asp-action="AddGroupsSales" data-toggle="tooltip" id="GroupDetailsAdd">
+                            Add
+                        </a>
+                        <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="Group" asp-action="ViewGroupsSales" id="GroupDetailsView">
+                            View
+                        </a>
+
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-md table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="5px">Sl no.</th>
+                                <th width="5px">Group Name</th>
+                                <th width="5px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int count = 1;}
+                            @foreach (var items in listdata.Result)
+                            {
+                <tr>
+                    <td>@count</td>
+                    <td>@items.grouptype_name</td>
+                    <td><a class="btn btn-outline-secondary" href="/Group/EditGroups?id=@items.Grouptype_id">Edit</a>|<a class="btn btn-outline-danger" href="/Group/DeleteGroups?id=@items.Grouptype_id">Delete</a></td>
+                </tr>count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

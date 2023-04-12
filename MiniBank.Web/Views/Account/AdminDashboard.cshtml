@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "AdminDashboard";
+    //Layout = "~/Views/Shared/ManagerLayout.cshtml";
+}
+@if (ViewBag.Role == "Manager")//Executive Assistant
+{
+    Layout = "~/Views/Shared/ManagerLayout.cshtml";
+}
+else if ((ViewBag.Role == "Executive Assistant"))
+{
+    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+
+
+</head>
+
+<h1>AdminDashboard</h1>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+
+                <div class="indicatorslist">
+                    <a title="" href="javascript:void(0)" id="backIcon" data-toggle="tooltip" data-placement="top" data-original-title="Back"><i class="icon-arrow-left1"></i></a>
+                    <p class="ml-2">(*) Indicates mandatory </p>
+                </div>
+            </div>
+            @*//  BASIC FORM ELEMENTS
+                //  ===================================================*@
+
+            <div class="card-body">
+                <div class="form-group row">
+                    <input type="hidden" value="0" id="hdnDignosisConfigId" />
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Choose Branch<span class="text-danger">*</span></label>
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <select class="form-control" id="branch_id" asp-items="@(new SelectList(ViewBag.Branch,"branch_id","Branch_Name")) ">
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <input type="button" onclick="ChangeBranch()" class="btn btn-success" value="Save">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    function ChangeBranch() {
+
+        if ($('#branch_id').val() == '0') {
+            alert("Plz Choose Branch");
+            return false;
+        }
+
+        $.ajax({
+
+            url: "/Custmer/ChangeBranchByAdmin?branchid=" + $('#branch_id').val(),
+            typr: "POST",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                debugger
+                if (result == 16) {
+                    swal({
+                        title: "Branch Select Successfully",
+                        text: "",
+                        icon: "success",
+                        button: "oh yes!",
+                    }).then((value) => {
+                        location.href ="/Account/AdminDashboard"
+                    })
+                }
+            },
+            error: function (errormessage) {
+                alert("error");
+            }
+        });
+    }
+
+
+
+
+</script>

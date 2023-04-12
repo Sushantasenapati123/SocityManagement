@@ -1,0 +1,105 @@
+﻿@{ var listdata = ViewBag.accountlist as Task<IEnumerable<Bank.Domain.Account.AccountEntity>>; }
+@if (ViewBag.Role == "Manager")//Executive Assistant
+{
+    Layout = "~/Views/Shared/ManagerLayout.cshtml";
+}
+else if ((ViewBag.Role == "Executive Assistant"))
+{
+    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /*  thead {
+        background-color: rgb(128, 177, 179);
+        color: #3CB371;
+    }
+
+    table {
+        border-collapse: collapse;
+        border: 2px solid rgb(200, 200, 200);
+        letter-spacing: 1px;
+        font-family: Times, Times New Roman, serif;
+        font-size: .8rem;
+    }
+
+    th {
+        border: 1px solid rgb(190, 190, 190);
+        padding: 5px 10px;
+        text-align: center;
+    }
+
+    td {
+        border: 1px solid #66d9ff;
+        padding: 5px 10px;
+        text-align: center;
+    }*/
+</style>
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Account Registration</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link " asp-controller="Account" asp-action="AddAccounts" data-toggle="tooltip" id="AccountDetailsAdd">
+                            Add
+                        </a>
+                        <a class="nav-item nav-link active" data-toggle="tooltip" asp-controller="Account" asp-action="ViewAccounts" id="AccountDetailsView">
+                            View
+                        </a>
+
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <table class="table table-responsive-md table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="1px"><b>Sl#</b></th>
+                                <th width="3px"><b>Branch</b></th>
+                                <th width="2px"><b>GL Name</b></th>
+                                <th width="2px"><b>GlOB Type</b></th>
+                                <th width="4px"><b>GlOB Date</b></th>
+                                <th width="2px"><b>GlOB Amount</b></th>
+                                <th width="2px"><b>Gl Status</b></th>
+                                <th width="3px"><b>Lad Percentage</b></th>
+                                <th width="3px"><b>Penal Rate</b></th>
+                                <th width="8px"><b>Action</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int count = 1;}
+                            @foreach (var items in listdata.Result)
+                            {
+                <tr>
+                    <td>@count</td>
+                    <td>@items.Branch_Name</td>
+                    <td>@items.GL_NAME</td>
+                    <td>@items.GlOb_Type</td>
+                    <td>@items.GlOb_date</td>
+                    <td>@items.GlOb_Amount</td>
+                    <td>@items.Gl_Status</td>
+                    <td>@items.Lad_Percentage</td>
+                    <td>@items.Penal_Rate</td>
+                    <td><a class="btn btn-outline-secondary" href="/Account/EditAccounts?id=@items.Account_id">Edit</a> | <a class="btn btn-outline-danger" href="/Account/DeleteAccounts?id=@items.Account_id">Delete</a></td>
+                </tr>count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

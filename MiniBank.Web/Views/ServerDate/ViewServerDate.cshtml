@@ -1,0 +1,103 @@
+﻿
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Server Date";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    var listdata = ViewBag.Datelist as Task<IEnumerable<Bank.Domain.ServerData.ServerDateEntity>>;
+}
+@if (ViewBag.Role == "Manager")
+{
+    Layout = "~/Views/Shared/ManagerLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="@Url.Content("~/js/bootbox.js")"></script>
+</head>
+@*@if (ViewBag.msg != null)
+    {
+        <script>
+        alert("@ViewBag.msg");
+            window.location.href = "../ServerDate/AddServerDate";
+        </script>
+    }*@
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Server Date</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link active" asp-controller="ServerDate" asp-action="AddServerDate" data-toggle="tooltip" id="">
+                            Add
+                        </a>
+                        <a class="nav-item nav-link" data-toggle="tooltip" asp-controller="ServerDate" asp-action="ViewServerDate" id="">
+                            View
+                        </a>
+                    </ul>
+                    @*<div class="indicatorslist">
+                            <p class="text-danger">(*) Indicates mandatory </p>
+                        </div>*@
+                </div>
+                <div class="card-body">
+
+                    @*<form data-parsley-validate novalidate method="get" asp-action=""
+                        asp-controller="Glgroup" asp-antiforgery="true">*@
+                    <div class="table-responsive" id="hdnid">
+                        <table data-toggle="table" class="table table-bordered" id="example1">
+
+                            <thead>
+                                <tr>
+                                    <th width="5px"><b>SL#</b></th>
+                                    <th width="5px"><b>Server Date</b></th>
+                                    <th width="5px"><b>Branch Name</b></th>
+                                    <th width="5px"><b>Status</b></th>
+                                    <th width="5px"><b>Action</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int count = 1;}
+                                @{ string sts = "";}
+                                @foreach (var items in listdata.Result)
+                                {
+                                    <tr>
+                                        <td>@count</td>
+                                        <td data="{0:dd/MM/yyyy}">@items.SERVER_DATE</td>
+                                        <td>@items.Branch_Name</td>
+                                        @if (@items.STATUS == "1")
+                                        {
+                                            sts = "E";
+                                        }
+                                        else
+                                        {
+                                            sts = "B";
+                                        }
+                                        <td>@sts</td>
+                                        <td><a class="btn btn-outline-secondary" href="/ServerDate/EditServerDate?id=@items.Server_id">Edit</a>| <a class="btn btn-outline-danger" href="/ServerDate/DeleteServerDate?id=@items.Server_id">Delete</a></td>
+                                    </tr>
+                                    count++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

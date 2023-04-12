@@ -1,0 +1,123 @@
+﻿
+
+
+
+@model Bank.Domain.GlGroup.GlgroupEntity
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    //ViewData["Title"] = "adminshowview";
+    Layout = "~/Views/Shared/SalesLayout.cshtml";
+}
+
+
+
+<div class="page-title">
+    <div class="title-details">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Glgroup view</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <a class="nav-item nav-link " asp-controller="Glgroup" asp-action="GlgroupinsertSales" data-toggle="tooltip" id="SchemeExcalAdd">
+
+                            Add
+                        </a>
+                        <a class="nav-item nav-link active" data-toggle="tooltip" asp-controller="Glgroup" asp-action="GlgroupViewSales" id="SchemeExcalView">
+
+                            View
+                        </a>
+
+                    </ul>
+                    </div>
+                    <input type="hidden" id="hdnid" />
+                    <div class="card-body">
+
+                        @*<form data-parsley-validate novalidate method="get" asp-action=""
+                            asp-controller="Glgroup" asp-antiforgery="true">*@
+                        <div class="table-responsive" id="hdnid">
+                            <table data-toggle="table" class="table table-bordered" id="example1">
+
+                                <thead>
+                                    <tr>
+                                        <th width="5px"><b>SL#</b></th>
+                                        <th width="5px"><b>Group ID</b></th>
+                                        <th width="5px"><b>Group Code</b></th>
+                                        <th width="5px"><b>Group Name</b></th>
+                                        <th width="5px"><b>Action</b></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int count = 1;}
+                                    @if (Model.GlGrouplist.Count >= 0)
+
+
+                                    {
+                                        foreach (var item in Model.GlGrouplist)
+                                        {
+                                            <tr>
+                                                <td>@count</td>
+
+                                                <td style="display:none">@Html.DisplayFor(modelItem => item.GlGroup_id)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.grouptype_id)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.GlGroup_code)</td>
+                                                <td>@Html.DisplayFor(modelItem => item.GlGroup_name)</td>
+
+                                                <td>
+                                                    <a class="btn btn-info btn-sm" data-original-title="Edit" asp-controller="Glgroup" asp-action="Glgroupinsert" asp-route-id="@item.GlGroup_id"><i class="icon-edit1"></i></a>
+                                                </td>
+                                            </tr>
+                                            count++;
+                                        }
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                        @*</form>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/lib/datatable.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        var table = $('#example1').DataTable({
+            "ajax": {
+                'url': "/Glgroup/GlgroupView",
+                "type": "GET",
+                "datatype":"json"
+            },
+            "paging": true,
+            "columns": [
+                { "data": "name", "title": "SL#" },
+                { "data": "position", "title": "Position" },
+                { "data": "office", "title": "Office" },
+                { "data": "extn", "title": "Phone" },
+                { "data": "start_date", "title": "Start" },
+                { "data": "salary", "title": "Salary" }
+
+            ],
+            "width":"100%"
+
+        });
+    });
+</script>
+
+
+
