@@ -64,7 +64,7 @@ namespace MiniBank.Web.Controllers
                 }
                 else
                 {
-                    ViewBag.msg = "User Id And Password wrong!!!!!";
+                    ViewBag.msg = "User Id And Password !!!!!";
                     return View();
                 }
 

@@ -19,7 +19,7 @@ else
 }
 
 <head>
-    <script src="~/Calender/calender1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/Calender/calender2.js"></script>
     <link href="~/Calender/Calender.css" rel="stylesheet" />
   
@@ -118,10 +118,6 @@ else
                 <div class="card">
                     <div class="card-header">
                         <ul class="nav nav-tabs nav-fill" role="tablist">
-                            
-
-
-
                         </ul>
                         <div class="indicatorslist">
                             <p class="text-danger">(*) Indicates mandatory </p>
@@ -188,15 +184,16 @@ else
 
 
                     </div>
-                   
+
                 </div>
             </div>
         </div>
-    
+
 
     </div>
-    <input type="button"/>
-   
+    <input type="button" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
     <script src="~/js/jquery-3.3.1.min.js"></script>
 
     <script type="text/javascript">
@@ -206,8 +203,10 @@ else
         });
         function Add() {
             if ($('#Amount').val() == "") {
-                alert("Please Enter Amount");
+                Swal.fire("Please Enter Amount")
                 return false;
+              
+
             }
             var empObj = {
                 customername: $('#Name').val(),
@@ -217,23 +216,28 @@ else
                 NewAccountNo: $('#accountno').val()
             }
 
-              $.ajax({
+            $.ajax({
                 type: "POST",
-                  url: "/Custmer/insertsavingAmount",
+                url: "/Custmer/insertsavingAmount",
                 data: empObj,
                 /*     type: "POST",*/
-                  success: function (result) {
-                      alert(result)
-                      $("#FName").val(""); 
-                      $('#Name').val("");
-                      $('#accountno').val("");
-                      $('#Amount').val("");
-                      $("#Branch").val("");
-                      $("#actype").val("");
-                      $("#bal").html("");
-                      $("#submit").hide();
-                      $("#bt").html("");
-                 
+                success: function (result) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successful',
+                        text: '',
+                        //footer: '<a href="">Why do I have this issue?</a>'
+                    })
+                    $("#FName").val("");
+                    $('#Name').val("");
+                    $('#accountno').val("");
+                    $('#Amount').val("");
+                    $("#Branch").val("");
+                    $("#actype").val("");
+                    $("#bal").html("");
+                    $("#submit").hide();
+                    $("#bt").html("");
+
                 },
                 error: function (errormessage) {
                     alert("Eror");
@@ -248,24 +252,48 @@ else
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
                 success: function (result) {
-                    if (result.HeadOfAccount == 'Saving' || result.HeadOfAccount == 'Current')
-                    {
-                        $("#FName").val(result.FATHER_HUSBAND);
-                        $('#Name').val(result.customername);
-                        $("#Branch").val(result.BranchName);
-                        $("#actype").val(result.HeadOfAccount);
-                        $("#bal").html('Available Balance=' + result.Opening_Balance);
-                        $("#submit").show();
-                        $("#bt").html("");
+                    if (result != null) {
+                        if (result.HeadOfAccount == 'Saving' || result.HeadOfAccount == 'Current') {
+                            $("#FName").val(result.FATHER_HUSBAND);
+                            $('#Name').val(result.customername);
+                            $("#Branch").val(result.BranchName);
+                            $("#actype").val(result.HeadOfAccount);
+                            $("#bal").html('Available Balance=' + result.Opening_Balance);
+                            $("#submit").show();
+                            $("#bt").html("");
+                        }
+                        else if (result.HeadOfAccount == 'Share_Cap' || result.HeadOfAccount == 'Fixed' || result.HeadOfAccount == 'Recuring' || result.HeadOfAccount == 'Loan') {
+                          
+                            $("#FName").val("");
+                            $('#Name').val("");
+                            $("#Branch").val("");
+                            $("#actype").val("");
+                            $("#bal").html("");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'This is a ' + result.HeadOfAccount+' Account',
+                                text: 'Only in Saving and Current account You Can Deposite Amount!',
+                                //footer: '<a href="">Why do I have this issue?</a>'
+                            })
+                           // $("#bt").html("Only in Saving and Current account You Can Deposite Amount");
+                            $("#submit").hide();
+                        }
                     }
+                  
                     else {
                         /*alert("Only in Saving and Current account You Can Deposite Amount");*/
-                        $("#FName").val(result.FATHER_HUSBAND);
-                        $('#Name').val(result.customername);
-                        $("#Branch").val(result.BranchName);
-                        $("#actype").val(result.HeadOfAccount);
+                        $("#FName").val("");
+                        $('#Name').val("");
+                        $("#Branch").val("");
+                        $("#actype").val("");
                         $("#bal").html("");
-                        $("#bt").html("Only in Saving and Current account You Can Deposite Amount");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Invalid Account Number...',
+                            text: 'Please Enter Valid Account Number!',
+                            //footer: '<a href="">Why do I have this issue?</a>'
+                        })
+                        //$("#bt").html("Invalid Accuunt Number");
                         $("#submit").hide();
                     }
 
@@ -279,10 +307,10 @@ else
         }
     </script>
 
-  
 
 
-  
+
+
 </body>
 
 
