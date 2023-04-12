@@ -57,10 +57,18 @@ namespace MiniBank.Web.Controllers
             // ViewBag.USERID = X.Result.branch_id;
             return View();
         }
-       
-        
+        [HttpGet]
+        public IActionResult WithdrowAmount()
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            //var X = _IAccountopeningRepository.getdetails(id);
+            // ViewBag.USERID = X.Result.branch_id;
+            return View();
+        }
 
-        
+
+
+
         [HttpGet]
         public IActionResult ViewpendingAccountDetailsByFrontoffice(string id = null)
         {

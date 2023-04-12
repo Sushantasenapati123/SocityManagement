@@ -1,0 +1,325 @@
+﻿@model Bank.Domain.AccountOpening.AccountopeningEntity
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    //ViewData["Title"] = "RoleView";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Role == "Manager")//Executive Assistant
+{
+    Layout = "~/Views/Shared/ManagerLayout.cshtml";
+    //Layout = null;
+}
+else if ((ViewBag.Role == "Executive Assistant"))
+{
+    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/Calender/calender2.js"></script>
+    <link href="~/Calender/Calender.css" rel="stylesheet" />
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #Nominee1 {
+            background-color: lightgoldenrodyellow;
+        }
+
+        #Nominee2 {
+            background-color: lightgray;
+        }
+
+        body {
+            font-family: Arial;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: greenyellow;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
+</head>
+
+
+<style type="text/css">
+    .drpdown {
+        width: 150px;
+    }
+
+    /*.container {
+        padding: 50px;
+    }*/
+
+    input[type=reset] {
+        background-color: red;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        align-content: center;
+    }
+</style>
+
+<body>
+
+    <div class="page-title">
+        <div class="title-details">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Society Management</li>
+                    <li class="breadcrumb-item active" aria-current="page"><b>withdraw Amount</b></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="container">
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs nav-fill" role="tablist">
+                        </ul>
+                        <div class="indicatorslist">
+                            <p class="text-danger">(*) Indicates mandatory </p>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Account Number<span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="accountno" type="number" class="form-control" onblur="FindAccountDetails()" />
+
+                            </div>
+                            <label class="col-12 col-md-2 col-xl-4 control-label" for="RegstrationNo"><span class="text-info" id="bal"></span></label>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Father Name <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="FName" class="form-control" readonly />
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Account Type <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="actype" class="form-control" readonly />
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Name <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="Name" class="form-control" readonly />
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Branch <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="Branch" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">withdraw Amount <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="Amount" class="form-control" type="number" />
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group row">
+                            <span id="bt" class="text-danger" style="margin-left:30px"></span>
+                            <button class="btn-danger form-control" style="width:150px;margin-left:180px;" id="submit" onclick="Add()">Submit</button>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <input type="button" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#submit").hide();
+        });
+        function Add() {
+            if ($('#Amount').val() == "") {
+                Swal.fire("Please Enter Amount")
+                return false;
+
+
+            }
+            if (parseInt($('#Amount').val()) > parseInt(openbal)) {
+                Swal.fire("Entered Amount must be less Than Available Balance")
+                return false;
+
+
+            }
+            var empObj = {
+                customername: $('#Name').val(),
+                BranchName: $('#Branch').val(),
+                Amount: $('#Amount').val(),
+                Account_Type: $('#actype').val(),
+                NewAccountNo: $('#accountno').val()
+            }
+          
+                $.ajax({
+                    type: "POST",
+                    url: "/Custmer/insertsavingAmount",
+                    data: empObj,
+                    /*     type: "POST",*/
+                    success: function (result) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successful',
+                            text: '',
+                            //footer: '<a href="">Why do I have this issue?</a>'
+                        })
+                        $("#FName").val("");
+                        $('#Name').val("");
+                        $('#accountno').val("");
+                        $('#Amount').val("");
+                        $("#Branch").val("");
+                        $("#actype").val("");
+                        $("#bal").html("");
+                        $("#submit").hide();
+                        $("#bt").html("");
+
+                    },
+                    error: function (errormessage) {
+                        alert("Eror");
+                    }
+                });
+           
+          
+        }
+        var openbal;
+        function FindAccountDetails() {
+            $.ajax({
+                url: "/Custmer/GetAccountDetailByAccountNo?num=" + $("#accountno").val(),
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result != null) {
+                        if (result.HeadOfAccount == 'Saving' || result.HeadOfAccount == 'Current') {
+                            $("#FName").val(result.FATHER_HUSBAND);
+                            $('#Name').val(result.customername);
+                            $("#Branch").val(result.BranchName);
+                            $("#actype").val(result.HeadOfAccount);
+                            $("#bal").html('Available Balance=' + result.Opening_Balance);
+                            openbal = result.Opening_Balance;
+                            $("#submit").show();
+                            $("#bt").html("");
+                        }
+                        else if (result.HeadOfAccount == 'Share_Cap' || result.HeadOfAccount == 'Fixed' || result.HeadOfAccount == 'Recuring' || result.HeadOfAccount == 'Loan') {
+
+                            $("#FName").val("");
+                            $('#Name').val("");
+                            $("#Branch").val("");
+                            $("#actype").val("");
+                            $("#bal").html("");
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'This is a ' + result.HeadOfAccount+' Account',
+                                text: 'Only in Saving and Current account You Can Deposite Amount!',
+                                //footer: '<a href="">Why do I have this issue?</a>'
+                            })
+                           // $("#bt").html("Only in Saving and Current account You Can Deposite Amount");
+                            $("#submit").hide();
+                        }
+                    }
+
+                    else {
+                        /*alert("Only in Saving and Current account You Can Deposite Amount");*/
+                        $("#FName").val("");
+                        $('#Name').val("");
+                        $("#Branch").val("");
+                        $("#actype").val("");
+                        $("#bal").html("");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Invalid Account Number...',
+                            text: 'Please Enter Valid Account Number!',
+                            //footer: '<a href="">Why do I have this issue?</a>'
+                        })
+                        //$("#bt").html("Invalid Accuunt Number");
+                        $("#submit").hide();
+                    }
+
+
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    </script>
+
+
+
+
+
+</body>
+
+
