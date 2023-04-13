@@ -22,7 +22,7 @@ else
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><span class="icon-home1"></span></li>
                 <li class="breadcrumb-item">Society Management</li>
-                <li class="breadcrumb-item active" aria-current="page"><b>Pending Deposite Transaction</b></li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Pending Withdrow  Transaction</b></li>
             </ol>
         </nav>
     </div>
@@ -248,7 +248,7 @@ else
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "/Custmer/Appprove_Deposite?id=" + Id,
+                    url: "/Custmer/Appprove_WithdrowAmount?id=" + Id,
                     type: "POST",
                     dataType: "json",
                     contentType: "application/json;charset=UTF-8",
@@ -257,7 +257,7 @@ else
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Successful',
-                                text: 'Deposite Successful',
+                                text: 'Withdrow Successful',
 
                             }).then((value) => {
                                 if (value) {
@@ -291,7 +291,7 @@ else
     //                $('#DSubmitModal').modal("hide");
     //                //$('.msgsuccess').text('Amount Deposited');
     //                //$('#SuccessModal').modal('show');
-                   
+
     //                Swal.fire({
     //                    icon: 'success',
     //                    title: 'Successful',

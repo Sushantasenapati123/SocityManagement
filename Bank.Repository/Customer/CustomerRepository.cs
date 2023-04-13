@@ -222,6 +222,35 @@ namespace Bank.Repository.Customer
             }
 
         }
+        public int WithdrowAmount(CustmerEntity cust)
+        {
+            try
+            {
+                var query = "USP_customer";
+
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "Temp_WithdrowAmount");
+                dypara.Add("@NewAccountNo", cust.NewAccountNo);
+                dypara.Add("@Account_Typee", cust.Account_Type);
+                dypara.Add("@Name", cust.customername);
+                dypara.Add("@Amount", cust.Amount);
+                dypara.Add("@Branch", cust.BranchName);
+
+
+
+                dypara.Add("PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+                int Result = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
+
+                var cc = Convert.ToInt32(dypara.Get<String>("PMSGOUT"));
+                return cc;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         public CustmerEntity custmerbind(int id)
         {
             throw new NotImplementedException();
@@ -298,6 +327,28 @@ namespace Bank.Repository.Customer
 
                 var dypara = new DynamicParameters();
                 dypara.Add("@Action", "Appprove_Deposite");
+                dypara.Add("@trans_id", id);
+                dypara.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+                Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
+                int res = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));
+                return res;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int Appprove_WithdrowAmount(int id)
+        {
+            try
+            {
+                var query = "USP_customer";
+
+
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "Appprove_Withdrow");
                 dypara.Add("@trans_id", id);
                 dypara.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
                 Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
@@ -463,7 +514,7 @@ namespace Bank.Repository.Customer
             }
         }
 
-        public async Task<IEnumerable<CustmerEntity>> viewPendingDepositeamount(CustmerEntity cu)//approve customer
+        public async Task<IEnumerable<CustmerEntity>> viewPendingDepositeamount(CustmerEntity cu)
         {
             try
             {
@@ -472,6 +523,26 @@ namespace Bank.Repository.Customer
                 var dypara = new DynamicParameters();
               
                 dypara.Add("@Action", "getall_savingTranAmount");
+
+
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<CustmerEntity>> viewPendingWithdrowamount(CustmerEntity cu)
+        {
+            try
+            {
+
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
+
+                dypara.Add("@Action", "getall_WithdrowTranAmount");
 
 
                 var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);

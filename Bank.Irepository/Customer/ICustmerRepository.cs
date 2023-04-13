@@ -21,6 +21,7 @@ namespace Bank.Irepository.Customer
 
         Task<IEnumerable<CustmerEntity>> viewApprovedCustomerBefore(CustmerEntity cu);// approved customer
         Task<IEnumerable<CustmerEntity>> viewPendingDepositeamount(CustmerEntity cu);
+        Task<IEnumerable<CustmerEntity>> viewPendingWithdrowamount(CustmerEntity cu);
         Task<IEnumerable<CustmerEntity>> BindVoucher(string branch);
         Task<IEnumerable<CustmerEntity>> viewPendingCustomerBefore(CustmerEntity cu);// pending customer
 
@@ -29,9 +30,11 @@ namespace Bank.Irepository.Customer
         Task<IEnumerable<AccountopeningEntity>> listApprovedcustmer(AccountopeningEntity cu);//// approved account
         int insertcustmer(CustmerEntity rl);
         int insertsavingAmount(CustmerEntity rl);
+        int WithdrowAmount(CustmerEntity rl);
         int updatecustmer(CustmerEntity rl);
         int deletecustmer(int id); 
               int Appprove_Deposite(int id);
+        int Appprove_WithdrowAmount(int id);
         public CustmerEntity custmerselect(int id,string Branch);
 
         public CustmerEntity GetAccountDetailByAccountNo(Int64 id);

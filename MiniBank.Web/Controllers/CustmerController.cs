@@ -169,6 +169,27 @@ namespace MiniBank.Web.Controllers
 
 
         }
+        [HttpPost]
+        public async Task<JsonResult> WithdrowAmount(CustmerEntity custe)
+        {
+
+            custe.Branch_Name = HttpContext.Session.GetString("Branch");
+            custe.EnteredByy = HttpContext.Session.GetString("Userid");
+            int retMsg = _cost.WithdrowAmount(custe);
+
+            if (retMsg == 134)
+            {
+                return Json("Record Saved Successfully");
+            }
+
+            else
+            {
+                return Json("Error");
+            }
+
+
+
+        }
         public async Task<IActionResult> ViewCustomer()
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
@@ -253,12 +274,34 @@ namespace MiniBank.Web.Controllers
             ViewBag.Result = await _cost.viewPendingDepositeamount(CN);
             return View();
         }
+        public async Task<IActionResult> viewPendingWithdrowamount()
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+
+            ViewBag.Result = await _cost.viewPendingWithdrowamount(CN);
+            return View();
+        }
         [HttpPost]
         public IActionResult Appprove_Deposite(string id)
         {
             try
             {
                 int Result = _cost.Appprove_Deposite(Convert.ToInt32( id));
+                return Ok(Result);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+        [HttpPost]
+        public IActionResult Appprove_WithdrowAmount(string id)
+        {
+            try
+            {
+                int Result = _cost.Appprove_WithdrowAmount(Convert.ToInt32(id));
                 return Ok(Result);
             }
             catch (Exception Ex)

@@ -2352,3 +2352,4 @@ C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\o
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\MiniBank.Web.pdb
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\MiniBank.Web.genruntimeconfig.cache
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\WithdrowAmount.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\viewPendingWithdrowamount.cshtml.g.cs

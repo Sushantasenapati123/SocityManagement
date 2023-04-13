@@ -50,3 +50,16 @@ C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\MiniBankingSystemSubrajit\Bank.
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\MiniBankingSystemSubrajit\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.csproj.CopyComplete
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\MiniBankingSystemSubrajit\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.dll
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\MiniBankingSystemSubrajit\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.pdb
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\bin\Debug\netcoreapp3.1\Bank.Irepository.deps.json
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\bin\Debug\netcoreapp3.1\Bank.Irepository.dll
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\bin\Debug\netcoreapp3.1\Bank.Irepository.pdb
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\bin\Debug\netcoreapp3.1\Bank.Domain.dll
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\bin\Debug\netcoreapp3.1\Bank.Domain.pdb
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.csproj.AssemblyReference.cache
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.AssemblyInfoInputs.cache
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.AssemblyInfo.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.csproj.CoreCompileInputs.cache
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.csproj.CopyComplete
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.dll
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Irepository\obj\Debug\netcoreapp3.1\Bank.Irepository.pdb
