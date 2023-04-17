@@ -1,20 +1,8 @@
 ﻿@model Bank.Domain.Customer.CustmerEntity
 @{
     ViewData["Title"] = "ViewDoctor";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
     var ResultData = ViewBag.Result as List<Bank.Domain.Customer.CustmerEntity>;
-}
-@if (ViewBag.Role == "Manager")//Executive Assistant
-{
-    Layout = "~/Views/Shared/ManagerLayout.cshtml";
-}
-else if ((ViewBag.Role == "Executive Assistant"))
-{
-    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
-}
-else
-{
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="page-title">

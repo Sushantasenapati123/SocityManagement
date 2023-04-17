@@ -19,6 +19,7 @@
   
 
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -117,22 +118,9 @@
             <nav class="navbar">
                 <div class="navbar-collapse justify-content-end" id="basicExampleNav">
                     <ul class="navbar-nav my-nav">
-
+                        @*//account*@
                         <li class="nav-item gldashboard">
                             <a class="nav-link" asp-controller="Account" asp-action="AddAccounts"><i class="icon-airplay"></i><span>Account</span></a>
-                        </li>
-
-                        <li class="nav-item gldashboard">
-                            <a class="nav-link" asp-controller="ServerDate" asp-action="AddServerDate"><i class="icon-airplay"></i><span>Server Date</span></a>
-                        </li>
-                        <li class="nav-item gldashboard">
-                            <a class="nav-link" asp-controller="Custmer" asp-action="customerinsert"><i class="icon-airplay"></i><span>Customer</span></a>
-                        </li>
-                        @*<li class="nav-item gldashboard">
-            <a class="nav-link" asp-controller="Custmer" asp-action="ViewPendingCustomer"><i class="icon-airplay"></i><span>Pending Customer</span></a>
-        </li>*@
-                        <li class="nav-item gldashboard">
-                            <a class="nav-link" asp-controller="Group" asp-action="AddGroups"><i class="icon-airplay"></i><span>Group Registation</span></a>
                         </li>
                         <li class="nav-item gldashboard">
                             <a class="nav-link" asp-controller="AccountOpening" asp-action="ViewBranchWiseCustomer"><i class="icon-airplay"></i><span>Open AC</span></a>
@@ -143,6 +131,9 @@
                         <li class="nav-item gldashboard">
                             <a class="nav-link" asp-controller="AccountOpening" asp-action="ViewAppprovedCustomer"><i class="icon-airplay"></i><span>Approved Account</span></a>
                         </li>
+
+
+                        @*customer*@
                         <li class="nav-item gldashboard">
                             <a class="nav-link" asp-controller="Custmer" asp-action="viewPendingCustomerBefore"><i class="icon-airplay"></i><span>Pending Customer</span></a>
                         </li>
@@ -150,19 +141,61 @@
                             <a class="nav-link" asp-controller="Custmer" asp-action="viewApprovedCustomerBefore"><i class="icon-airplay"></i><span>Approved Customer</span></a>
                         </li>
                         <li class="nav-item gldashboard">
-                            <a class="nav-link" asp-controller="Custmer" asp-action="BindVoucher"><i class="icon-airplay"></i><span>View Voucher</span></a>
+                            <a class="nav-link" asp-controller="Custmer" asp-action="customerinsert"><i class="icon-airplay"></i><span>Customer</span></a>
                         </li>
+
+                        @*Server DAte*@
                         <li class="nav-item gldashboard">
                             <a class="nav-link" asp-controller="Custmer" asp-action="ViewUpdateServerDate"><i class="icon-airplay"></i><span>Update Server Date</span></a>
                         </li>
-                        <li class="nav-item gldashboard">
-                            <a class="nav-link" asp-controller="AccountOpening" asp-action="Viewallaccountballance"><i class="icon-airplay"></i><span>View Balance</span></a>
-                        </li>
+
+                        @*transaction*@
+
                         <li class="nav-item gldashboard">
                             <a class="nav-link" asp-controller="Custmer" asp-action="viewPendingDepositeamount"><i class="icon-airplay"></i><span>Approve Deposite Amount</span></a>
                         </li>
                         <li class="nav-item gldashboard">
                             <a class="nav-link" asp-controller="Custmer" asp-action="viewPendingWithdrowamount"><i class="icon-airplay"></i><span>Approve Withdrow Amount</span></a>
+                        </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <li class="nav-item gldashboard">
+                            <a class="nav-link" asp-controller="ServerDate" asp-action="AddServerDate"><i class="icon-airplay"></i><span>Server Date</span></a>
+                        </li>
+
+
+                        <li class="nav-item gldashboard">
+                            <a class="nav-link" asp-controller="Group" asp-action="AddGroups"><i class="icon-airplay"></i><span>Group Registation</span></a>
+                        </li>
+
+
+
+                        <li class="nav-item gldashboard">
+                            <a class="nav-link" asp-controller="Custmer" asp-action="BindVoucher"><i class="icon-airplay"></i><span>View Voucher</span></a>
+                        </li>
+
+                        <li class="nav-item gldashboard">
+                            <a class="nav-link" asp-controller="AccountOpening" asp-action="Viewallaccountballance"><i class="icon-airplay"></i><span>View Balance</span></a>
                         </li>
 
 

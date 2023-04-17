@@ -2,19 +2,10 @@
 @{
     ViewData["Title"] = "ViewDoctor";
     var ResultData = ViewBag.Result as List<Bank.Domain.AccountOpening.AccountopeningEntity>;
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
 }
-@if (ViewBag.Role == "Manager")//Executive Assistant
-{
-    Layout = "~/Views/Shared/ManagerLayout.cshtml";
 }
-else if ((ViewBag.Role == "Executive Assistant"))
-{
-    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
-}
-else
-{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 <div class="page-title">
     <div class="title-details">
         <nav aria-label="breadcrumb">
@@ -34,16 +25,16 @@ else
             <div class="search-container">
                 <div class="search-sec" style="display:block;">
                     @*<form method="post" id="indsearch">
-                        <div class="form-group form-row">
-                                <div class="col-12 col-md-6 col-xl-3">
-                                    <label class="control-label">Enter Customer Code</label>
-                                    <input type="text" class="form-control" asp-for="Customer_Code"/>
+                            <div class="form-group form-row">
+                                    <div class="col-12 col-md-6 col-xl-3">
+                                        <label class="control-label">Enter Customer Code</label>
+                                        <input type="text" class="form-control" asp-for="Customer_Code"/>
+                                    </div>
+                                    <div class="col-lg-2 ">
+                                        <button id="btnSearch" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Search</button>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 ">
-                                    <button id="btnSearch" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Search</button>
-                                </div>
-                            </div>
-                    </form>*@
+                        </form>*@
                 </div>
                 <div class="text-center"> <a class="searchopen" title="Search" data-toggle="tooltip" data-placement="bottom"> <i class="icon-angle-arrow-down"></i> </a></div>
             </div>
@@ -88,46 +79,46 @@ else
                                 }
                                 @foreach (var list in ResultData)
                                 {
-                                <tr>
-                                    <td class="text-center">@count</td>
-                                    <td>
-                                        @list.Branch_Name
-                                    </td>
-                                    <td>
-                                        @list.HeadOfAccount
-                                    </td>
-                                    <td>
-                                        @list.customername
-                                    </td>
-                                    <td>
-                                        @list.Customer_Code
-                                    </td>
-                                    <td>
-                                        @list.Accountno
-                                    </td>
-
-                                    @if (@list.HeadOfAccount == "Fixed")
-                                    {
+                                    <tr>
+                                        <td class="text-center">@count</td>
                                         <td>
-                                            @list.Opening_Balance
+                                            @list.Branch_Name
                                         </td>
-                                    }
-                                    else
-                                    {
                                         <td>
-                                            @list.Minimum_Balance
+                                            @list.HeadOfAccount
                                         </td>
-                                    }
+                                        <td>
+                                            @list.customername
+                                        </td>
+                                        <td>
+                                            @list.Customer_Code
+                                        </td>
+                                        <td>
+                                            @list.Accountno
+                                        </td>
 
-                                    <td>
+                                        @if (@list.HeadOfAccount == "Fixed")
+                                        {
+                                            <td>
+                                                @list.Opening_Balance
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @list.Minimum_Balance
+                                            </td>
+                                        }
+
+                                        <td>
 
 
-                                        @*<button type="button" onclick="BindDropDown('@list.Openingdetails_id', '@list.Customer_Code')" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">View AC</button>*@
+                                            @*<button type="button" onclick="BindDropDown('@list.Openingdetails_id', '@list.Customer_Code')" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">View AC</button>*@
 
-                                        @*<button type="button" onclick="ViewAccount('@list.Openingdetails_id','@list.HeadOfAccount')" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">View AC</button>*@
+                                            @*<button type="button" onclick="ViewAccount('@list.Openingdetails_id','@list.HeadOfAccount')" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">View AC</button>*@
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
 
                                     count++;
                                 }
@@ -240,14 +231,13 @@ else
     $(document).ready(function () {
         getDataTable();
     })
-    function ViewAccount(id,acctyp) {
+    function ViewAccount(id, acctyp) {
         debugger
-        if (acctyp == "Fixed")
-        {
+        if (acctyp == "Fixed") {
             location.href = "/AccountOpening/Fixdeposit_insertpageForViewByAdmin?id=" + id;
         }
         else {
-            location.href = "/AccountOpening/ViewAccountDetails?id="+ id;
+            location.href = "/AccountOpening/ViewAccountDetails?id=" + id;
         }
 
 
@@ -297,7 +287,7 @@ else
             location.href = "/AccountOpening/Loaninsertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
 
         }
-       else if (type == "Fixed") {
+        else if (type == "Fixed") {
             location.href = "/AccountOpening/Fixdeposit_insertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
 
         }
@@ -305,7 +295,7 @@ else
             location.href = "/AccountOpening/insertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
 
         }
-           }
+    }
 
 
     //Pagination

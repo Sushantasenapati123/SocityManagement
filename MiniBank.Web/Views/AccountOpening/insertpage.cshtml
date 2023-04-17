@@ -2,19 +2,7 @@
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     //ViewData["Title"] = "RoleView";
-   // Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@if (ViewBag.Role == "Manager")//Executive Assistant
-{
-    Layout = "~/Views/Shared/ManagerLayout.cshtml";
-}
-else if ((ViewBag.Role == "Executive Assistant"))
-{
-    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
-}
-else
-{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
 }
 
 <head>
@@ -42,7 +30,6 @@ else
 
             /* Style the buttons inside the tab */
             .tab button {
-                
                 float: left;
                 border: none;
                 outline: none;
@@ -139,7 +126,7 @@ else
                                 <label class="badge-light">Customer Code<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="Customer_Code" readonly />
                             </div>
-                         
+
 
                             <div class="form-group col-md-2">
                                 <label class="badge-light">Senior Citizen?<span class="text-danger">*</span></label>
@@ -151,7 +138,7 @@ else
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="badge-light"> Opening Date <span class="text-danger">*</span></label>
-                                <input type="datetime" id="OpeningDATE" class="form-control"  readonly />
+                                <input type="datetime" id="OpeningDATE" class="form-control" readonly />
                             </div>
                         </div>
                         <div class="row">
@@ -220,12 +207,12 @@ else
                             </div>
                             <div class="col-6">
                                 <label class="badge-light">Current Bal.<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="Currentbal" placeholder="0" style="width:280px"/>
+                                <input type="text" class="form-control" id="Currentbal" placeholder="0" style="width:280px" />
                             </div>
                             @*<div class="col-6">
-            <label class="badge-light"> Opening Date <span class="text-danger">*</span></label>
-            <input type="datetime-local" id="OpeningDATE" class="form-control" style="width:280px" readonly/>
-        </div>*@
+                                    <label class="badge-light"> Opening Date <span class="text-danger">*</span></label>
+                                    <input type="datetime-local" id="OpeningDATE" class="form-control" style="width:280px" readonly/>
+                                </div>*@
                         </div>
 
                         <div class="row">
@@ -269,7 +256,7 @@ else
                                             <input type="text" id="Enterancefee" class="form-control" placeholder="Enter your Fee" />
                                         </td>
                                     </tr>
-                                  
+
 
 
                                 </table>
@@ -345,21 +332,21 @@ else
 
                                         </tr>
                                         @*<tr>
-                                            <td><label class="badge-light">Minimum Balance<span class="text-danger">*</span></label></td>
-                                            <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal1" /></td>
-                                        </tr>*@
-                                    <tr>
-                                        <td><label class="badge-light">A/C Status<span class="text-danger"></span></label></td>
-                                        <td>
-                                            <select class="form-control" id="Status1">
-                                                <option value="A">Active</option>
-                                                <option value="I">Inactive</option>
-                                               
-                                            </select>
-                                        </td>
-                                       
-                                        @*<td><input type="text" class="form-control" placeholder="Enter Here...." id="Status1" /></td>*@
-                                    </tr>
+                                                <td><label class="badge-light">Minimum Balance<span class="text-danger">*</span></label></td>
+                                                <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal1" /></td>
+                                            </tr>*@
+                                        <tr>
+                                            <td><label class="badge-light">A/C Status<span class="text-danger"></span></label></td>
+                                            <td>
+                                                <select class="form-control" id="Status1">
+                                                    <option value="A">Active</option>
+                                                    <option value="I">Inactive</option>
+
+                                                </select>
+                                            </td>
+
+                                            @*<td><input type="text" class="form-control" placeholder="Enter Here...." id="Status1" /></td>*@
+                                        </tr>
                                     </table>
                                 </div>
 
@@ -420,9 +407,9 @@ else
 
                                         </tr>
                                         @*<tr>
-                                            <td><label class="badge-light">Minimum Balance<span class="text-danger">*</span></label></td>
-                                            <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal2" /></td>
-                                        </tr>*@
+                                                <td><label class="badge-light">Minimum Balance<span class="text-danger">*</span></label></td>
+                                                <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal2" /></td>
+                                            </tr>*@
                                         <tr>
                                             <td><label class="badge-light">A/C Status<span class="text-danger">*</span></label></td>
                                             <td>
@@ -493,9 +480,9 @@ else
 
                                         </tr>
                                         @*<tr>
-                                            <td><label class="badge-light">Minimum Balance<span class="text-danger">*</span></label></td>
-                                            <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal3" /></td>
-                                        </tr>*@
+                                                <td><label class="badge-light">Minimum Balance<span class="text-danger">*</span></label></td>
+                                                <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal3" /></td>
+                                            </tr>*@
                                         <tr>
                                             <td><label class="badge-light">A/C Status<span class="text-danger">*</span></label></td>
                                             <td>
@@ -576,7 +563,7 @@ else
         }
 
         function BindShearDetails(CustCod) {
-           
+
             $.ajax({
                 url: "/AccountOpening/BindShearDetails?id=" + CustCod,
                 typr: "GET",
@@ -592,13 +579,13 @@ else
                     }
                     else {
                         $('#Facevalue').val(result.Result.Facevalue);
-                       
+
                         $('#NoUnint').val(result.Result.NoUnint);
                         $('#Enterancefee').val(result.Result.Enterancefee);
                         $('#IntroducerPresentaddress').val(result.Result.IntroducerPresentaddress);
 
                     }
-                   
+
                 },
                 error: function (errormessage) {
                     alert(errormessage.responseText);
@@ -607,17 +594,17 @@ else
         }
 
         function BindDetail(DepartmentId, AcType, CustCod) {
-          
+
             var dt = new Date();
             var time;
-            if (dt.getMinutes()< 10) {
+            if (dt.getMinutes() < 10) {
                 time = dt.getHours() + ":0" + dt.getMinutes();
-               
+
             }
             else {
-                 time = dt.getHours() + ":" + dt.getMinutes();
+                time = dt.getHours() + ":" + dt.getMinutes();
             }
-           
+
             $.ajax({
                 url: "/Custmer/GetByIdCustomer?id=" + CustCod,
                 typr: "GET",
@@ -627,11 +614,11 @@ else
                     $("#customername").val(result.CUSTOMER_NAME);
                     $('#HeadOfAccount').val(AcType);
                     $("#Customer_Code").val(result.Customer_Code);
-                    
+
                     if (result.CUR_ADDRESS_1 == null)
                         $('#Permanentaddress').val('NA');
                     else
-                       $('#Permanentaddress').val(result.CUR_ADDRESS_1);
+                        $('#Permanentaddress').val(result.CUR_ADDRESS_1);
 
                     $("#Presentaddress").val(result.PER_ADDRESS_1);
                     $("#Sex").val(result.SEX);
@@ -641,7 +628,7 @@ else
                     $("#Seniorcitizen").val(result.SENIOR_CITIZEN);
                     $("#staff").val(result.IS_STAFF);
                     debugger
-                    $('#OpeningDATE').val(result.serverdate + " "+time);
+                    $('#OpeningDATE').val(result.serverdate + " " + time);
 
 
                 },
@@ -826,7 +813,7 @@ else
         };
         if (Pinvalidate('pincode1', 'lblCurErrorPin') == true && PhonevalidateO('phone1', 'lblErrorphone1') == true &&
             PhonevalidateO('Altphone1', 'lblErrorAltphone1') == true) {
-            
+
                 if (confirm("Are you sure you want to Submit ?")) {
             $.ajax({
                 type: "POST",

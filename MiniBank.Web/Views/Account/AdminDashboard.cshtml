@@ -1,20 +1,9 @@
 ﻿
 @{
     ViewData["Title"] = "AdminDashboard";
-    //Layout = "~/Views/Shared/ManagerLayout.cshtml";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
 }
-@if (ViewBag.Role == "Manager")//Executive Assistant
-{
-    Layout = "~/Views/Shared/ManagerLayout.cshtml";
-}
-else if ((ViewBag.Role == "Executive Assistant"))
-{
-    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
-}
-else
-{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 <head>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 

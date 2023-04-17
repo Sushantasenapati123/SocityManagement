@@ -11,6 +11,8 @@ using Bank.Irepository.Product;
 using Bank.Irepository.Role;
 using Bank.Irepository.ServerData;
 using Bank.Irepository.User;
+using Bank.IRepository.MenuMaster;
+using Bank.IRepository.SubMenuMaster;
 using Bank.Repository.Account;
 using Bank.Repository.AccountOpening;
 using Bank.Repository.AccountYpe;
@@ -20,6 +22,7 @@ using Bank.Repository.Employee;
 using Bank.Repository.GlGroup;
 using Bank.Repository.Group;
 using Bank.Repository.Login;
+using Bank.Repository.MenuMaster;
 using Bank.Repository.Product;
 using Bank.Repository.Role;
 using Bank.Repository.SerVerData;
@@ -28,6 +31,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MiniBankingSystem.IRepository.Factory;
 using MiniBankingSystem.Repository.Factory;
+using PathoLab.IRepository.PermissionMaster;
+using PathoLab.Repository.PermissionMaster;
+using PathoLab.Repository.SubMenuMaster;
 
 namespace PathoLab.Web.DIContainer
 {
@@ -53,6 +59,10 @@ namespace PathoLab.Web.DIContainer
             services.AddSingleton<IAccountRepository, AccountRepository>();
             services.AddSingleton<ICustmerRepository, CustomerRepository>();
             services.AddSingleton<IEmployee, EmployeeRepo>();
+
+            services.AddSingleton<IMenuRepository, MenuRepository>();
+            services.AddSingleton<ISubMenuRepository, SubMenuRepository>();
+            services.AddSingleton<IPermissionRepository, PermissionRepository>();
 
 
 

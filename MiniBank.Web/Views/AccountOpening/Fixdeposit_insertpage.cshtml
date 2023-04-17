@@ -2,27 +2,13 @@
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     //ViewData["Title"] = "RoleView";
-    // Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
 }
-@if (ViewBag.Role == "Manager")//Executive Assistant
-{
-   Layout = "~/Views/Shared/ManagerLayout.cshtml";
-    //Layout = null;
-}
-else if ((ViewBag.Role == "Executive Assistant"))
-{
-    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
-}
-else
-{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 <head>
     <script src="~/Calender/calender1.js"></script>
     <script src="~/Calender/calender2.js"></script>
     <link href="~/Calender/Calender.css" rel="stylesheet" />
-  
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -143,9 +129,9 @@ else
                                 <input type="text" class="form-control" id="Customer_Code" readonly />
                             </div>
                             @*<div class="form-group col-md-2">
-                <label class="badge-light">Rate Of Intrest<span class="text-danger">*</span></label>
-                <input type="number" class="form-control" id="intrest" placeholder="0"/>
-            </div>*@
+                                    <label class="badge-light">Rate Of Intrest<span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="intrest" placeholder="0"/>
+                                </div>*@
                             <div class="form-group col-md-2">
                                 <label class="badge-light">Mode Of Operation<span class="text-danger">*</span></label>
                                 <select style="width: 150px; margin-right: 0px" id="Modeofoperation" class="form-control">
@@ -220,14 +206,14 @@ else
                         </div>
                         <div class="row">
                             @*<div class="col-3">
-            <label class="badge-light">Mode Of Operation<span class="text-danger">*</span></label>
-            <select style="width: 250px; margin-right: 0px" id="Modeofoperation" class="form-control">
-                <option value="Self">Self</option>
-                <option value="Other">Other</option>
-                <option value="Self">jointly two</option>
-                <option value="Other">jointly three</option>
-            </select>
-        </div>*@
+                                    <label class="badge-light">Mode Of Operation<span class="text-danger">*</span></label>
+                                    <select style="width: 250px; margin-right: 0px" id="Modeofoperation" class="form-control">
+                                        <option value="Self">Self</option>
+                                        <option value="Other">Other</option>
+                                        <option value="Self">jointly two</option>
+                                        <option value="Other">jointly three</option>
+                                    </select>
+                                </div>*@
                             <div class="col-3">
                                 <label class="badge-light"> Deposite Amount <span class="text-danger">*</span></label>
                                 <input type="number" id="Opening_Balance" placeholder="0" class="form-control" style="width:230px; margin-left:5px;" />
@@ -244,16 +230,16 @@ else
                             </div>
                             <div class="col-3">
                                 <label class="badge-light">Rate Of Intrest<span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="intrest" placeholder="0" onblur="FindReturnamount()"/>
+                                <input type="number" class="form-control" id="intrest" placeholder="0" onchange="FindReturnamount()" />
                             </div>
 
 
                         </div>
-                       
-                        <div class="row">
-                         
 
-                           
+                        <div class="row">
+
+
+
                             <div class="col-3">
                                 <label class="badge-light">Total Return Amount <span class="text-danger">*</span></label>
                                 <input type="number" readonly id="returnamount" class="form-control" style="width: 230px; margin-left: 5px" />
@@ -264,7 +250,7 @@ else
 
 
 
-                       
+
 
 
                         <div class="row">
@@ -281,7 +267,7 @@ else
                                             <input type="text" id="Facevalue" class="form-control" placeholder="Enter your Face Value" />
                                         </td>
                                     </tr>
-              
+
 
                                 </table>
                             </div>
@@ -519,50 +505,52 @@ else
                 </div>
             </div>
         </div>
-    
+
 
     </div>
     <script src="~/js/jquery-3.3.1.min.js"></script>
 
     <script type="text/javascript">
-       
+
     </script>
 
     <script>
+
+
         function FindReturnamount() {
-           
-       
-            var principal =parseInt($("#Opening_Balance").val());
+
+
+            var principal = parseInt($("#Opening_Balance").val());
             var rate = $("#intrest").val();
             var year1 = new Date($("#OpeningDATE").val()).getFullYear();
             var year2 = new Date($("#Minimum_Balance").val()).getFullYear();
             var month1 = new Date($("#OpeningDATE").val()).getMonth();
             var month2 = new Date($("#Minimum_Balance").val()).getMonth();
 
-           
-            var monthdiff = (month2 - month1)/12;
+
+            var monthdiff = (month2 - month1) / 12;
             var duration = (year2 - year1) + monthdiff;
             var returnamt = Math.round(((principal * rate * duration) / 100) + principal);
-           
+
 
             $("#returnamount").val(returnamt);
             console.log(duration);
         }
-       
+
         function reset() {
             $('#Opening_Balance').val(0);
             $('#Modeofoperation').val("Self");
 
             $('#Minimum_Balance').val(0);
-            $('#Currentbal').val(0); 
+            $('#Currentbal').val(0);
             $('#OpeningDATE').val("");
             $('#intrest').val("");
-            
+
 
 
         }
         $(document).ready(function () {
-            
+
             var id = getUrlVars()["id"];
             var Accountopeningid = getUrlVars()["Accountopeningid"];
             var AcType = getUrlVars()["AcType"];
@@ -646,7 +634,7 @@ else
             });
         }
         function BindPreDetail(DepartmentId, AcType, CustCod) {
-            
+
             $.ajax({
                 url: "/Custmer/GetByIdCustomer?id=" + CustCod,
                 typr: "GET",
@@ -663,7 +651,7 @@ else
                         $('#Permanentaddress').val(result.CUR_ADDRESS_1);
 
 
-                  
+
                     $("#Presentaddress").val(result.PER_ADDRESS_1);
                     $("#Sex").val(result.SEX);
                     $("#Caste").val(result.CASTE);
@@ -708,7 +696,7 @@ else
                     $("#Facevalue").val(result.Result.Facevalue);
                     $("#NoUnint").val(result.Result.NoUnint);
                     $("#Enterancefee").val(result.Result.Enterancefee);
-                 
+
                     $("#OpeningDATE").val(result.Result.OpeningDATE);
 
                     $("#IntroducerPresentaddress").val(result.Result.IntroducerPresentaddress);

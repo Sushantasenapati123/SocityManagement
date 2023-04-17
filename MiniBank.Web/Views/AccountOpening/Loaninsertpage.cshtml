@@ -2,19 +2,7 @@
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     //ViewData["Title"] = "RoleView";
-    // Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@if (ViewBag.Role == "Manager")//Executive Assistant
-{
-    Layout = "~/Views/Shared/ManagerLayout.cshtml";
-}
-else if ((ViewBag.Role == "Executive Assistant"))
-{
-    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
-}
-else
-{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
 }
 
 <head>
@@ -141,18 +129,18 @@ else
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="badge-light"> Opening Date <span class="text-danger">*</span></label>
-                                <input type="datetime" id="OpeningDATE" class="form-control"  readonly />
+                                <input type="datetime" id="OpeningDATE" class="form-control" readonly />
                             </div>
                             @*<div class="form-group col-md-2">
-                                <label class="badge-light" id="Loan">Loan Type<span class="text-danger">*</span></label>
-                                <select class="form-control" id="loantype">
-                                    <option value="0">-Select-</option>
-                                    <option value="Agriculture Loan">Agriculture Loan</option>
-                                    <option value="Housing Loan">Housing Loan</option>
-                                    <option value="vehicle Loan">vehicle Loan</option>
+                                    <label class="badge-light" id="Loan">Loan Type<span class="text-danger">*</span></label>
+                                    <select class="form-control" id="loantype">
+                                        <option value="0">-Select-</option>
+                                        <option value="Agriculture Loan">Agriculture Loan</option>
+                                        <option value="Housing Loan">Housing Loan</option>
+                                        <option value="vehicle Loan">vehicle Loan</option>
 
-                                </select>
-                            </div>*@
+                                    </select>
+                                </div>*@
                             <div class="form-group col-md-4">
                                 <label class="badge-light">Senior Citizen?<span class="text-danger">*</span></label>
                                 <select class="form-control" id="Seniorcitizen" disabled>
@@ -225,27 +213,27 @@ else
                                     <option value="Other">jointly three</option>
                                 </select>
                             </div>
-                         <div class="col-6">
-                            <label class="badge-light" id="Loan">Loan Type<span class="text-danger">*</span></label>
-                            <select class="form-control" id="loantype" style="width:280px">
-                                <option value="0">-Select-</option>
-                                <option value="Agriculture Loan">Agriculture Loan</option>
-                                <option value="Housing Loan">Housing Loan</option>
-                                <option value="vehicle Loan">vehicle Loan</option>
+                            <div class="col-6">
+                                <label class="badge-light" id="Loan">Loan Type<span class="text-danger">*</span></label>
+                                <select class="form-control" id="loantype" style="width:280px">
+                                    <option value="0">-Select-</option>
+                                    <option value="Agriculture Loan">Agriculture Loan</option>
+                                    <option value="Housing Loan">Housing Loan</option>
+                                    <option value="vehicle Loan">vehicle Loan</option>
 
-                            </select>
-                        </div>
-                         
+                                </select>
+                            </div>
+
                         </div>
 
                         <div class="row">
                             <div class="col-6">
                                 <label class="badge-light"> Opening Balance <span class="text-danger">*</span></label>
-                                <input type="number" id="Opening_Balance" class="form-control" style="width:280px" placeholder="0" readonly/>
+                                <input type="number" id="Opening_Balance" class="form-control" style="width:280px" placeholder="0" readonly />
                             </div>
                             <div class="col-6">
                                 <label class="badge-light"> Loan Amount <span class="text-danger">*</span></label>
-                                <input type="number" id="Minimum_Balance" class="form-control" style="width:280px" placeholder="0"/>
+                                <input type="number" id="Minimum_Balance" class="form-control" style="width:280px" placeholder="0" />
                             </div>
                         </div>
 
@@ -264,29 +252,29 @@ else
                                         </td>
                                     </tr>
                                     @*<tr>
-                                        <td>
-                                            <label class="badge-light">No Of Unit(s)<span class="text-danger">*</span></label>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="NoUnint" class="form-control" placeholder="Enter your Unit..." />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label class="badge-light">Entrance Fee<span class="text-danger">*</span></label>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="Enterancefee" class="form-control" placeholder="Enter your Fee" />
-                                        </td>
-                                    </tr>*@
+                                            <td>
+                                                <label class="badge-light">No Of Unit(s)<span class="text-danger">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" id="NoUnint" class="form-control" placeholder="Enter your Unit..." />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label class="badge-light">Entrance Fee<span class="text-danger">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" id="Enterancefee" class="form-control" placeholder="Enter your Fee" />
+                                            </td>
+                                        </tr>*@
                                     <tr>
                                         <!--<td>
                                             <label class="badge-light">Introducer(Customer) PresentAddress<span class="text-danger">*</span></label>
                                         </td>
                                         <td>
                                             <div>-->
-                                                @*<input type="text" style="width:25px" id="Txtpresentaddpre" />*@
-                                                <!--<input type="text" id="IntroducerPresentaddress" class="form-control" placeholder="Enter CustomeAddress" />
+                                        @*<input type="text" style="width:25px" id="Txtpresentaddpre" />*@
+                                        <!--<input type="text" id="IntroducerPresentaddress" class="form-control" placeholder="Enter CustomeAddress" />
                                             </div>
 
                                         </td>-->
@@ -364,7 +352,7 @@ else
                                             </td>
 
                                         </tr>
-                                      
+
                                         <tr>
                                             <td><label class="badge-light">A/C Statusss<span class="text-danger"></span></label></td>
                                             <td>
@@ -529,7 +517,7 @@ else
                         </div>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary"  style="height:45px;margin-left:400px" id="SaveData" onclick="Add()" value="Save">Save</button>
+                        <button type="submit" class="btn btn-primary" style="height:45px;margin-left:400px" id="SaveData" onclick="Add()" value="Save">Save</button>
                         <input type="reset" onclick="reset()" class="button" value="reset">
                     </div>
                 </div>
@@ -639,7 +627,7 @@ else
                     $("#Certificateno").val("00" + result.NewAccountNo);
                     $("#Seniorcitizen").val(result.SENIOR_CITIZEN);
                     $("#staff").val(result.IS_STAFF);
-                   
+
                     $('#OpeningDATE').val(result.serverdate + " " + time);
 
 
@@ -686,7 +674,7 @@ else
 
 
 
-      
+
         if ($('#Opening_Balance').val() == "") {
             alert("Please Enter Opening Balance");
             return false;
@@ -703,7 +691,7 @@ else
             alert("Loan Amount must be greater or equal to 5000");
             return false;
         }
-       
+
         if ($('#Nomineename1').val() == "") {
             alert("Please Enter Nominee Name");
             return false;

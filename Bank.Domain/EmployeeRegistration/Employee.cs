@@ -12,6 +12,8 @@ namespace Bank.Domain.EmployeeRegistration
       
         public string branch_id { get; set; }
         public int DesgId { get; set; }
+
+        public int ROLE_ID { get; set; }
         //public string Designation { get; set; }
 
         public string DateOfJoin { get; set; }
@@ -20,6 +22,7 @@ namespace Bank.Domain.EmployeeRegistration
         public string Photo { get; set; }
         [NotMapped]
         public string DesgName { get; set; }
+        public string ROLE_NAME { get; set; }
 
     }
 }

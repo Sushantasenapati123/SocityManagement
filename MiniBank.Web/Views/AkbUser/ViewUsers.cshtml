@@ -1,4 +1,6 @@
 ﻿@{ var listdata = ViewBag.Userlist as Task<IEnumerable<Bank.Domain.User.UserEntity>>; }
+@{ ViewData["Title"] = "AdminRegistation";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml"; }
 <style>
     tr {
         text-align: center;
@@ -64,8 +66,9 @@
                     <td>@items.USER_EMAIL</td>
                     <td>@items.USER_MOBILE</td>
                     <td><a class="btn btn-outline-secondary" href="/AkbUser/EditUsers?id=@items.ID">Edit</a>|<a class="btn btn-outline-danger" id="txtdelete" href="/AkbUser/DeleteUsers?id=@items.ID">Delete</a></td>
-                </tr>count++;
-                            }
+                </tr>
+count++;
+            }
                         </tbody>
                     </table>
                 </div>

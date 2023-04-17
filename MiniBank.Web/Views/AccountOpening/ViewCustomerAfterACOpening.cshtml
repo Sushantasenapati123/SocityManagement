@@ -1,21 +1,11 @@
 ﻿@model Bank.Domain.AccountOpening.AccountopeningEntity
 @{
     ViewData["Title"] = "ViewDoctor";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
     var ResultData = ViewBag.Res as List<Bank.Domain.AccountOpening.AccountopeningEntity>;
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
 }
-@if (ViewBag.Role == "Manager")//Executive Assistant
-{
-    Layout = "~/Views/Shared/ManagerLayout.cshtml";
 }
-else if ((ViewBag.Role == "Executive Assistant"))
-{
-    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
-}
-else
-{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 <div class="page-title">
     <div class="title-details">
         <nav aria-label="breadcrumb">

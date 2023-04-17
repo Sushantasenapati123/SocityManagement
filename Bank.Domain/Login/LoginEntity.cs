@@ -7,6 +7,7 @@ namespace Bank.Domain.Login
     public class LoginEntity
     {
         public int Id { get; set; }
+        public int ROLE_ID { get; set; }
         public string USER_ID { get; set; }
         public string USER_PASSWORD { get; set; }
 

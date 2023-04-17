@@ -2,19 +2,7 @@
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     //ViewData["Title"] = "RoleView";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@if (ViewBag.Role == "Manager")//Executive Assistant
-{
-    Layout = "~/Views/Shared/ManagerLayout.cshtml";
-}
-else if ((ViewBag.Role == "Executive Assistant"))
-{
-    Layout = "~/Views/Shared/FrontOfficeLayout.cshtml";
-}
-else
-{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
 }
 
 <head>
@@ -230,8 +218,8 @@ else
                                 <input type="number" id="Opening_Balance" class="form-control" style="width:280px" readonly />
                             </div>
                             <div class="col-6">
-                                 <label class="badge-light"> Minimum Balance <span class="text-danger">*</span></label>
-                                 <input type="number" id="Minimum_Balance" class="form-control" style="width:280px" readonly/>
+                                <label class="badge-light"> Minimum Balance <span class="text-danger">*</span></label>
+                                <input type="number" id="Minimum_Balance" class="form-control" style="width:280px" readonly />
                             </div>
                         </div>
 
@@ -509,7 +497,7 @@ else
 
     </div>
     <script src="~/js/jquery-3.3.1.min.js"></script>
-   
+
     <script>
         $(document).ready(function () {
             var Openingdetails_id = getUrlVars()["id"];
@@ -519,8 +507,8 @@ else
                 BindDetail(Openingdetails_id);
             }
         });
-   
-        
+
+
 
         function back() {
             location.href = "../AccountOpening/ViewAppprovedCustomer";
@@ -620,9 +608,9 @@ else
         //    button: "oh no!",
         //});
 
-       // swal("Oops!", "Something went wrong, you should choose again!", "error");
+        // swal("Oops!", "Something went wrong, you should choose again!", "error");
 
-       // swal("Here's a message!", " Have a nice day!")
+        // swal("Here's a message!", " Have a nice day!")
 
         //swal({
         //    title: "Good job!",
@@ -644,11 +632,11 @@ else
         //        swal("remove it!", "Imaginary file remove it.", "Confirm");
         //    });
 
-       
+
     }
 
     //function Add() {
-        
+
     //    if ($('#Currentbal').val() == "") {
     //        alert("Please Enter Current Balance");
     //        return false;
