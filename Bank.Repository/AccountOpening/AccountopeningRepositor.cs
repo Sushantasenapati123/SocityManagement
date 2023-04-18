@@ -35,7 +35,7 @@ namespace Bank.Repository.AccountOpening
                     dypara.Add("@Currentbal", acc.Currentbal);
                     dypara.Add("@Seniorcitizen", acc.Seniorcitizen);
                     dypara.Add("@customername", acc.customername);
-                    dypara.Add("@Certificateno", acc.Certificateno);
+                    dypara.Add("@Certificateno", acc.Accountno);
                     dypara.Add("@staff", acc.staff);
                     dypara.Add("@Accountno", acc.Accountno);
                      dypara.Add("@Sex", acc.Sex);

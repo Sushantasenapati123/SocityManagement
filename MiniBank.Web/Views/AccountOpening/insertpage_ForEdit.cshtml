@@ -122,27 +122,29 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label class="badge-light">Head of Account<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="Openingdetails_id" hidden />
                                 <input type="text" class="form-control" id="HeadOfAccount" readonly />
 
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <label class="badge-light">Customer Code<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="Customer_Code" readonly />
                             </div>
-                            <div class="form-group col-md-2">
-                                <label class="badge-light" id="bal">Current Bal.<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="Currentbal" placeholder="Please Enter Current Balance"  />
-                            </div>
-                            <div class="form-group col-md-4">
+
+
+                            <div class="form-group col-md-3">
                                 <label class="badge-light">Senior Citizen?<span class="text-danger">*</span></label>
-                                <select class="form-control" id="Seniorcitizen" disabled>
+                                <select class="form-control" id="Seniorcitizen" disabled style="width:230px">
                                     <option value="No">N</option>
                                     <option value="Yes">Y</option>
 
                                 </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="badge-light"> Opening Date <span class="text-danger">*</span></label>
+                                <input type="datetime-local" id="OpeningDATE" class="form-control" style="width:230px" readonly />
                             </div>
                         </div>
                         <div class="row">
@@ -202,15 +204,16 @@
                         <div class="row">
                             <div class="col-6">
                                 <label class="badge-light">Mode Of Operation<span class="text-danger">*</span></label>
-                                <select style="width:280px" id="Modeofoperation" class="form-control" >
+                                <select style="width:280px" id="Modeofoperation" class="form-control">
                                     <option value="Self">Self</option>
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label class="badge-light"> Opening Date <span class="text-danger">*</span></label>
-                                <input type="datetime-local" id="OpeningDATE" class="form-control" style="width:280px" readonly />
+                                <label class="badge-light" id="bal">Current Bal.<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="Currentbal" placeholder="Please Enter Current Balance" style="width:277px"/>
                             </div>
+                         
                         </div>
                         <div class="row">
                             <div class="col-6">
@@ -466,7 +469,8 @@
                         @*<button type="submit" clas="btn btn-primary" style="height:45px" id="SaveData" onclick="Add()" value="Save">Save</button>*@
                         <input type="button" onclick="Update()" class="btn btn-success" value="Update" style="margin-left:473px;margin-bottom:20px">
                         @*<input type="button" onclick="Approve(2)" class="btn btn-danger " value="Reject" style="margin-right: 400px; margin-bottom: 20px ">*@
-                        <input type="text" hidden id="Openingdetails_id" />
+                        <input type="button" onclick="Cancel()" class="btn btn-danger" value="Cancel" style="margin-left:px;margin-bottom:20px">
+
 
 
                     </div>
@@ -488,6 +492,9 @@
                 BindDetail(Openingdetails_id);
             }
         });
+        function Cancel() {
+            location.href = "/AccountOpening/ViewPendingAccount";
+        }
        
         function Update() {
 
@@ -643,28 +650,69 @@
             if (Pinvalidate('pincode1', 'lblCurErrorPin') == true && PhonevalidateO('phone1', 'lblErrorphone1') == true &&
                 PhonevalidateO('Altphone1', 'lblErrorAltphone1') == true) {
 
-                if (confirm("Are you sure you want to Submit ?")) {
-                    $.ajax({
-                        type: "POST",
-                        url: "/AccountOpening/insertpage",
-                        data: empObj,
-                        /*     type: "POST",*/
-                        success: function (result) {
-                            if (result == 1)
-                                alert("Registation Successfully")
-                            else
-                                alert("Update Successfully")
 
-                            @*if ("@ViewBag.Role" == "Manager")//j
-                                location.href = "../AccountOpening/ViewPendingCustomer";//pending account
-                            else
-                                location.href = "../AccountOpening/ViewBranchWiseCustomer";*@
-                },
-                        error: function (errormessage) {
-                            alert("Eror");
-                        }
-                    });
-                }//confirm
+                Swal.fire({
+                    title: 'Are you sure?',
+                    //text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Update it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/AccountOpening/insertpage",
+                            data: empObj,
+                            /*     type: "POST",*/
+                            success: function (result) {
+                                if (result == 1) {
+                                    Swal.fire({
+                                        title: 'Registration Successful?',
+                                        // text: "You won't be able to revert this!",
+                                        icon: 'success',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        timer: 2000
+
+
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.href = "/AccountOpening/ViewPendingAccount"
+
+                                        }
+                                    })
+                                }
+                                else {
+                                    Swal.fire({
+                                        title: 'Update Successful',
+                                        // text: "You won't be able to revert this!",
+                                        icon: 'success',
+                                        showCancelButton: false,
+                                        confirmButtonColor: '#3085d6',
+                                        timer: 2000
+
+
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.href = "/AccountOpening/ViewPendingAccount"
+
+                                        }
+                                    })
+
+                                }
+
+
+
+                            },
+                            error: function (errormessage) {
+                                alert("Eror");
+                            }
+                        });
+                    }
+
+                })
 
             }//outer if
 

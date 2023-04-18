@@ -505,6 +505,7 @@
                         <input type="button" onclick="Update()" class="btn btn-success" value="Update" style="margin-left:473px;margin-bottom:20px">
                         @*<input type="button" onclick="Approve(2)" class="btn btn-danger " value="Reject" style="margin-right: 400px; margin-bottom: 20px ">*@
                         <input type="text" hidden id="Openingdetails_id" />
+                        <input type="button" onclick="Cancel()" class="btn btn-danger" value="Cancel" style="margin-left:px;margin-bottom:20px">
 
 
                     </div>
@@ -561,6 +562,9 @@
 
             }
         });
+        function Cancel() {
+            location.href = "/AccountOpening/ViewPendingAccount";
+        }
         function show() {
             if (headofaccount != "Loan") {
                 if ($("#Voucher_Type").val() == 'Transfer')
@@ -572,85 +576,6 @@
             }
 
         }
-        var rowIdx = "";
-        $('#addBtn').on('click', function () {
-            if ($("#tblcollect_amt_frombank").find("tr").length == 6) {
-                alert("Maximun from 5 Bank You Can Transfer Money");
-                return
-            }
-            /* Adding a row inside the tbody.<input  class="abcd" id="txtBankName">*/
-            $('#tbody').append(`<tr id="R${++rowIdx}">
-                                                                         <td class="row-index text-center">
-                                                                           <input id="txtMedicineName" class="inputs">
-                                                                         </td>
-                                                                         <td class="row-index text-center">
-                                                                           <input id="txtPrice" type="text" maxlength = "100" size = "10"class=" m-input" readonly>
-                                                                        </td>
-                                                                        <td class="row-index text-center">
-                                                                           <input  class="m-input" type="number">
-                                                                        </td>
-                                                                        <td class="text-center" colspan="2">
-                                                                            <button class="btn btn-danger remove"
-                                                                              type="button">Remove</button>
-                                                                        </td>
-                                                                          </tr>`
-            );
-        });
-
-        $(document).on('keypress', '.inputs', function () {
-
-
-            $('#tblcollect_amt_frombank tbody tr').each(function (index) {
-                var row = this;
-                $(this).find("td").eq(0).find("#txtMedicineName").autocomplete({
-                    source: function (request, response) {
-                        $.ajax({
-                            url: '/AccountOpening/AutoComplete/',
-                            data: { "prefix": request.term },
-                            type: "POST",
-                            success: function (data) {
-                                response($.map(data, function (item) {
-                                    return item;
-                                }))
-                            },
-                            error: function (response) {
-                                alert(response.responseText);
-                            },
-                            failure: function (response) {
-                                alert(response.responseText);
-                            }
-                        });
-                    },
-                    //select: function (e, i) {
-                    //    $(row).find('td').find("#hdnMedicineId").val(i.item.val);
-                    //},
-                    minLength: 1
-                });
-            });
-        });
-
-        $(document).on('change', '.inputs', function () {
-            $('#tblcollect_amt_frombank tbody tr').each(function (index) {
-                var row = this;
-                $(this).find("td").eq(0).find("#txtMedicineName").blur(function () {
-                    debugger
-                    $.ajax({
-                        url: "/AccountOpening/GetGLcodeByGLName?BankNAme=" + $(row).find('td').find("#txtMedicineName").val(),
-                        type: "GET",
-                        success: function (result) {
-                            debugger
-                            data = JSON.parse(result);
-                            //alert(result);
-                            $(row).find('td').next('td').find("#txtPrice").val(data);
-                        },
-                        error: function (error) {
-                            jsonValue = jQuery.parseJSON(error.responseText);
-                            alert("Error : " + jsonValue);
-                        }
-                    });
-                });
-            });
-        });
 
         var status;
         function Update()
@@ -717,36 +642,7 @@
             alert("Please Enter Nominee first Address");
             return false;
         }
-        //if ($('#Nomineeaddress2nd1').val() == "") {
-        //    alert("Please Enter Nominee Second Address");
-        //    return false;
-        //}
-
-
-        //if ($('#Nomineeaddress3rd1').val() == "") {
-        //    alert("Please Enter Nominee Third Address");
-        //    return false;
-        //}
-        //if ($('#pincode1').val() == "") {
-        //    alert("Please Enter PinCode");
-        //    return false;
-        //}
-        //if ($('#phone1').val() == "") {
-        //    alert("Please Enter Phone No.");
-        //    return false;
-        //}
-        //if ($('#Altphone1').val() == "") {
-        //    alert("Please Enter Alt Phone No.");
-        //    return false;
-        //}
-        //if ($('#Minimumbal1').val() == "") {
-        //    alert("Please Enter Minimumbal");
-        //    return false;
-        //}
-        //if ($('#Status1').val() == "") {
-        //    alert("Please Enter Status");
-        //    return false;
-        //}
+       
 
 
         var empObj = {
@@ -804,31 +700,73 @@
             Minimumbal3: $('#Minimumbal3').val(),
             Status3: $('#Status3').val()
         };
-        if (Pinvalidate('pincode1', 'lblCurErrorPin') == true && PhonevalidateO('phone1', 'lblErrorphone1') == true &&
-            PhonevalidateO('Altphone1', 'lblErrorAltphone1') == true) {
+            if (Pinvalidate('pincode1', 'lblCurErrorPin') == true && PhonevalidateO('phone1', 'lblErrorphone1') == true &&
+                PhonevalidateO('Altphone1', 'lblErrorAltphone1') == true) {
 
-                if (confirm("Are you sure you want to Submit ?")) {
-            $.ajax({
-                type: "POST",
-                url: "/AccountOpening/insertpage",
-                data: empObj,
-                /*     type: "POST",*/
-                success: function (result) {
-                    if (result==1)
-                        alert("Registation Successfully")
-                    else
-                        alert("Update Successfully")
+                Swal.fire({
+                    title: 'Are you sure?',
+                    //text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Update it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/AccountOpening/insertpage",
+                            data: empObj,
+                            /*     type: "POST",*/
+                            success: function (result) {
+                                if (result == 1) {
+                                    Swal.fire({
+                                        title: 'Registration Successful?',
+                                        // text: "You won't be able to revert this!",
+                                        icon: 'success',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
 
-                    @*if ("@ViewBag.Role" == "Manager")//j
-                        location.href = "../AccountOpening/ViewPendingCustomer";//pending account
-                    else
-                        location.href = "../AccountOpening/ViewBranchWiseCustomer";*@
-                },
-                error: function (errormessage) {
-                    alert("Eror");
-                }
-            });
-        }//confirm
+
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.href = "/AccountOpening/ViewPendingAccount"
+
+                                        }
+                                    })
+                                }
+                                else {
+                                    Swal.fire({
+                                        title: 'Update Successful',
+                                        // text: "You won't be able to revert this!",
+                                        icon: 'success',
+                                        showCancelButton: false,
+                                        confirmButtonColor: '#3085d6',
+
+
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.href = "/AccountOpening/ViewPendingAccount"
+
+                                        }
+                                    })
+
+                                }
+
+
+
+                            },
+                            error: function (errormessage) {
+                                alert("Eror");
+                            }
+                        });
+                    }
+                  
+                })
+            
+            
+           
+      
 
         }//outer if
 
@@ -894,8 +832,7 @@
                     $("#Presentaddress").val(result.PER_ADDRESS_1);
                     $("#Sex").val(result.SEX);
                     $("#Caste").val(result.CASTE);
-                    $("#Accountno").val("00" + result.NewAccountNo);
-                    $("#Certificateno").val("00" + result.NewAccountNo);
+                  
                     $("#Seniorcitizen").val(result.SENIOR_CITIZEN);
                     $("#staff").val(result.IS_STAFF);
 
@@ -924,8 +861,8 @@
                     $("#Presentaddress").val(result.Result.Presentaddress);
                     $("#Sex").val(result.Result.Sex);
                     $("#Caste").val(result.Result.Caste);
-                    $("#Accountno").val("00" + result.Result.Accountno);
-                    $("#Certificateno").val("00" + result.Result.Certificateno);
+                    $("#Accountno").val("00"+ result.Result.Accountno);
+                    $("#Certificateno").val("00"+result.Result.Certificateno);
                     $("#Seniorcitizen").val(result.Result.Seniorcitizen);
                     $("#staff").val(result.Result.staff);
                     $("#Opening_Balance").val(result.Result.Opening_Balance);

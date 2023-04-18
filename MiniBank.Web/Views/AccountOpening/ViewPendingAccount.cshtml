@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
     var ResultData = ViewBag.Result as List<Bank.Domain.AccountOpening.AccountopeningEntity>;
 }
+<head>
+    <script src="https://kit.fontawesome.com/27be94b9e4.js" crossorigin="anonymous"></script>
+</head>
 
 <div class="page-title">
     <div class="title-details">
@@ -93,10 +96,8 @@
                                         <td>
 
 
-                                            <button type="button" onclick="ViewAccount('@list.Openingdetails_id','@list.HeadOfAccount')" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">Edit</button>
-
-
-                                        </td>
+                                            <button type="button" onclick="ViewAccount('@list.Openingdetails_id','@list.HeadOfAccount')" class="btn btn-success btn-sm No hbtn" data-dismiss="modal" aria-label="Close"> <i class="fa-regular fa-pen-to-square"></i></button>
+                                           
                                     </tr>
 
                                     count++;
