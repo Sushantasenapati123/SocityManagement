@@ -29,7 +29,7 @@ namespace MiniBank.Web.Controllers
             }
 
             [HttpPost]
-            public IActionResult loginpage(LoginEntity obj)
+            public JsonResult loginpage(LoginEntity obj)
             {
                 var result = _IloginRepository.GetDetails(obj);
                 if (result.Count > 0)
@@ -40,9 +40,9 @@ namespace MiniBank.Web.Controllers
                     HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
                     HttpContext.Session.SetString("Branch", result[0].Branch_Name);
                     HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
-
-                    return RedirectToAction("AddaccountSales", "AccountType");
-                    }
+                    return Json(1);
+                    //return RedirectToAction("AddaccountSales", "AccountType");
+                }
                     else                     {
                          HttpContext.Session.SetInt32("USERID", result[0].Id);
                         if(result[0].Branch_Name==null && result[0].ROLE_NAME==null)
@@ -53,23 +53,25 @@ namespace MiniBank.Web.Controllers
                         HttpContext.Session.SetString("Branch", result[0].adminbranchName);
                         HttpContext.Session.SetString("Userid", result[0].USER_ID);
                         HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
-                        return RedirectToAction("AdminDashboard", "Account");
+                        return Json(2);
+                        //return RedirectToAction("AdminDashboard", "Account");
                     }
                          HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
                          HttpContext.Session.SetString("Branch", result[0].Branch_Name);
                          HttpContext.Session.SetString("Userid", result[0].USER_ID);
                     HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
-
-                    return RedirectToAction("index", "AccountOpening");
-                    }
+                    return Json(3);
+                    //return RedirectToAction("index", "AccountOpening");
+                }
                   
                    
                 }
                 else
                 {
                     ViewBag.msg = "User Id And Password !!!!!";
-                    return View();
-                }
+                return Json(4);
+                //return View();
+            }
 
             }
         }

@@ -88,7 +88,7 @@ namespace Bank.Repository.AccountOpening
                     int res = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
                     var cc = Convert.ToInt32(dypara.Get<String>("PMSGOUT"));
                     //return cc;
-                    return res;
+                    return cc;
 
                 
             }

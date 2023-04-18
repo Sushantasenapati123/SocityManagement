@@ -37,6 +37,14 @@ namespace MiniBank.Web.Controllers
             // ViewBag.USERID = X.Result.branch_id;
             return View();
         }
+        [HttpGet]
+        public IActionResult insertpage_ForEdit(string id = null)
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var X = _IAccountopeningRepository.getdetails(id);
+            // ViewBag.USERID = X.Result.branch_id;
+            return View();
+        }
         [HttpPost]
         public IActionResult insertpage(AccountopeningEntity empObj)
         {
@@ -87,6 +95,14 @@ namespace MiniBank.Web.Controllers
             return View();
         }
         [HttpGet]
+        public IActionResult Loaninsertpage_ForEdit(string id = null)
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var X = _IAccountopeningRepository.getdetails(id);
+            // ViewBag.USERID = X.Result.branch_id;
+            return View();
+        }
+        [HttpGet]
         public IActionResult Fixdeposit_insertpage(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
@@ -104,6 +120,14 @@ namespace MiniBank.Web.Controllers
         }
         [HttpGet]
         public IActionResult Fixdeposit_insertpage2(string id = null)
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var X = _IAccountopeningRepository.getdetails(id);
+            // ViewBag.USERID = X.Result.branch_id;
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Fixdeposit_insertpage2_forEdit(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
             var X = _IAccountopeningRepository.getdetails(id);
@@ -313,7 +337,7 @@ namespace MiniBank.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> ViewPendingCustomer()
+        public async Task<IActionResult> ViewPendingCustomer()////pending account
         {
             List<BranchEntity> pc5 = new List<BranchEntity>();
             pc5 = await _Branch.getbranch();
@@ -323,6 +347,22 @@ namespace MiniBank.Web.Controllers
             HttpContext.Session.SetString("Approved", "Approved");
             AccountopeningEntity cu = new AccountopeningEntity();
             cu.Branch_Name= HttpContext.Session.GetString("Branch");
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+
+            ViewBag.Result = await _cost.listPendingcustmer(cu);
+            return View();
+        }
+        public async Task<IActionResult> ViewPendingAccount()////pending account by Executive assistance
+        {
+            List<BranchEntity> pc5 = new List<BranchEntity>();
+            pc5 = await _Branch.getbranch();
+            pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
+            ViewBag.Branch = pc5;
+
+            HttpContext.Session.SetString("Approved", "Approved");
+            AccountopeningEntity cu = new AccountopeningEntity();
+            cu.Branch_Name = HttpContext.Session.GetString("Branch");
             ViewBag.Role = HttpContext.Session.GetString("Role");
             ViewBag.Branchn = HttpContext.Session.GetString("Branch");
 
