@@ -14,6 +14,7 @@ namespace Bank.Irepository.Customer
         Task<IEnumerable<Report>> getAccountType();
         Task<IEnumerable<CustmerEntity>> listcustmer(CustmerEntity cu);
         Task<IEnumerable<Report>> listOfReport(Report cu);
+        Task<IEnumerable<Report>> listOfTranscationReportByAccountNum(Report cu);
         Task<IEnumerable<CustmerEntity>> listcustmerBranchWise(CustmerEntity cu);
         public int ApprovedCustomer(int id, string manager,int status);//approve customer profile//
         public int ChangeBranchByAdmin(int id, string manager);

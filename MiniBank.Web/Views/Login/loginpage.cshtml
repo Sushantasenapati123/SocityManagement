@@ -45,16 +45,7 @@
         }
     </style>
 </head>
-@if (ViewBag.msg != null)
-{
-    @*<script>
 
-               // alert("@ViewBag.msg");
-                Swal.fire("jhbhj");
-
-
-        </script>*@
-}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link href="~/css/aa.css" rel="stylesheet" />
 <script src="https://kit.fontawesome.com/27be94b9e4.js" crossorigin="anonymous"></script>
@@ -69,12 +60,16 @@
                         <input type="text" class="" asp-for="USER_ID" placeholder="USERID">
                         <input type="password" asp-for="USER_PASSWORD" placeholder="PASSWORD">
 
-                        <input type="text" id="capcha" placeholder="Capcha">
-                        
-                        <div class="preview"></div>
-                        <button class="captcha_refersh">
+
+                        <button class="captcha_refersh" style="float: right;margin-top:20px">
                             <i class="fa fa-refresh"></i>
                         </button>
+                        <div style="overflow: hidden; padding-right: .5em;">
+                            <input type="text" id="capcha" placeholder="Capcha" style="width: 100%;">
+                        </div>
+                       
+                        <div class="preview"></div>
+
                         <button class="submit" id="btnLogin">LET'S GO</button>
                     </div>
                 </div>

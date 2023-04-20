@@ -412,12 +412,35 @@ namespace Bank.Repository.Customer
                 //if (cu.CUSTOMER_NAME == null)
                 //    cu.CUSTOMER_NAME = "";
                 var dypara = new DynamicParameters();
-                dypara.Add("@branch_id4", cu.branch_id);
+                dypara.Add("@branch_id5", cu.Branch);
                 dypara.Add("@From_Date", cu.From_Date);
                 dypara.Add("@To_Date", cu.To_Date);
                 dypara.Add("@AccountType_id", cu.AccountType_id);
 
                 dypara.Add("@Action", "BindReport");
+
+                var res = Connection.Query<Report>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<Report>> listOfTranscationReportByAccountNum(Report cu)
+        {
+            try
+            {
+                var query = "USP_customer";
+              
+                var dypara = new DynamicParameters();
+                dypara.Add("@From_Date", cu.From_Date);
+                dypara.Add("@To_Date", cu.To_Date);
+                dypara.Add("@NewAccountNo", cu.NewAccountNo);
+
+                dypara.Add("@Action", "getall_Transacionbyacctno");
 
                 var res = Connection.Query<Report>(query, dypara, commandType: CommandType.StoredProcedure);
                 return res.ToList();

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using static Bank.Domain.Customer.CustmerEntity;
 
 namespace Bank.Irepository.AccountType
 {
@@ -15,5 +16,6 @@ namespace Bank.Irepository.AccountType
         int Updateaccount(AccountTypeModel at);
         int Deleteaccount(int id);
         int getgicode(string GlGroup_code);
+        Task<IEnumerable<Report>> getAllAccount();
     }
 }

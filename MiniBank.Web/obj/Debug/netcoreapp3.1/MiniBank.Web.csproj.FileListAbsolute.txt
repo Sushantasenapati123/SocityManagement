@@ -2258,7 +2258,6 @@ C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\o
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\MiniBank.Web.AssemblyInfoInputs.cache
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\MiniBank.Web.AssemblyInfo.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\MiniBank.Web.csproj.CoreCompileInputs.cache
-C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\MiniBank.Web.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\MiniBank.Web.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\MiniBank.Web.RazorAssemblyInfo.cache
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\MiniBank.Web.RazorAssemblyInfo.cs
@@ -2363,3 +2362,4 @@ C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\o
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\Fixdeposit_insertpage2_forEdit.cshtml.g.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\insertpage_ForEdit.cshtml.g.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\Loaninsertpage_ForEdit.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\ViewTransactionReport.cshtml.g.cs

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Threading.Tasks;
+using static Bank.Domain.Customer.CustmerEntity;
 
 namespace Bank.Repository.AccountYpe
 {
@@ -174,5 +175,26 @@ namespace Bank.Repository.AccountYpe
             
             
         }
+        public async Task<IEnumerable<Report>> getAllAccount()
+        {
+            try
+            {
+                AccountTypeModel at = new AccountTypeModel();
+                var query = "usp_account";
+
+                var dypara = new DynamicParameters();
+                dypara.Add("@action", "SA");
+
+                var result = await Connection.QueryAsync<Report>(query, dypara, commandType: CommandType.StoredProcedure);
+                return result;
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

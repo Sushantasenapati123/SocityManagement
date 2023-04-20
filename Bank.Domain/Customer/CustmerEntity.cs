@@ -51,12 +51,13 @@ namespace Bank.Domain.Customer
 
         public string GL_Code { get; set; }//CurPHONE_NO_1
         public string Account_Number { get; set; }//CurPHONE_NO_2
-        public string Gl_Type { get; set; }//CurPHONE_NO_2
-        public string Trans_Date { get; set; }//CurPHONE_NO_2
+      
+        public string Trans_Date { get; set; }
 
 
-
-
+        public string gl_nature { get; set; }
+        public string Gl_Type { get; set; }//use  for account type 
+        public string GL_NAME { get; set; }
         public string PHONE_NO_1 { get; set; }
         public string PER_PHN_2 { get; set; }
         public string PHONE_NO_2 { get; set; }
@@ -103,8 +104,23 @@ namespace Bank.Domain.Customer
         //------paging --------//'/
         public int AddreeProofType { get; set; }
         public string AddreeProofCopy { get; set; }
+        /// <summary>
+        /// //////////////
+        /// 
+        /// 
+        /// 
+        /// </summary>
+        /// 
+        public string Trans_TimeOfEntry { get; set; }
+        public string Credit { get; set; }
+        public string From_Date { get; set; }
+        public string To_Date { get; set; }
 
-        
+
+        public int AccountType_id { get; set; }
+
+
+
         public class CustomerModel
         {
             ///<summary>
@@ -122,7 +138,8 @@ namespace Bank.Domain.Customer
             ///</summary>
             public int PageCount { get; set; }
         }
-        public class Report
+       
+        public class Report1
         {
             //for binding Entity
             public string Account_Type { get; set; }//
@@ -133,13 +150,47 @@ namespace Bank.Domain.Customer
             public string From_Date { get; set; }
             public string To_Date { get; set; }
             public string CUSTOMER_NAME { get; set; }
-           
+
 
             public Int64 Amount { get; set; }
             public int branch_id { get; set; }
             public int BranchCode { get; set; }
             public int AccountType_id { get; set; }
             public string gl_nature { get; set; }
+          
+            public string GL_NAME { get; set; }
+
+        }
+        public class Report
+        {
+            public string Branch { get; set; }
+            //for binding Entity
+            public string Account_Type { get; set; }//
+            public int Customer_Code { get; set; }//
+            public string Trans_TimeOfEntry { get; set; }
+            public string Credit { get; set; }
+            public string Trans_Date { get; set; }//CurPHONE_NO_2
+            public string From_Date { get; set; }
+            public string To_Date { get; set; }
+            public string CUSTOMER_NAME { get; set; }
+
+
+            public Int64 Amount { get; set; }
+            public int branch_id { get; set; }
+            public int BranchCode { get; set; }
+            public int AccountType_id { get; set; }
+            public string gl_nature { get; set; }
+            public string GL_NAME { get; set; }
+
+
+
+            public string Name { get; set; }
+
+            public string ApproveDate { get; set; }
+            public string Status { get; set; }
+
+            public Int64 NewAccountNo { get; set; }
+            public int Balance { get; set; }
 
         }
     }

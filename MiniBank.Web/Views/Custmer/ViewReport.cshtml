@@ -3,8 +3,16 @@
 @{
     ViewData["Title"] = "ViewDoctor";
     Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
+    var SectorData = ViewBag.accounts as List<Bank.Domain.Customer.CustmerEntity.Report>;
     var ResultData = ViewBag.Result as List<Bank.Domain.Customer.CustmerEntity.Report>;
 }
+<style>
+    .icon {
+        padding-left: 020px;
+        background: url("https://png.pngtree.com/png-vector/20191011/ourmid/pngtree-printer-icon-png-image_1817556.jpg") no-repeat left;
+        background-size: 30px;
+    }
+</style>
 
 <div class="page-title">
     <div class="title-details">
@@ -21,176 +29,137 @@
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <div class="card">
-
-
-
             <div class="search-container">
                 <div class="search-sec" style="display: block;">
                     <form method="post" id="indsearch">
                         <div class="form-group form-row">
+                            @*<div class="col-12 col-md-6 col-xl-3">
+            <label class="control-label">Select Branch<span class="text-danger">*</span></label>
+            <select class="form-control" id="branch_id" asp-items="@(new SelectList(ViewBag.Branch,"branch_id","Branch_Name")) " asp-for="branch_id">
+            </select>
+        </div>*@
                             <div class="col-12 col-md-6 col-xl-3">
-                                <label class="control-label">Select Branch<span class="text-danger">*</span></label>
-                                <select class="form-control" id="branch_id" asp-items="@(new SelectList(ViewBag.Branch,"branch_id","Branch_Name")) " asp-for="branch_id">
-                                </select>
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-3">
-                                <label class="control-label">From Date<span class="text-danger">*</span></label>
+                                <label class="control-label" id="fromdateL">From Date<span class="text-danger">*</span></label>
                                 <input type="date" id="fromdate" class="form-control" asp-for="From_Date" />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
-                                <label class="control-label">To Date<span class="text-danger">*</span></label>
+                                <label class="control-label" id="todateL">To Date<span class="text-danger" >*</span></label>
                                 <input type="date" id="todate" class="form-control" asp-for="To_Date" />
                             </div>
-                            <div class="col-12 col-md-6 col-xl-3">
-                                <label class="control-label">Account Type</label>
-                                <select class="form-control" id="gl_nature" asp-items="@(new SelectList(ViewBag.Account,"AccountType_id","gl_nature")) " asp-for="AccountType_id">
-                                </select>
-                            </div>
+                            @*<div class="col-12 col-md-6 col-xl-3">
+            <label class="control-label">Account Type</label>
+            <select class="form-control" id="gl_nature" asp-items="@(new SelectList(ViewBag.Account,"AccountType_id","gl_nature")) " asp-for="AccountType_id">
+            </select>
+        </div>*@
 
 
                             <div class="col-lg-2 ">
-                                <button id="btnSearch" onclick="valid()" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Search</button>
+                                <button id="btnSearch"  onclick="valid()" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Search</button>
+                            </div>
+                            <div class="col-lg-2 ">
+                                <input type="button" id="print" onclick="Print()" class="icon btn btn-default mt-xl-4 mt-2" style="margin-left:-60px" value="" placeholder="Search">
+
+
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="text-center"> <a class="searchopen" title="Search" data-toggle="tooltip" data-placement="bottom"> <i class="icon-angle-arrow-down"></i> </a></div>
+                <div class="text-center" id="arrow"> <a class="searchopen" title="Search" data-toggle="tooltip" data-placement="bottom"> <i class="icon-angle-arrow-down"></i> </a></div>
             </div>
 
             <!-- Search Panel -->
             <!--===================================================-->
-            <div class="card-body ">
-                @if (ResultData != null && ResultData.ToList().Count > 0)
+            <div id="divv">
+            @if (SectorData.ToList() != null)
+            {
+                @foreach (var items in SectorData.ToList())
                 {
-                    <div class="table-responsive">
-                        <table data-toggle="table" id="tblDoctor" class="table">
-                            <thead>
-                                <tr>
-                                    <th width="60px" class="align-top text-center">Sl#</th>
-                                    <th width="150px" class="align-top">
-                                        Customer Code
-                                    </th>
-                                    <th width="150px" class="align-top">
-                                        Customer Name
-                                    </th>
-                                    <th width="150px" class="align-top">
-                                        Entry Date
-                                    </th>
-                                    <th width="150px" class="align-top">
-                                        Entry Time
-                                    </th>
-                                    <th width="150px" class="align-top">
-                                        Amount
-                                    </th>
+                    <div class="card">
+                       
+                        @if (ResultData.Where(u => u.GL_NAME == items.gl_nature).Count() != 0 @*&& ResultData[0].DataEntryEligibility*@)
+                        {
+                            <div id="collapse-@items.gl_nature" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+
+                                <div class="card-body p-0 pt-0">
+                                    <div class="table-responsive">
+                                        <table data-toggle="table" class="table table-bordered mb-0">
+                                           <thead>
+                                               <div class="card-header" id="headingOne" style="background-color:aquamarine">
+                                                   <h5 class="mb-0">
+                                                       <a class="accordianhead" data-toggle="collapse" data-target="#collapse-@items.gl_nature" aria-expanded="true" aria-controls="collapse-@items.gl_nature">
+                                                           @items.gl_nature
+                                                       </a>
+                                                   </h5>
+                                               </div> 
+
+                                           </thead>
+                                            <thead>
+                                                <tr>
+                                                    <th width="60px">Sl#</th>
+                                                    <th>Customer Code</th>
+                                                    <th>Customer Name </th>
+                                                    <th>Branch </th>
+                                                    <th>Date </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody-@items.gl_nature">
+                                                @if (ResultData != null)
+                                                {
+                                                    int count = 1;
+                                                    @foreach (var list in ResultData.Where(u => u.GL_NAME == items.gl_nature))
+                                                    {
+                                                <tr>
+
+                                                    <td>@count</td>
+                                                    <td> @list.Customer_Code</td>
+                                                    <td>@list.CUSTOMER_NAME</td>
+                                                    @if (@list.BranchCode == 1000)
+                                                    {
+                                                        <td>KALPANA</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>KHORDHA</td>
+                                                    }
 
 
 
+                                                    <td> @list.Trans_Date</td>
 
 
 
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int count = 1;
-                                }
-                                @foreach (var list in ResultData)
-                                {
-                                <tr>
-                                    <td class="text-center">@count</td>
-
-                                    <td>
-                                        @list.Customer_Code
-                                    </td>
-                                    <td>
-                                        @list.CUSTOMER_NAME
-                                    </td>
-
-                                    <td>
-                                        @list.Trans_Date
-                                    </td>
-                                    <td>
-                                        @list.Trans_TimeOfEntry
-                                    </td>
-                                    <td>
-                                        @list.Credit
-                                    </td>
-
-
-
-                                </tr>
-                                    count++;
-                                }
-                            </tbody>
-                        </table>
+                                                </tr>
+                                                        count++;
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 }
-                else
-                {
-                    <div class="norecord"> No Record Found</div>
-                }
-                <div class="clearfix col-sm-12"></div>
-            </div>
-            <div class="modal fade" id="SubmitModal" tabindex="1" role="dialog"
-                 aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5>Customer Details</h5>
-                        </div>
-                        <div class="modal-body">
-                            <h6 class="modalMsg"></h6>
-                        </div>
-                        <div class="modal-footer">
-                            @*<a href="/RegistrationUser/User_Registration?id=@Convert.ToString(@list.UserId)" class="text-primary mr-3" title="" data-original-title="Edit"><i class="icon-edit1"></i></a>*@
+            }
 
-                            <input type="submit" class="btn btn-info btn-sm submitConfirm hbtn" value="Yes" styk="display:none" />
-                            <button type="button" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="DSubmitModal" tabindex="1" role="dialog"
-                 aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5>Customer Details</h5>
-                        </div>
-                        <div class="modal-body">
-                            <h6 class="DmodalMsg"></h6>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" class="btn btn-info btn-sm DsubmitConfirm hbtn" value="Yes" styk="display:none" />
-                            <button type="button" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="SuccessModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="resultMsg" style="color:blue"></h5>
-                        </div>
-                        <div class="modal-body">
-                            <h5 class="msgsuccess"></h5>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="btn btn-danger btnok" asp-controller="Custmer" asp-action="customerinsert">Close</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!--===================================================-->
         </div>
     </div>
 </div>
 <script>
+    function Print() {
+      
+        var divContents = document.getElementById("divv").innerHTML;
+        var a = window.open('', '', 'height=1500, width=1500');
+        a.document.write('<html>');
+        a.document.write('<body > <center><h1>Monthly Report</center><br>');
+        a.document.write(divContents);
+        a.document.write('</body></html>');
+        a.document.close();
+        a.print();
+       
+    }
     function valid() {
         if ($("#branch_id").val() == 0) {
             alert("Plz Select Branch");

@@ -1,5 +1,6 @@
 ﻿using Bank.Domain.Branch;
 using Bank.Domain.Customer;
+using Bank.Irepository.AccountType;
 using Bank.Irepository.Branch;
 using Bank.Irepository.Customer;
 using Microsoft.AspNetCore.Hosting;
@@ -19,12 +20,14 @@ namespace MiniBank.Web.Controllers
     {
         private readonly IWebHostEnvironment _environment;
         private readonly ICustmerRepository _cost;
+        private readonly IAccountTypeRepository _accountt;
         private readonly IBranchRepository _Branch;
-        public CustmerController(ICustmerRepository cost, IWebHostEnvironment environment, IBranchRepository Branch)
+        public CustmerController(IAccountTypeRepository accountt,ICustmerRepository cost, IWebHostEnvironment environment, IBranchRepository Branch)
         {
             _cost = cost;
             _environment = environment;
             _Branch = Branch;
+            _accountt = accountt;
         }
         public IActionResult Index()
         {
@@ -224,7 +227,28 @@ namespace MiniBank.Web.Controllers
             pc6.Insert(0, new Report { AccountType_id = 0, gl_nature = "---Select---" });
             ViewBag.Account = pc6;
 
+            List<Report> pc7 = new List<Report>();
+            pc7 = (List<Report>)await _cost.getAccountType();
+            ViewBag.accounts = pc7;
+
             ViewBag.Result = await _cost.listOfReport(new Report());
+            return View();
+        }
+        public async Task<IActionResult> ViewTransactionReport()//Account wise transaction
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+            ViewBag.Result = await _cost.listOfTranscationReportByAccountNum(new Report());
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ViewTransactionReport(Report R)//Account wise transaction
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+            ViewBag.Result = await _cost.listOfTranscationReportByAccountNum(R);
             return View();
         }
         [HttpPost]
@@ -233,6 +257,10 @@ namespace MiniBank.Web.Controllers
             ViewBag.Role = HttpContext.Session.GetString("Role");
             CustmerEntity CN = new CustmerEntity();
             CN.Branch_Name = HttpContext.Session.GetString("Branch");
+            R.Branch = HttpContext.Session.GetString("Branch");
+            List<Report> pc7 = new List<Report>();
+            pc7 = (List<Report>)await _cost.getAccountType();
+            ViewBag.accounts = pc7;
 
             List<BranchEntity> pc5 = new List<BranchEntity>();
             pc5 = await _Branch.getbranch();
