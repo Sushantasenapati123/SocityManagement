@@ -1,0 +1,256 @@
+﻿@model Bank.Domain.Customer.CustmerEntity.Report
+@{
+    ViewData["Title"] = "ViewDoctor";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
+    var ResultData = ViewBag.Result as List<Bank.Domain.Customer.CustmerEntity.Report>;
+}
+<style>
+    .icon {
+        padding-left: 020px;
+        background: url("https://png.pngtree.com/png-vector/20191011/ourmid/pngtree-printer-icon-png-image_1817556.jpg") no-repeat left;
+        background-size: 30px;
+    }
+</style>
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>View Bank Transaction</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+
+            </div>
+            <!-- Search Panel-->
+
+
+            <div class="search-container">
+                <div class="search-sec" style="display: block;">
+                    <form method="post" id="indsearch">
+                        <div class="form-group form-row">
+                            <div class="col-12 col-md-6 col-xl-2">
+                                <label class="control-label">Server Date</label>
+                                <input id="serverdat" type="text" class="form-control" readonly />
+                            </div>
+
+
+                            <div class="col-lg-2 ">
+                                <button id="btnSearch" class="btn btn-primary mt-xl-4 mt-2" onclick=""> @*<i class="fa fa-search"></i>*@ Show</button>
+                            </div>
+                            <div class="col-lg-2 ">
+                                <input type="button" id="print" onclick="Print()" class="icon btn btn-default mt-xl-4 mt-2" style="margin-left:-60px" value="" placeholder="Search">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="text-center"> <a class="searchopen" title="Search" data-toggle="tooltip" data-placement="bottom"> <i class="icon-angle-arrow-down"></i> </a></div>
+            </div>
+            <b style="margin-left:25px;">Closing Balance : <span id="main"></span></b>
+            <!-- Search Panel -->
+            <!--===================================================-->
+            <div id="pr">
+                <div class="card">
+
+                    @if (ResultData.Where(u => u.Status.Trim() == "CR").Count() != 0@*&& ResultData[0].DataEntryEligibility*@)
+{
+            <div id="collapse-.gl_nature" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+
+                <div class="card-body p-0 pt-0">
+                    <div class="table-responsive">
+                        <table data-toggle="table" class="table table-bordered mb-0">
+                            <thead>
+                                <div class="card-header" id="headingOne" style="background-color:aquamarine">
+                                    <h5 class="mb-0">
+                                        <a class="accordianhead" data-toggle="collapse" data-target="#collapse-" aria-expanded="true" aria-controls="collapse-.gl_nature">
+                                            CREDIT
+                                        </a>
+                                    </h5>
+                                </div>
+
+                            </thead>
+                            <thead>
+                                <tr>
+                                    <th width="60px">Sl#</th>
+                                    <th>Date</th>
+                                    <th>Account Holder Name </th>
+                                    <th>Credit </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody id="tbody.gl_nature">
+                                @if (ResultData != null)
+                                {
+                                    int count = 1;
+                                    @foreach (var list in ResultData.Where(u => u.Status.Trim() == "CR"))
+                                    {
+                                        <tr>
+
+                                            <td>@count</td>
+                                            <td> @list.ApproveDate</td>
+                                            <td>@list.Name</td>
+                                            <td> @list.Amount</td>
+                                            <td hidden> <span id="sumcredit">@list.sumcredit</span></td>
+
+
+
+                                        </tr>
+                                        count++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+                </div>
+                <div class="card" id="divv">
+
+                    @if (ResultData.Where(u => u.Status.Trim() == "DR").Count() != 0@*&& ResultData[0].DataEntryEligibility*@)
+{
+            <div id="collapse-.gl_nature" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+
+                <div class="card-body p-0 pt-0">
+                    <div class="table-responsive">
+                        <table data-toggle="table" class="table table-bordered mb-0">
+                            <thead>
+                                <div class="card-header" id="headingOne" style="background-color:aquamarine">
+                                    <h5 class="mb-0">
+                                        <a class="accordianhead" data-toggle="collapse" data-target="#collapse-" aria-expanded="true" aria-controls="collapse-.gl_nature">
+                                            Debit
+                                        </a>
+                                    </h5>
+                                </div>
+
+                            </thead>
+                            <thead>
+                                <tr>
+                                    <th width="60px">Sl#</th>
+                                    <th>Date</th>
+                                    <th>Account Holder Name </th>
+                                    <th>Credit </th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody id="tbody.gl_nature">
+                                @if (ResultData != null)
+                                {
+                                    int count = 1;
+
+                                    @foreach (var list in ResultData.Where(u => u.Status.Trim() == "DR"))
+                                    {
+                                        <tr>
+
+                                            <td>@count</td>
+                                            <td> @list.ApproveDate</td>
+                                            <td>@list.Name</td>
+                                            <td> @list.Amount</td>
+                                            <td hidden> <span id="sumdebit">@list.sumdebit</span></td>
+
+
+
+
+                                        </tr>
+                                        count++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+                </div>
+            </div>
+
+            <!--===================================================-->
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+   
+
+    function Print() {
+
+        var divContents = document.getElementById("pr").innerHTML;
+        var a = window.open('', '', 'height=1500, width=1500');
+        a.document.write('<html>');
+        a.document.write('<body > <center><h1>Mini Statement</center><br>');
+        a.document.write(divContents);
+        a.document.write('</body></html>');
+        a.document.close();
+        a.print();
+
+    }
+    $(document).ready(function () {
+        getDataTable();
+        $("#main").text($("#sumcredit").html()-$("#sumdebit").html());
+        fillserverdate();
+    })
+    function fillserverdate() {
+        $.ajax({
+            url: "/Custmer/GetServerDate",
+            typr: "GET",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+               
+                $("#serverdat").val(result.SERVER_DATE)
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+
+
+
+    //Pagination
+    function getDataTable() {
+        $('#tblDoctor').DataTable({
+            "searching": true,
+            //"bStateSave": true,
+            "dom": 'Bfrtip',
+            "autoWidth": false,
+            "buttons": [
+                //{
+                //    extend: 'print',
+                //    title: 'Manage Block',
+                //    exportOptions: {
+                //        columns: [0, 1, 2, 3, 4]
+                //    },
+                //    customize: function (win) { $(win.document.body).css('font-size', '10pt').prepend('<img src="' + origin + '/images/t5-logo-white.png"  style="position:absolute; top:0; left:0;" />'); $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit'); }
+
+                //}
+                ,
+                {
+                    extend: 'pageLength'
+                }
+            ],
+            "lengthMenu": [
+                [10, 25, 50, 100, 1000 - 1],
+                ['10 rows', '25 rows', '50 rows', '100 rows', '1000 rows', 'Show all']
+            ]
+        });
+    }
+
+
+
+
+
+</script>
+

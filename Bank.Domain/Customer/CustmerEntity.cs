@@ -12,6 +12,7 @@ namespace Bank.Domain.Customer
         public int CUSTOMER_id { get; set; }
         public Int64 NewAccountNo { get; set; }
         public Int64 Amount { get; set; }
+     
         public int Customer_Code { get; set; }
         public string NAME_INITIALS { get; set; }
         public string Account_Type { get; set; }
@@ -29,6 +30,7 @@ namespace Bank.Domain.Customer
         public int trans_id { get; set; }
         public string BranchCode { get; set; }
         public string serverdate { get; set; }
+             public string SERVER_DATE { get; set; }
         public string Photo { get; set; }
         public string CUSTOMER_NAME { get; set; } = "";
         public string FATHER_HUSBAND { get; set; }
@@ -163,6 +165,9 @@ namespace Bank.Domain.Customer
         }
         public class Report
         {
+            public string SERVER_DATE { get; set; }
+            public Int64 sumdebit { get; set; }
+            public Int64 sumcredit { get; set; }
             public string Branch { get; set; }
             //for binding Entity
             public string Account_Type { get; set; }//

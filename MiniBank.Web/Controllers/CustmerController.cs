@@ -251,6 +251,33 @@ namespace MiniBank.Web.Controllers
             ViewBag.Result = await _cost.listOfTranscationReportByAccountNum(R);
             return View();
         }
+        public async Task<IActionResult> ViewBankTransactionReport()//Bank wise transaction from//
+                                                                    //server date to currntdate
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+           
+            ViewData["Serverdate"] =  _cost.BindServerdate(HttpContext.Session.GetString("Branch")).SERVER_DATE;
+            ViewBag.Result = await _cost.listOfTranscationReportByAccountNum(new Report());
+            return View();
+        }
+        [HttpGet]
+        public IActionResult GetServerDate()
+        {
+            var serverdate = _cost.BindServerdate(HttpContext.Session.GetString("Branch"));
+            return Ok(JsonConvert.SerializeObject(serverdate));
+        }
+        [HttpPost]
+        public async Task<IActionResult> ViewBankTransactionReport(Report R)//Bank wise transaction from
+                                                                            //server date to currntdate
+        {
+            
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            ViewData["Serverdate"] = _cost.BindServerdate(HttpContext.Session.GetString("Branch")).SERVER_DATE;
+
+            ViewBag.Result = await _cost.ListOfTransactionbyBank(HttpContext.Session.GetString("Branch"));
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> ViewReport(Report R)//by admin
         {

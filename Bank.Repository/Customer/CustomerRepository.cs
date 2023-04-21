@@ -275,8 +275,47 @@ namespace Bank.Repository.Customer
                 throw ex;
             }
         }
-        
-         public CustmerEntity GetAccountDetailByAccountNo(Int64 num)
+        public CustmerEntity BindServerdate(string BranchNAme)
+        {
+            try
+            {
+                var query = "USP_customer";
+
+                var dypara = new DynamicParameters();
+                dypara.Add("@Branch_Name", BranchNAme);
+                dypara.Add("@Action", "getserverdate");
+               var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.FirstOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<Report>> ListOfTransactionbyBank(string cu)
+        {
+            try
+            {
+                var query = "USP_customer";
+               
+                var dypara = new DynamicParameters();
+               
+                dypara.Add("@Branch_Name", cu);
+
+                dypara.Add("@Action", "ListOfTransactionbyBank");
+
+                var res = Connection.Query<Report>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public CustmerEntity GetAccountDetailByAccountNo(Int64 num)
         {
             try
             {

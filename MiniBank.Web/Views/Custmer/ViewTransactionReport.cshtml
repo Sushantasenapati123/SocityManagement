@@ -17,7 +17,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><span class="icon-home1"></span></li>
                 <li class="breadcrumb-item">Society Management</li>
-                <li class="breadcrumb-item active" aria-current="page"><b>Pending Withdrow  Transaction</b></li>
+                <li class="breadcrumb-item active" aria-current="page"><b>View Transaction By Account Number</b></li>
             </ol>
         </nav>
     </div>
@@ -58,14 +58,14 @@
 
                             </div>
                         </div>
-                        </form>
+                    </form>
                 </div>
                 <div class="text-center"> <a class="searchopen" title="Search" data-toggle="tooltip" data-placement="bottom"> <i class="icon-angle-arrow-down"></i> </a></div>
             </div>
-
+            <b style="margin-left:25px;">Closing Balance : <span id="main"></span></b>
             <!-- Search Panel -->
             <!--===================================================-->
-            <div class="card-body " >
+            <div class="card-body ">
                 @if (ResultData != null && ResultData.ToList().Count > 0)
                 {
                     <div class="table-responsive" id="divv">
@@ -98,41 +98,41 @@
                                 }
                                 @foreach (var list in ResultData)
                                 {
-                                <tr>
-                                    <td class="text-center">@count</td>
-                                    <td>
-                                        @list.ApproveDate
-                                    </td>
-                                    <td>
-                                        @list.Name
-                                    </td>
-                                    @if (@list.Status.Trim() == "CR")
-                                    {
+                                    <tr>
+                                        <td class="text-center">@count</td>
                                         <td>
-                                            @list.Amount
+                                            @list.ApproveDate
                                         </td>
-                                    }
-                                    else
-                                    {
                                         <td>
+                                            @list.Name
                                         </td>
-                                    }
-                                    @if (@list.Status.Trim() == "DR")
-                                    {
+                                        @if (@list.Status.Trim() == "CR")
+                                        {
+                                            <td>
+                                                @list.Amount
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                            </td>
+                                        }
+                                        @if (@list.Status.Trim() == "DR")
+                                        {
+                                            <td>
+                                                @list.Amount
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                            </td>
+                                        }
                                         <td>
-                                            @list.Amount
+                                            <span id="@count">@list.Balance</span>
                                         </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                        </td>
-                                    }
-                                    <td>
-                                        @list.Balance
-                                    </td>
 
-                                </tr>
+                                    </tr>
                                     count++;
                                 }
                             </tbody>
@@ -145,7 +145,7 @@
                 }
                 <div class="clearfix col-sm-12"></div>
             </div>
-          
+
             <!--===================================================-->
         </div>
     </div>
@@ -167,6 +167,7 @@
     }
     $(document).ready(function () {
         getDataTable();
+        $("#main").text($('#1').text());
     })
 
 

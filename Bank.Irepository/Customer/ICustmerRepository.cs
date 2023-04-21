@@ -33,10 +33,12 @@ namespace Bank.Irepository.Customer
         int insertsavingAmount(CustmerEntity rl);
         int WithdrowAmount(CustmerEntity rl);
         int updatecustmer(CustmerEntity rl);
-        int deletecustmer(int id); 
+        int deletecustmer(int id);
+        Task<IEnumerable<Report>> ListOfTransactionbyBank(string cu);
               int Appprove_Deposite(int id);
         int Appprove_WithdrowAmount(int id);
         public CustmerEntity custmerselect(int id,string Branch);
+        public CustmerEntity BindServerdate(string BranchNAme);
 
         public CustmerEntity GetAccountDetailByAccountNo(Int64 id);
         public CustmerEntity custmerbind(int id);
