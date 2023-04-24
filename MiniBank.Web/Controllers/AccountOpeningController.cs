@@ -387,15 +387,15 @@ namespace MiniBank.Web.Controllers
         }
         public async Task<IActionResult> ViewAppprovedCustomer()
         {
-            List<BranchEntity> pc5 = new List<BranchEntity>();
-            pc5 = await _Branch.getbranch();
-            pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
-            ViewBag.Branch = pc5;
+            //List<BranchEntity> pc5 = new List<BranchEntity>();
+            //pc5 = await _Branch.getbranch();
+            //pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
+            //ViewBag.Branch = pc5;
 
             AccountopeningEntity cu = new AccountopeningEntity();
             cu.Branch_Name = HttpContext.Session.GetString("Branch");
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+            //ViewBag.Role = HttpContext.Session.GetString("Role");
+            //ViewBag.Branchn = HttpContext.Session.GetString("Branch");
 
             ViewBag.Result = await _cost.listApprovedcustmer(cu);
             return View();

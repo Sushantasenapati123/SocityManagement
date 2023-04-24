@@ -54,10 +54,11 @@
                 </div>
                 <div class="text-center"> <a class="searchopen" title="Search" data-toggle="tooltip" data-placement="bottom"> <i class="icon-angle-arrow-down"></i> </a></div>
             </div>
-            <b style="margin-left:25px;">Closing Balance : <span id="main"></span></b>
+           
             <!-- Search Panel -->
             <!--===================================================-->
             <div id="pr">
+                <b style="margin-left:25px;margin-bottom:10px">Closing Balance : <span id="main" style="margin-left:15px;margin-bottom:100px"></span></b>
                 <div class="card">
 
                     @if (ResultData.Where(u => u.Status.Trim() == "CR").Count() != 0@*&& ResultData[0].DataEntryEligibility*@)

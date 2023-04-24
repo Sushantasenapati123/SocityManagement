@@ -35,8 +35,6 @@ else
         <div class="card">
             <div class="card-header">
                 <ul class="nav nav-tabs nav-fill" role="tablist">
-                    <a class="nav-item nav-link active" asp-controller="LabTest" asp-action="AddLabTest">Add</a>
-                    <a class="nav-item nav-link " asp-controller="LabTest" asp-action="ViewLabTest">View</a>
                 </ul>
                 <div class="indicatorslist">
                     <a title="" href="javascript:void(0)" id="backIcon" data-toggle="tooltip" data-placement="top" data-original-title="Back"><i class="icon-arrow-left1"></i></a>
@@ -85,7 +83,7 @@ else
 <script>
     $(document).ready(function () {
         //breadcumb
-        loadNavigation('AddLabTest', 'gldata', 'plsubmission', 'AddLabTest', '', 'AddLabTest');
+        loadNavigation('AddLabTest', 'gldata', 'plsubmission', 'UpdateServerDate', '', 'UpdateServerDate');
         var LabTestId = getUrlVars()["LabTestId"];
         if (LabTestId != undefined) {
             $("#btnSubmit").html("Update");

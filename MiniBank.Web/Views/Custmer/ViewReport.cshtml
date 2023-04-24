@@ -33,12 +33,7 @@
                 <div class="search-sec" style="display: block;">
                     <form method="post" id="indsearch">
                         <div class="form-group form-row">
-                            @*<div class="col-12 col-md-6 col-xl-3">
-            <label class="control-label">Select Branch<span class="text-danger">*</span></label>
-            <select class="form-control" id="branch_id" asp-items="@(new SelectList(ViewBag.Branch,"branch_id","Branch_Name")) " asp-for="branch_id">
-            </select>
-        </div>*@
-                            <div class="col-12 col-md-6 col-xl-3">
+                          <div class="col-12 col-md-6 col-xl-3">
                                 <label class="control-label" id="fromdateL">From Date<span class="text-danger">*</span></label>
                                 <input type="date" id="fromdate" class="form-control" asp-for="From_Date" />
                             </div>
@@ -46,14 +41,7 @@
                                 <label class="control-label" id="todateL">To Date<span class="text-danger" >*</span></label>
                                 <input type="date" id="todate" class="form-control" asp-for="To_Date" />
                             </div>
-                            @*<div class="col-12 col-md-6 col-xl-3">
-            <label class="control-label">Account Type</label>
-            <select class="form-control" id="gl_nature" asp-items="@(new SelectList(ViewBag.Account,"AccountType_id","gl_nature")) " asp-for="AccountType_id">
-            </select>
-        </div>*@
-
-
-                            <div class="col-lg-2 ">
+                          <div class="col-lg-2 ">
                                 <button id="btnSearch"  onclick="valid()" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Search</button>
                             </div>
                             <div class="col-lg-2 ">
