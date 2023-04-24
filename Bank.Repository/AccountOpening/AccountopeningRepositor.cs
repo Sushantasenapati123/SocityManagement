@@ -11,6 +11,7 @@ using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using Bank.Domain.AccountType;
+using Bank.Domain.Customer;
 
 namespace Bank.Repository.AccountOpening
 {
@@ -303,6 +304,24 @@ namespace Bank.Repository.AccountOpening
                 dypara.Add("@Customer_Code", id);
                 var res = Connection.Query<fillddl>(query, dypara, commandType: CommandType.StoredProcedure);
                 return res;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public CustmerEntity GetRateOfIntrest(string num)
+        {
+            try
+            {
+                var query = "USP_customer";
+
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "FindRateOfIntrest");
+               // dypara.Add("@Account_Numberr", num);
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.FirstOrDefault();
 
             }
             catch (Exception ex)

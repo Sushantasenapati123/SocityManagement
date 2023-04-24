@@ -158,6 +158,12 @@ namespace MiniBank.Web.Controllers
             return Json(prescription);
         }
         [HttpGet]
+        public IActionResult GetRateOfIntrest(string accountType)
+        {
+            var rate = _IAccountopeningRepository.GetRateOfIntrest(accountType);
+            return Ok(JsonConvert.SerializeObject(rate));
+        }
+        [HttpGet]
         public IActionResult GetGLcodeByGLName(string BankNAme)
             {
             var labTest = _IAccountopeningRepository.GetGLcodeByGLName(BankNAme).Result;

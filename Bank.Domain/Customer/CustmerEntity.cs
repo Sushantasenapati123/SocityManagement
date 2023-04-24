@@ -10,6 +10,7 @@ namespace Bank.Domain.Customer
         public double Totalsaving { get; set; }
         public string Opening_Balance { get; set; }//
         public int CUSTOMER_id { get; set; }
+        public int RATE_APPLICABLE { get; set; }
         public Int64 NewAccountNo { get; set; }
         public Int64 Amount { get; set; }
      

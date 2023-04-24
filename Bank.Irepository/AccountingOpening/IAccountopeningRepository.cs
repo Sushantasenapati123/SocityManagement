@@ -1,5 +1,6 @@
 ﻿using Bank.Domain.AccountOpening;
 using Bank.Domain.AccountType;
+using Bank.Domain.Customer;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Bank.Irepository.AccountingOpening
         public int ApprovedCustomer(int acc,int staus,string manager, DateTime Trans_Date, string Particular, string Voucher_Type,string s,string Scroll_Terminal_Code,string Headofaccount,int amountFromBank, string bankcode);//approve customer account
         public Task<AccountopeningEntity> getdetails(string id);  // Used for Edit button ApprovedCustomer
         public Task<IEnumerable<AccountopeningEntity>> ViewAccountOpendedCustomer(AccountopeningEntity id);
-
+        public CustmerEntity GetRateOfIntrest(string accountype);
         public int deletecustmer(int id);
         public AccountopeningEntity custmerselect(int id);
 

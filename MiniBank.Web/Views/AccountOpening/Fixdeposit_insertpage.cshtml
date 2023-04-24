@@ -267,7 +267,7 @@
                                 </select>   </div>
                             <div class="col-2">
                                 <label class="badge-light"> Year <span class="text-danger">*</span></label>
-                                <select style="width: 120px; " id="year" onchange="findMaturity()" class="form-control">
+                                <select style="width: 120px; " id="year" onchange="findMaturity()"  class="form-control">
                                     <option value="0">0</option>
                                     <option value="01">1</option>
                                     <option value="02">2</option>
@@ -325,7 +325,7 @@
                             </div>
                             <div class="col-3">
                                 <label class="badge-light">Rate Of Intrest<span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="intrest" placeholder="0" onchange="FindReturnamount()" />
+                                <input type="number" class="form-control" id="intrest" readonly placeholder="0" onchange="FindReturnamount()" />
                             </div>
 
                             <div class="col-3">
@@ -616,13 +616,25 @@
             if (dd<10)
                 dd = '0' + dd
             today = yyyy + '-' + mm + '-' + dd;//to fill in input type date
-            //today=dd+'-'+mm+'-'+yyyy
-            //document.write(today);
-            $('#Minimum_Balance').val(today);
+            $('#Minimum_Balance').val(today);//Set Maturity Date
+          
+                $.ajax({
+                    url: "/AccountOpening/GetRateOfIntrest?accountType=" + $("#Openingdetails_id").val(),
+                    typr: "GET",
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function (result) {
+                        $('#intrest').val(result.RATE_APPLICABLE);
+                        FindReturnamount();
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });
+          
         }
 
         function FindReturnamount() {
-
 
             var principal = parseInt($("#Opening_Balance").val());
             var rate = $("#intrest").val();
@@ -634,23 +646,27 @@
 
             var monthdiff = (month2 - month1) / 12;
             var duration = (year2 - year1) + monthdiff;
-            var returnamt = Math.round(((principal * rate * duration) / 100) + principal);
+
+            //var returnamt = Math.round(((principal * rate * duration) / 100) + principal);
+            /* var int_yr = (principal * (1 + (rate / 100)) ^ (1 * ($("#year").val()))) - principal;*/
+            var int_yr = principal * ([1 + (parseInt(rate) / 100)] ** $("#year").val()) - principal;
 
 
-            $("#returnamount").val(returnamt);
+            var int_mn = ((principal * (rate / 100)) / 12) * $("#month").val()
+            var int_dy  = (((principal * (rate / 100)) / 365) * $("#day").val());
+
+
+            $("#returnamount").val(Math.round(int_dy + int_mn + int_yr + principal));
         }
 
         function reset() {
             $('#Opening_Balance').val(0);
             $('#Modeofoperation').val("Self");
-
             $('#Minimum_Balance').val(0);
             $('#Currentbal').val(0);
             $('#OpeningDATE').val("");
-            $('#intrest').val("");
-
-
-
+            $('#returnamount').val("");
+            $('#intrest').val(""); 
         }
         $(document).ready(function () {
 
