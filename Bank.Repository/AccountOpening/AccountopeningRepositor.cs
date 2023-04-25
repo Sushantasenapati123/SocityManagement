@@ -43,10 +43,21 @@ namespace Bank.Repository.AccountOpening
                     dypara.Add("@Caste", acc.Caste);
                     dypara.Add("@Presentaddress", acc.Presentaddress);
                     dypara.Add("@Permanentaddress", acc.Permanentaddress);
-                    dypara.Add("@Modeofoperation", acc.Modeofoperation);
+                    dypara.Add("@Modeofoperation", acc.Modeofoperation); 
+                if(acc.HeadOfAccount=="Fixed")
+                {
+                    dypara.Add("@LoanFixDepositeEndDate1", acc.LoanFixDepositeEndDate1);
+                    dypara.Add("@LoanPaybleAmount", acc.FixdepositeMaturityAmount); 
+                }
+                else if (acc.HeadOfAccount == "Loan")
+                {
+                    dypara.Add("@LoanFixDepositeEndDate", acc.LoanFixDepositeEndDate);
+                    dypara.Add("@LoanPaybleAmount", acc.LoanPaybleAmount);
+                }
+                   
+                   
 
                     dypara.Add("@OpeningDATE", acc.OpeningDATE);
-
                     dypara.Add("@Facevalue", acc.Facevalue);
                     dypara.Add("@NoUnint", acc.NoUnint);
                     dypara.Add("@Enterancefee", acc.Enterancefee);
@@ -63,7 +74,6 @@ namespace Bank.Repository.AccountOpening
                     dypara.Add("@Altphone1", acc.Altphone1);
                     dypara.Add("@Minimumbal1", acc.Minimumbal1);
                     dypara.Add("@Status1", acc.Status1);
-
                     dypara.Add("@Nomineename2", acc.Nomineename2);
                     dypara.Add("@Nomineerelation2", acc.Nomineerelation2);
                     dypara.Add("@Nomineeaddress1st2", acc.Nomineeaddress1st2);
@@ -319,7 +329,7 @@ namespace Bank.Repository.AccountOpening
 
                 var dypara = new DynamicParameters();
                 dypara.Add("@Action", "FindRateOfIntrest");
-               // dypara.Add("@Account_Numberr", num);
+                dypara.Add("@accountype", num);
                 var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
                 return res.FirstOrDefault();
 

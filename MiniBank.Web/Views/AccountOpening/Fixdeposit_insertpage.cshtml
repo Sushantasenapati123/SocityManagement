@@ -617,9 +617,9 @@
                 dd = '0' + dd
             today = yyyy + '-' + mm + '-' + dd;//to fill in input type date
             $('#Minimum_Balance').val(today);//Set Maturity Date
-          
+          debugger
                 $.ajax({
-                    url: "/AccountOpening/GetRateOfIntrest?accountType=" + $("#Openingdetails_id").val(),
+                    url: "/AccountOpening/GetRateOfIntrest?accountType=" + $("#HeadOfAccount").val(),
                     typr: "GET",
                     contentType: "application/json;charset=UTF-8",
                     dataType: "json",
@@ -865,42 +865,49 @@
     }
 
     function Add() {
-
-        if ($('#intrest').val() == "") {
-            alert("Please Enter Rate of Intrest");
-            return false;
-        }
-        if ($('#intrest').val() >100) {
-            alert("Rate Of intrest must be less than 100");
-            return false;
-        }
-
         if ($('#Opening_Balance').val() == "") {
             alert("Please Enter Deposite Amount");
+            $('#Opening_Balance').focus();
             return false;
+         
+
         }
+       
+      
+
+       
         if ($('#Opening_Balance').val() <=100) {
             alert("Amount Must Be Greater Than 100");
+            $('#Opening_Balance').focus();
             return false;
         }
 
 
         if ($('#OpeningDATE').val() == "") {
             alert("Please Enter From DATE");
+            $('#OpeningDATE').focus();
+            return false;
+        }
+        if ($('#month').val() == "0") {
+            alert("Please Select Number Of Month");
+            $('#month').focus();
+            return false;
+        }
+        if ($('#year').val() == "0") {
+            alert("Please Select Number Of Year");
+            $('#year').focus();
             return false;
         }
 
-        if ($('#Minimum_Balance').val() == "") {
-            alert("Please Enter To DATE");
-            return false;
-        }
 
         if ($('#Nomineename1').val() == "") {
             alert("Please Enter Nominee Name");
+            $('#Nomineename1').focus();
             return false;
         }
         if ($('#Nomineeaddress1st1').val() == "") {
             alert("Please Enter Nominee first Address");
+            $('#Nomineeaddress1st1').focus();
             return false;
         }
         //if ($('#Nomineeaddress2nd1').val() == "") {
@@ -955,6 +962,9 @@
             NoUnint: $('#NoUnint').val(),
             Enterancefee: $('#Enterancefee').val(),
             IntroducerPresentaddress: $('#IntroducerPresentaddress').val(),
+
+            FixdepositeMaturityAmount: $("#returnamount").val(),
+            LoanFixDepositeEndDate1: $("#Minimum_Balance").val(),//for store maturity Date
 
 
             Nomineename1: $('#Nomineename1').val(),

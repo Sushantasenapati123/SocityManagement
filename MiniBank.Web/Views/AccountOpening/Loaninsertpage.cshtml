@@ -131,16 +131,7 @@
                                 <label class="badge-light"> Opening Date <span class="text-danger">*</span></label>
                                 <input type="datetime" id="OpeningDATE" class="form-control" readonly />
                             </div>
-                            @*<div class="form-group col-md-2">
-                                    <label class="badge-light" id="Loan">Loan Type<span class="text-danger">*</span></label>
-                                    <select class="form-control" id="loantype">
-                                        <option value="0">-Select-</option>
-                                        <option value="Agriculture Loan">Agriculture Loan</option>
-                                        <option value="Housing Loan">Housing Loan</option>
-                                        <option value="vehicle Loan">vehicle Loan</option>
-
-                                    </select>
-                                </div>*@
+                           
                             <div class="form-group col-md-4">
                                 <label class="badge-light">Senior Citizen?<span class="text-danger">*</span></label>
                                 <select class="form-control" id="Seniorcitizen" disabled>
@@ -173,7 +164,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="badge-light">sex<span class="text-danger">*</span></label>
-                                <select id="Sex" class="form-control" @*style="width:280px"*@ disabled>
+                                <select id="Sex" class="form-control" disabled>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Transgender">Other</option>
@@ -204,36 +195,90 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label class="badge-light">Mode Of Operation<span class="text-danger">*</span></label>
-                                <select style="width:280px" id="Modeofoperation" class="form-control">
+                                <select id="Modeofoperation" class="form-control">
                                     <option value="Self">Self</option>
                                     <option value="Other">Other</option>
                                     <option value="Self">jointly two</option>
                                     <option value="Other">jointly three</option>
                                 </select>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label class="badge-light" id="Loan">Loan Type<span class="text-danger">*</span></label>
-                                <select class="form-control" id="loantype" style="width:280px">
+                                <select class="form-control" id="loantype">
                                     <option value="0">-Select-</option>
                                     <option value="Agriculture Loan">Agriculture Loan</option>
                                     <option value="Housing Loan">Housing Loan</option>
                                     <option value="vehicle Loan">vehicle Loan</option>
-
                                 </select>
                             </div>
+                            <div class="col-4">
+                                <label class="badge-light"> Loan Amount <span class="text-danger">*</span></label>
+                                <input type="number" id="Minimum_Balance" class="form-control" placeholder="0" />
+                            </div>
+                          
 
                         </div>
 
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label class="badge-light"> Opening Balance <span class="text-danger">*</span></label>
-                                <input type="number" id="Opening_Balance" class="form-control" style="width:280px" placeholder="0" readonly />
+                                <input type="number" id="Opening_Balance" class="form-control" placeholder="0" readonly />
                             </div>
-                            <div class="col-6">
-                                <label class="badge-light"> Loan Amount <span class="text-danger">*</span></label>
-                                <input type="number" id="Minimum_Balance" class="form-control" style="width:280px" placeholder="0" />
+                            <div class="col-4">
+                                <label class="badge-light"> Year <span class="text-danger">*</span></label>
+                                <select id="year" onchange="findLoanCharge()" class="form-control">
+                                    <option value="0">0</option>
+                                    <option value="01">1</option>
+                                    <option value="02">2</option>
+                                    <option value="03">3</option>
+                                    <option value="04">4</option>
+                                    <option value="05">5</option>
+                                    <option value="06">6</option>
+                                    <option value="07">7</option>
+                                    <option value="08">8</option>
+                                    <option value="09">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+
+                                </select>
+                            </div>
+
+                            <div class="col-4">
+                                <label class="badge-light">Payable amount <span class="text-danger">*</span></label>
+                                <input type="number" id="returnamount" readonly class="form-control" placeholder="0" />
+                            </div>
+                            <div class="col-3">
                             </div>
                         </div>
 
@@ -251,35 +296,7 @@
                                             <input type="text" id="Facevalue" class="form-control" placeholder="Enter your Face Value" />
                                         </td>
                                     </tr>
-                                    @*<tr>
-                                            <td>
-                                                <label class="badge-light">No Of Unit(s)<span class="text-danger">*</span></label>
-                                            </td>
-                                            <td>
-                                                <input type="text" id="NoUnint" class="form-control" placeholder="Enter your Unit..." />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="badge-light">Entrance Fee<span class="text-danger">*</span></label>
-                                            </td>
-                                            <td>
-                                                <input type="text" id="Enterancefee" class="form-control" placeholder="Enter your Fee" />
-                                            </td>
-                                        </tr>*@
-                                    <tr>
-                                        <!--<td>
-                                            <label class="badge-light">Introducer(Customer) PresentAddress<span class="text-danger">*</span></label>
-                                        </td>
-                                        <td>
-                                            <div>-->
-                                        @*<input type="text" style="width:25px" id="Txtpresentaddpre" />*@
-                                        <!--<input type="text" id="IntroducerPresentaddress" class="form-control" placeholder="Enter CustomeAddress" />
-                                            </div>
-
-                                        </td>-->
-                                    </tr>
-
+                                
                                 </table>
                             </div>
                             <div class="col-md-6">
@@ -528,6 +545,7 @@
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function () {
+           
             var DepartmentId = getUrlVars()["id"];
             var AcType = getUrlVars()["AcType"];
             var CustCod = getUrlVars()["CustCode"];
@@ -545,13 +563,33 @@
                 $('#Enterancefee').val("0");
                 $('#IntroducerPresentaddress').attr('readonly', true);
                 $('#IntroducerPresentaddress').val("0");
-
-
                 BindShearDetails(CustCod);
 
 
             }
         });
+        var RI;
+       
+        function findLoanCharge() {
+            debugger
+            set();
+            var paybleamount = parseInt($("#Minimum_Balance").val()) * RI / 100 * parseInt($("#year").val());
+            $("#returnamount").val(Math.round(paybleamount) + parseInt($("#Minimum_Balance").val()));
+        }
+        function set() {
+            $.ajax({
+                url: "/AccountOpening/GetRateOfIntrest?accountType=" + $("#HeadOfAccount").val(),
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    RI = result.RATE_APPLICABLE;
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
         function reset() {
             $('#loantype').val("0");
             $('#Minimum_Balance').val("");
@@ -577,12 +615,12 @@
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
                 success: function (result) {
-                    debugger
-                    $('#Facevalue').val(result.Result.Facevalue);
-                    $('#NoUnint').val(result.Result.NoUnint);
-                    $('#Enterancefee').val(result.Result.Enterancefee);
-                    $('#IntroducerPresentaddress').val(result.Result.IntroducerPresentaddress);
-
+                    if (result.Result != null) {
+                        $('#Facevalue').val(result.Result.Facevalue);
+                        $('#NoUnint').val(result.Result.NoUnint);
+                        $('#Enterancefee').val(result.Result.Enterancefee);
+                        $('#IntroducerPresentaddress').val(result.Result.IntroducerPresentaddress);
+                    }
                 },
                 error: function (errormessage) {
                     alert(errormessage.responseText);
@@ -591,7 +629,7 @@
         }
 
         function BindDetail(DepartmentId, AcType, CustCod) {
-            debugger
+   
             var dt = new Date();
             var time;
             if (dt.getMinutes() < 10) {
@@ -627,10 +665,7 @@
                     $("#Certificateno").val("00" + result.NewAccountNo);
                     $("#Seniorcitizen").val(result.SENIOR_CITIZEN);
                     $("#staff").val(result.IS_STAFF);
-
                     $('#OpeningDATE').val(result.serverdate + " " + time);
-
-
 
                 },
                 error: function (errormessage) {
@@ -679,16 +714,20 @@
             alert("Please Enter Opening Balance");
             return false;
         }
-        if ($('#Opening_Balance').val() <=100) {
-            alert("Opening Balance Must be greater Than 100");
-            return false;
-        }
+        //if ($('#Opening_Balance').val() <=100) {
+        //    alert("Opening Balance Must be greater Than 100");
+        //    return false;
+        //}
         if ($('#Minimum_Balance').val() == "") {
             alert("Please Enter Loan Amount");
             return false;
         }
         if ($('#Minimum_Balance').val() < 5000) {
             alert("Loan Amount must be greater or equal to 5000");
+            return false;
+        }
+        if ($('#year').val() == "0") {
+            alert("Please select Number of Year");
             return false;
         }
 
@@ -728,8 +767,9 @@
             alert("Please Enter Status");
             return false;
         }
+       
 
-
+        debugger
         var empObj = {
             Openingdetails_id: $('#Openingdetails_id').val(),
             Customer_Code: $('#Customer_Code').val(),
@@ -739,7 +779,9 @@
             customername: $('#customername').val(),
             Certificateno: $('#Certificateno').val(),
             staff: $('#staff').val(),
-
+           
+            LoanPaybleAmount: $("#returnamount").val(),
+            LoanFixDepositeEndDate: $("#year").val(),
 
             Accountno:$('#Accountno').val(),
             Sex: $('#Sex').val(),
@@ -798,10 +840,10 @@
                 type: "POST",
                 url: "/AccountOpening/insertpage",
                 data: empObj,
-                /*     type: "POST",*/
-                success: function (result) {
+             
+                success: function (result){
                     alert("Registation Successfully")
-                    if ("@ViewBag.Role" == "Manager")//j
+                    if ("@ViewBag.Role" == "Manager")
                         location.href = "../AccountOpening/ViewPendingCustomer";//pending account
                     else
                         location.href = "../AccountOpening/ViewBranchWiseCustomer";

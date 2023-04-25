@@ -39,6 +39,10 @@ namespace Bank.Domain.AccountOpening
         public string Modeofoperation { get; set; }
         public int Amount { get; set; }
         public DateTime OpeningDATE { get; set; }
+        public int LoanFixDepositeEndDate { get; set; }///use for carrying Loan Year in Number
+        public string LoanFixDepositeEndDate1 { get; set; }///use for carrying Fisdeposite End Year in DateFormat
+        public int LoanPaybleAmount { get; set; }
+        public int FixdepositeMaturityAmount { get; set; }
         public string GL_NAME { get; set; }
         public string Facevalue { get; set; }
         public string NoUnint { get; set; }
