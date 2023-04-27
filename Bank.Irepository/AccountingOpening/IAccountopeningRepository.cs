@@ -15,8 +15,8 @@ namespace Bank.Irepository.AccountingOpening
         public int AddAccount(AccountopeningEntity acc);
         public Task<List<AccountTypeModel>> AutoCompleteBankName();
 
-        public int ApprovedCustomer(int acc,int staus,string manager, DateTime Trans_Date, string Particular, string Voucher_Type,string s,string Scroll_Terminal_Code,string Headofaccount,int amountFromBank, string bankcode);//approve customer account
-        public Task<AccountopeningEntity> getdetails(string id);  // Used for Edit button ApprovedCustomer
+        public int ApprovedCustomer(string custName, Int64 accountno, int acc,int staus,string manager, DateTime Trans_Date, string Particular, string Voucher_Type,string s,string Scroll_Terminal_Code,string Headofaccount,int amountFromBank, string bankcode);//approve customer account
+        //public Task<AccountopeningEntity> getdetails(string id);  // Used for Edit button ApprovedCustomer
         public Task<IEnumerable<AccountopeningEntity>> ViewAccountOpendedCustomer(AccountopeningEntity id);
         public CustmerEntity GetRateOfIntrest(string accountype);
         public int deletecustmer(int id);
@@ -27,7 +27,8 @@ namespace Bank.Irepository.AccountingOpening
         public Task<AccountopeningEntity> get_last_tblvoucherrecord();
         public Task<AccountopeningEntity> BindShearDetails(int id,string s);
 
-        public Task<IEnumerable<fillddl>> BindDdlForaccount(int id,string branchname);
+        public Task<IEnumerable<fillddl>> BindDdlForaccount(int id,string branchname); 
+              public Task<IEnumerable<fillddl>> BindDdlForSavingaccount(int id, string branchname);
         public Task<IEnumerable<fillddl>> BindDdlForPendingaccount(int id);
 
     }

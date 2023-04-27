@@ -33,16 +33,14 @@ namespace MiniBank.Web.Controllers
         public IActionResult insertpage(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+            
             return View();
         }
         [HttpGet]
         public IActionResult insertpage_ForEdit(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+         
             return View();
         }
         [HttpPost]
@@ -81,8 +79,7 @@ namespace MiniBank.Web.Controllers
         public IActionResult ViewpendingAccountDetailsByFrontoffice(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+           
             return View();
         }
 
@@ -90,54 +87,57 @@ namespace MiniBank.Web.Controllers
         public IActionResult Loaninsertpage(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+            
             return View();
         }
         [HttpGet]
         public IActionResult Loaninsertpage_ForEdit(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+            
             return View();
+
+        }
+        [HttpGet]
+        public IActionResult Loaninsertpage_ForApproveByManager(string id = null)
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+
+            return View();
+
         }
         [HttpGet]
         public IActionResult Fixdeposit_insertpage(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            var X = _IAccountopeningRepository.getdetails(id);
-            //ViewBag.USERID = X.Result.branch_id;
+           
             return View();
         }
         [HttpGet]
         public IActionResult Fixdeposit_insertpageForViewByAdmin(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+       
             return View();
         }
         [HttpGet]
         public IActionResult Fixdeposit_insertpage2(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+           
             return View();
         }
         [HttpGet]
         public IActionResult Fixdeposit_insertpage2_forEdit(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+           
             return View();
         }
         public IActionResult index(string id = null)
         {
             // ViewBag.USER_ID = id;
-            var X = _IAccountopeningRepository.getdetails(id);
+           
             ViewBag.Role = HttpContext.Session.GetString("Role");
             ViewBag.Branch = HttpContext.Session.GetString("Branch");
 
@@ -231,29 +231,30 @@ namespace MiniBank.Web.Controllers
 
             //var Retval = _IAccountopeningRepository.ApprovedCustomer(entity.id, entity.Status, HttpContext.Session.GetString("Userid"), entity.Trans_Date, entity.Particular, entity.Voucher_Type, trntime, myIP, entity.HeadOfAccount, AmountFromBank);
 
-              if (entity.Voucher_Type == "Cash")
+              if (entity.Voucher_Type == "Cash" || entity.Voucher_Type == "TransferAccount")
             {
                 string myIP = GetLocalIPAddress();
                 DateTime dt = entity.Trans_Date;
                 string trntime = dt.ToString("hh:mm tt");
                 int AmountFromBank = 0;
-                var Retval = _IAccountopeningRepository.ApprovedCustomer(entity.id, entity.Status, HttpContext.Session.GetString("Userid"), entity.Trans_Date, entity.Particular, entity.Voucher_Type, trntime, myIP, entity.HeadOfAccount, AmountFromBank, HttpContext.Session.GetString("Branch"));
+                var Retval = _IAccountopeningRepository.ApprovedCustomer(entity.CustomerName, entity.Accountno, entity.id, entity.Status, HttpContext.Session.GetString("Userid"), entity.Trans_Date, entity.Particular, entity.Voucher_Type, trntime, myIP, entity.HeadOfAccount, entity.AmountFromBank, HttpContext.Session.GetString("Branch"));
                 return Ok(Retval);
             }
+             
             else
             {
                 string myIP = GetLocalIPAddress();
                 DateTime dt = entity.Trans_Date;
                 string trntime = dt.ToString("hh:mm tt");
                 int AmountFromBank = 0;
-                var Retval = _IAccountopeningRepository.ApprovedCustomer(entity.id, entity.Status, HttpContext.Session.GetString("Userid"), entity.Trans_Date, entity.Particular, entity.Voucher_Type, trntime, myIP, entity.HeadOfAccount, AmountFromBank, HttpContext.Session.GetString("Branch"));
+                var Retval = _IAccountopeningRepository.ApprovedCustomer(entity.CustomerName, entity.Accountno,entity.id, entity.Status, HttpContext.Session.GetString("Userid"), entity.Trans_Date, entity.Particular, entity.Voucher_Type, trntime, myIP, entity.HeadOfAccount, AmountFromBank, HttpContext.Session.GetString("Branch"));
                 if(entity.CollectionBank!=null)
                         {
                     foreach (var Bank in entity.CollectionBank)
                     {
                         entity.HeadOfAccount = Bank.From;
                         entity.AmountFromBank = Bank.Amount;
-                        int retMsgPM = _IAccountopeningRepository.ApprovedCustomer(entity.id, entity.Status, HttpContext.Session.GetString("Userid"), entity.Trans_Date, entity.Particular, entity.Voucher_Type, trntime, myIP, entity.HeadOfAccount, entity.AmountFromBank, HttpContext.Session.GetString("Branch"));
+                        int retMsgPM = _IAccountopeningRepository.ApprovedCustomer(entity.CustomerName, entity.Accountno ,entity.id, entity.Status, HttpContext.Session.GetString("Userid"), entity.Trans_Date, entity.Particular, entity.Voucher_Type, trntime, myIP, entity.HeadOfAccount, entity.AmountFromBank, HttpContext.Session.GetString("Branch"));
                     }
                 }
                 
@@ -393,16 +394,8 @@ namespace MiniBank.Web.Controllers
         }
         public async Task<IActionResult> ViewAppprovedCustomer()
         {
-            //List<BranchEntity> pc5 = new List<BranchEntity>();
-            //pc5 = await _Branch.getbranch();
-            //pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
-            //ViewBag.Branch = pc5;
-
-            AccountopeningEntity cu = new AccountopeningEntity();
+           AccountopeningEntity cu = new AccountopeningEntity();
             cu.Branch_Name = HttpContext.Session.GetString("Branch");
-            //ViewBag.Role = HttpContext.Session.GetString("Role");
-            //ViewBag.Branchn = HttpContext.Session.GetString("Branch");
-
             ViewBag.Result = await _cost.listApprovedcustmer(cu);
             return View();
         }
@@ -499,6 +492,12 @@ namespace MiniBank.Web.Controllers
         public IActionResult BindDdlForaccount(int id)
         {
             var Departments = _IAccountopeningRepository.BindDdlForaccount(Convert.ToInt32(id), HttpContext.Session.GetString("Branch"));
+            return Ok(JsonConvert.SerializeObject(Departments));
+        }
+        [HttpGet]
+        public IActionResult BindDdlForSavingaccount(int id)
+        {
+            var Departments =_IAccountopeningRepository.BindDdlForSavingaccount(Convert.ToInt32(id), HttpContext.Session.GetString("Branch"));
             return Ok(JsonConvert.SerializeObject(Departments));
         }
         [HttpGet]

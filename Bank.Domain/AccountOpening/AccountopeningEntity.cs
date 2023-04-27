@@ -11,6 +11,7 @@ namespace Bank.Domain.AccountOpening
         public int Openingdetails_id { get; set; }//
         public double Totalsaving { get; set; }
         public string Voucher_No { get; set; }
+        public int LoanAmount { get; set; }
 
         public int Customer_Code { get; set; }
         public string Userid { get; set; }
@@ -115,7 +116,10 @@ namespace Bank.Domain.AccountOpening
         public string Particular { get; set; }
         public string Voucher_Type { get; set; }
         public string HeadOfAccount { get; set; }
-        
+        public string CustomerName { get; set; }
+        public Int64 Accountno { get; set; }
+
+
 
         public List<BankTransfer> CollectionBank { get; set; }
     }

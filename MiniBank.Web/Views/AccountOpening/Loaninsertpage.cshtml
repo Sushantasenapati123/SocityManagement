@@ -196,14 +196,10 @@
                         </div>
                         <div class="row">
                             <div class="col-4">
-                                <label class="badge-light">Mode Of Operation<span class="text-danger">*</span></label>
-                                <select id="Modeofoperation" class="form-control">
-                                    <option value="Self">Self</option>
-                                    <option value="Other">Other</option>
-                                    <option value="Self">jointly two</option>
-                                    <option value="Other">jointly three</option>
-                                </select>
+                                <label class="badge-light"> Opening Balance <span class="text-danger">*</span></label>
+                                <input type="number" id="Opening_Balance" class="form-control" placeholder="0" readonly />
                             </div>
+                           
                             <div class="col-4">
                                 <label class="badge-light" id="Loan">Loan Type<span class="text-danger">*</span></label>
                                 <select class="form-control" id="loantype">
@@ -217,14 +213,20 @@
                                 <label class="badge-light"> Loan Amount <span class="text-danger">*</span></label>
                                 <input type="number" id="Minimum_Balance" class="form-control" placeholder="0" />
                             </div>
-                          
+
 
                         </div>
 
                         <div class="row">
                             <div class="col-4">
-                                <label class="badge-light"> Opening Balance <span class="text-danger">*</span></label>
-                                <input type="number" id="Opening_Balance" class="form-control" placeholder="0" readonly />
+                                <label class="badge-light">Mode Of Operation<span class="text-danger">*</span></label>
+                                <select id="Modeofoperation" class="form-control">
+                                    <option value="Self">Self</option>
+                                    <option value="Other">Other</option>
+                                    <option value="Self">jointly two</option>
+                                    <option value="Other">jointly three</option>
+                                    <option value="Other">Either or Serviver</option>
+                                </select>
                             </div>
                             <div class="col-4">
                                 <label class="badge-light"> Year <span class="text-danger">*</span></label>
@@ -639,10 +641,11 @@
             else {
                 time = dt.getHours() + ":" + dt.getMinutes();
             }
-
-
+            debugger
+            
             $.ajax({
-                url: "/Custmer/GetByIdCustomer?id=" + CustCod,
+               
+                url: "/Custmer/GetByIdCustomer?id=" + CustCod + "&accountype=" + AcType,
                 typr: "GET",
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
@@ -696,36 +699,28 @@
 <script src="~/js/accountopeningvalidation.js"></script>
 
 <script>
-    function validate() {
-
-    }
-
+   
     function Add() {
 
         if ($('#loantype').val() == "0") {
             alert("Please Select Loan Type");
             return false;
         }
-
-
-
-
         if ($('#Opening_Balance').val() == "") {
             alert("Please Enter Opening Balance");
             return false;
         }
-        //if ($('#Opening_Balance').val() <=100) {
-        //    alert("Opening Balance Must be greater Than 100");
-        //    return false;
-        //}
+      
         if ($('#Minimum_Balance').val() == "") {
             alert("Please Enter Loan Amount");
             return false;
         }
-        if ($('#Minimum_Balance').val() < 5000) {
-            alert("Loan Amount must be greater or equal to 5000");
+        if ($('#Minimum_Balance').val() != "" && $('#Opening_Balance').val() * (90 / 100) < $('#Minimum_Balance').val()) {
+
+            alert("Please Enter Less or Equal to 90% of Opening Balance");
             return false;
         }
+     
         if ($('#year').val() == "0") {
             alert("Please select Number of Year");
             return false;
@@ -739,26 +734,7 @@
             alert("Please Enter Nominee first Address");
             return false;
         }
-        //if ($('#Nomineeaddress2nd1').val() == "") {
-        //    alert("Please Enter Nominee Second Address");
-        //    return false;
-        //}
-        //if ($('#Nomineeaddress3rd1').val() == "") {
-        //    alert("Please Enter Nominee Third Address");
-        //    return false;
-        //}
-        //if ($('#pincode1').val() == "") {
-        //    alert("Please Enter PinCode");
-        //    return false;
-        //}
-        //if ($('#phone1').val() == "") {
-        //    alert("Please Enter Phone No.");
-        //    return false;
-        //}
-        //if ($('#Altphone1').val() == "") {
-        //    alert("Please Enter Alt Phone No.");
-        //    return false;
-        //}
+      
         if ($('#Minimumbal1').val() == "") {
             alert("Please Enter Minimumbal");
             return false;
@@ -767,9 +743,6 @@
             alert("Please Enter Status");
             return false;
         }
-       
-
-        debugger
         var empObj = {
             Openingdetails_id: $('#Openingdetails_id').val(),
             Customer_Code: $('#Customer_Code').val(),

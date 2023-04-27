@@ -37,7 +37,7 @@ namespace Bank.Irepository.Customer
         Task<IEnumerable<Report>> ListOfTransactionbyBank(string cu);
               int Appprove_Deposite(int id);
         int Appprove_WithdrowAmount(int id);
-        public CustmerEntity custmerselect(int id,string Branch);
+        public CustmerEntity custmerselect(int id,string Branch, string accountype);
         public CustmerEntity BindServerdate(string BranchNAme);
 
         public CustmerEntity GetAccountDetailByAccountNo(Int64 id);

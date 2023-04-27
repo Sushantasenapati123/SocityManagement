@@ -256,7 +256,7 @@ namespace Bank.Repository.Customer
             throw new NotImplementedException();
         }
 
-        public CustmerEntity custmerselect(int id,string branch)
+        public CustmerEntity custmerselect(int id,string branch,string accountype)
         {
             try
             {
@@ -265,7 +265,8 @@ namespace Bank.Repository.Customer
                     var dypara = new DynamicParameters();
                     dypara.Add("@Action", "S");
                     dypara.Add("@Branch_Name", branch);
-                    dypara.Add("@Customer_Code", id);
+                dypara.Add("@AccountType", accountype);
+                dypara.Add("@Customer_Code", id);
                     var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
                     return res.FirstOrDefault();
                 

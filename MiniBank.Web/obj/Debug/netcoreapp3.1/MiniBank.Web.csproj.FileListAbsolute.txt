@@ -2364,3 +2364,4 @@ C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\o
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\Loaninsertpage_ForEdit.cshtml.g.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\ViewTransactionReport.cshtml.g.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\ViewBankTransactionReport.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\Loaninsertpage_ForApproveByManager.cshtml.g.cs

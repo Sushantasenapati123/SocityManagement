@@ -215,6 +215,9 @@
         if (HeadOfAccount == 'Fixed') {
             location.href = "/AccountOpening/Fixdeposit_insertpage2?id=" + id;
         }
+        else if (HeadOfAccount == 'Loan') {
+            location.href = "/AccountOpening/Loaninsertpage_ForApproveByManager?id=" + id;
+        }
         else
         location.href = "/AccountOpening/ViewPendingCustomerDetails?id=" +id;
         

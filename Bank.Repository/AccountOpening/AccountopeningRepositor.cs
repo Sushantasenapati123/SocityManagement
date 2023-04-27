@@ -109,7 +109,7 @@ namespace Bank.Repository.AccountOpening
             }
         }
         ////approve customer account
-        public int ApprovedCustomer(int acc,int status,string manager, DateTime Trans_Date, string Particular, string Voucher_Type,string time,string Scroll_Terminal_Code,string headofaccount,int AmountFromBank,string bankcode)
+        public int ApprovedCustomer(string custName,Int64 accountno, int acc,int status,string manager, DateTime Trans_Date, string Particular, string Voucher_Type,string time,string Scroll_Terminal_Code,string headofaccount,int AmountFromBank,string bankcode)
         {
             try
             {
@@ -122,21 +122,23 @@ namespace Bank.Repository.AccountOpening
                 }
                
                 else
-                dypara.Add("@ACTION", "RejectCustomer"); 
+                dypara.Add("@ACTION", "RejectCustomer");
+                dypara.Add("@NewAccountNo", accountno);//bigint
+                dypara.Add("@BranchName", bankcode);//string
+                dypara.Add("@CUSTOMER_NAME", custName);//string
 
-                 dypara.Add("@BranchName", bankcode);
-                dypara.Add("@HeadOfAccount", headofaccount);
-                dypara.Add("@AmountFromBank", AmountFromBank);
-                dypara.Add("@Trans_Date", Trans_Date);
-                if(headofaccount== "Fixed")
-                    dypara.Add("@Trans_TimeOfEntry", DateTime.Now.ToString().Split(' ')[1]);
+                dypara.Add("@HeadOfAccount", headofaccount);//string
+                dypara.Add("@AmountFromBank", AmountFromBank);//int
+                dypara.Add("@Trans_Date", Trans_Date);//date
+                if (headofaccount == "Fixed")
+                    dypara.Add("@Trans_TimeOfEntry", DateTime.Now.ToString().Split(' ')[1]);//date
                 else
-                dypara.Add("@Trans_TimeOfEntry", time);
-                dypara.Add("@Particular", Particular);
-                dypara.Add("@Voucher_Type", Voucher_Type);
-                dypara.Add("@Scroll_Terminal_Code", Scroll_Terminal_Code);
-                dypara.Add("@Openingdetails_id", acc);
-                dypara.Add("@Approved_By", manager);
+                    dypara.Add("@Trans_TimeOfEntry", time);
+                dypara.Add("@Particular", Particular);//string
+                dypara.Add("@Voucher_Type", Voucher_Type);//string
+                dypara.Add("@Scroll_Terminal_Code", Scroll_Terminal_Code);//string
+                dypara.Add("@Openingdetails_id", acc);//int
+                dypara.Add("@Approved_By", manager);//string
 
                 dypara.Add("PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
                 int res = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
@@ -182,26 +184,26 @@ namespace Bank.Repository.AccountOpening
                 throw ex;
             }
         }
-        public async Task<AccountopeningEntity> getdetails(string id)
-        {
-            try
-            {
+        //public async Task<AccountopeningEntity> getdetails(string id)
+        //{
+        //    try
+        //    {
 
-                var query = "Usp_userlogin";
+        //        var query = "Usp_userlogin";
                
-                    var dypara = new DynamicParameters();
-                    dypara.Add("@ACTION", "SA");
-                    dypara.Add("@USER_ID", id);
-                    var res = await Connection.QueryFirstOrDefaultAsync<AccountopeningEntity>(query, dypara, commandType: CommandType.StoredProcedure);
-                    return res;
+        //            var dypara = new DynamicParameters();
+        //            dypara.Add("@ACTION", "SA");
+        //            dypara.Add("@USER_ID", id);
+        //            var res = await Connection.QueryFirstOrDefaultAsync<AccountopeningEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+        //            return res;
                
 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message, ex);
+        //    }
+        //}
         public async Task<IEnumerable<AccountopeningEntity>> Viewallaccountballance(int Customer_Code)
         {
             try
@@ -292,6 +294,25 @@ namespace Bank.Repository.AccountOpening
 
                 var dypara = new DynamicParameters();
                 dypara.Add("@Action", "BindAccount");
+                dypara.Add("@BranchName", BranchName);
+                dypara.Add("@Customer_Code", id);
+                var res = Connection.Query<fillddl>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<fillddl>> BindDdlForSavingaccount(int id, string BranchName)//BindDdlForPendingaccount
+        {
+            try
+            {
+                var query = "UPS_OpeningdetailsUpdate";
+
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "BindSavingAccount");
                 dypara.Add("@BranchName", BranchName);
                 dypara.Add("@Customer_Code", id);
                 var res = Connection.Query<fillddl>(query, dypara, commandType: CommandType.StoredProcedure);

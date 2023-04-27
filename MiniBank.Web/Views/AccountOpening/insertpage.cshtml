@@ -203,6 +203,7 @@
                                     <option value="Other">Other</option>
                                     <option value="Self">jointly two</option>
                                     <option value="Other">jointly three</option>
+                                    <option value="Other">Either or serviver</option>
                                 </select>
                             </div>
                             <div class="col-6">
@@ -606,7 +607,7 @@
             }
 
             $.ajax({
-                url: "/Custmer/GetByIdCustomer?id=" + CustCod,
+                url: "/Custmer/GetByIdCustomer?id=" + CustCod + "&accountype=" + AcType,
                 typr: "GET",
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",

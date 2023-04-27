@@ -422,9 +422,9 @@ namespace MiniBank.Web.Controllers
             }
         }
         [HttpGet]
-        public IActionResult GetByIdCustomer(int id)
+        public IActionResult GetByIdCustomer(int id, string accountype)
         {
-            var Departments = _cost.custmerselect(Convert.ToInt32(id), HttpContext.Session.GetString("Branch"));
+            var Departments = _cost.custmerselect(Convert.ToInt32(id), HttpContext.Session.GetString("Branch"), accountype);
             return Ok(JsonConvert.SerializeObject(Departments));
         }
 
@@ -440,7 +440,7 @@ namespace MiniBank.Web.Controllers
 
             CustmerEntity ad = new CustmerEntity();
 
-            ad = _cost.custmerselect(grouptype_id, HttpContext.Session.GetString("Branch"));
+            ad = _cost.custmerselect(grouptype_id, HttpContext.Session.GetString("Branch"),"ch");
             ViewBag.Button = "Update";
             //return View(ad);
             return Json(new { data = ad });

@@ -99,7 +99,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><span class="icon-home1"></span></li>
                     <li class="breadcrumb-item">Society Management</li>
-                    <li class="breadcrumb-item active" aria-current="page"><b>A/C Opening</b></li>
+                    <li class="breadcrumb-item active" aria-current="page"><b>Approving Section</b></li>
                 </ol>
             </nav>
         </div>
@@ -134,7 +134,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="badge-light" id="Loan">Loan Type<span class="text-danger">*</span></label>
-                                <select class="form-control" id="loantype" style="width:160px">
+                                <select class="form-control" id="loantype" style="width:160px" disabled>
                                     <option value="0">-Select-</option>
                                     <option value="Agriculture Loan">Agriculture Loan</option>
                                     <option value="Housing Loan">Housing Loan</option>
@@ -208,7 +208,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <label class="badge-light">Mode Of Operation<span class="text-danger">*</span></label>
-                                <select style="width:280px" id="Modeofoperation" class="form-control" >
+                                <select style="width:280px" id="Modeofoperation" class="form-control" disabled>
                                     <option value="Self">Self</option>
                                     <option value="Other">Other</option>
                                 </select>
@@ -225,7 +225,7 @@
                             </div>
                             <div class="col-6">
                                 <label class="badge-light" id="minimumballabel"> Loan Amount <span class="text-danger">*</span></label>
-                                <input type="number" id="Minimum_Balance" class="form-control" style="width:280px"  />
+                                <input type="number" id="Minimum_Balance" class="form-control" style="width:280px" readonly />
                             </div>
                         </div>
 
@@ -277,7 +277,7 @@
                                                 <label class="badge-light">Nominee Name<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" id="Nomineename1" class="form-control" placeholder="Enter Name...."  />
+                                                <input type="text" id="Nomineename1" class="form-control" placeholder="Enter Name...." readonly />
                                             </td>
                                         </tr>
                                         <tr>
@@ -285,7 +285,7 @@
                                                 <label class="badge-light">Relation With Nominee<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <select class="form-control" id="Nomineerelation1" >
+                                                <select class="form-control" id="Nomineerelation1" disabled>
                                                     <option value="Wife">Wife</option>
                                                     <option value="Husband">Husband</option>
                                                     <option value="Other">Other</option>
@@ -296,24 +296,24 @@
                                                 <label class="badge-light">Present address<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="NA" id="Nomineeaddress1st1"  />
+                                                <input type="text" class="form-control" placeholder="NA" readonly id="Nomineeaddress1st1" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td><input type="text" class="form-control" placeholder="NA" id="Nomineeaddress2nd1"  /></td>
+                                            <td><input type="text" class="form-control" placeholder="NA" readonly id="Nomineeaddress2nd1" /></td>
 
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td><input type="text" class="form-control" placeholder="NA" id="Nomineeaddress3rd1"  /></td>
+                                            <td><input type="text" class="form-control" placeholder="NA" readonly id="Nomineeaddress3rd1" /></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label class="badge-light">Pin Code<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="NA" id="pincode1"  />
+                                                <input type="text" class="form-control" placeholder="NA" readonly id="pincode1" />
                                             </td>
                                         </tr>
 
@@ -321,13 +321,13 @@
 
                                             <td><label class="badge-light">Contact No(s)<span class="text-danger">*</span></label></td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="NA" id="phone1"  /><br />
+                                                <input type="text" class="form-control" placeholder="NA" readonly id="phone1" /><br />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><label class="badge-light">Alternative Phone No(s)<span class="text-danger">*</span></label></td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="NA" id="Altphone1"  /><br />
+                                                <input type="text" class="form-control" placeholder="NA" id="Altphone1" readonly /><br />
                                             </td>
 
                                         </tr>
@@ -352,7 +352,7 @@
                                                 <label class="badge-light">Nominee Name<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter Name...." id="Nomineename2"  />
+                                                <input type="text" class="form-control" placeholder="Enter Name...." id="Nomineename2" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -360,7 +360,7 @@
                                                 <label class="badge-light">Relation With Nominee<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <select class="form-control" id="Nomineerelation2" >
+                                                <select class="form-control" id="Nomineerelation2">
                                                     <option value="Wife">Wife</option>
                                                     <option value="Husband">Husband</option>
                                                     <option value="Other">Other</option>
@@ -371,19 +371,19 @@
                                                 <label class="badge-light">Present address<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter address1.." id="Nomineeaddress1st2"  />
+                                                <input type="text" class="form-control" placeholder="Enter address1.." id="Nomineeaddress1st2" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" class="form-control" placeholder="Enter address2.." id="Nomineeaddress2nd2"  /></td>
-                                            <td><input type="text" class="form-control" placeholder="Enter address3.." id="Nomineeaddress3rd2"  /></td>
+                                            <td><input type="text" class="form-control" placeholder="Enter address2.." id="Nomineeaddress2nd2" /></td>
+                                            <td><input type="text" class="form-control" placeholder="Enter address3.." id="Nomineeaddress3rd2" /></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label class="badge-light">Pin Code<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter Area Pin.." id="pincode2"  />
+                                                <input type="text" class="form-control" placeholder="Enter Area Pin.." id="pincode2" />
                                             </td>
                                         </tr>
 
@@ -391,23 +391,23 @@
 
                                             <td><label class="badge-light">Contact No(s)<span class="text-danger">*</span></label></td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter Phone No1.." id="phone2"  /><br />
+                                                <input type="text" class="form-control" placeholder="Enter Phone No1.." id="phone2" /><br />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><label class="badge-light">Alternative Phone No(s)<span class="text-danger">*</span></label></td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter Phone No2.." id="Altphone2"  /><br />
+                                                <input type="text" class="form-control" placeholder="Enter Phone No2.." id="Altphone2" /><br />
                                             </td>
 
                                         </tr>
                                         <tr>
                                             <td><label class="badge-light">Minimum Balance<span class="text-danger">*</span></label></td>
-                                            <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal2"  /></td>
+                                            <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal2" /></td>
                                         </tr>
                                         <tr>
                                             <td><label class="badge-light">A/C Status<span class="text-danger">*</span></label></td>
-                                            <td><input type="text" class="form-control" placeholder="Enter Here...." id="Status2"  /></td>
+                                            <td><input type="text" class="form-control" placeholder="Enter Here...." id="Status2" /></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -419,7 +419,7 @@
                                                 <label class="badge-light">Nominee Name<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter Name...." id="Nomineename3"  />
+                                                <input type="text" class="form-control" placeholder="Enter Name...." id="Nomineename3" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -427,7 +427,7 @@
                                                 <label class="badge-light">Relation With Nominee<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <select class="form-control" id="Nomineerelation3" >
+                                                <select class="form-control" id="Nomineerelation3">
                                                     <option value="Wife">Wife</option>
                                                     <option value="Husband">Husband</option>
                                                     <option value="Other">Other</option>
@@ -438,19 +438,19 @@
                                                 <label class="badge-light">Present address<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter address1.." id="Nomineeaddress1st3"  />
+                                                <input type="text" class="form-control" placeholder="Enter address1.." id="Nomineeaddress1st3" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" class="form-control" placeholder="Enter address2.." id="Nomineeaddress2nd3"  /></td>
-                                            <td><input type="text" class="form-control" placeholder="Enter address3.." id="Nomineeaddress3rd3"  /></td>
+                                            <td><input type="text" class="form-control" placeholder="Enter address2.." id="Nomineeaddress2nd3" /></td>
+                                            <td><input type="text" class="form-control" placeholder="Enter address3.." id="Nomineeaddress3rd3" /></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <label class="badge-light">Pin Code<span class="text-danger">*</span></label>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter Area Pin.." id="pincode3"  />
+                                                <input type="text" class="form-control" placeholder="Enter Area Pin.." id="pincode3" />
                                             </td>
                                         </tr>
 
@@ -458,23 +458,23 @@
 
                                             <td><label class="badge-light">Contact No(s)<span class="text-danger">*</span></label></td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter Phone No1.." id="phone3"  /><br />
+                                                <input type="text" class="form-control" placeholder="Enter Phone No1.." id="phone3" /><br />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><label class="badge-light">Alternative Phone No(s)<span class="text-danger">*</span></label></td>
                                             <td>
-                                                <input type="text" class="form-control" placeholder="Enter Your Phone No2.." id="Altphone3"  /><br />
+                                                <input type="text" class="form-control" placeholder="Enter Your Phone No2.." id="Altphone3" /><br />
                                             </td>
 
                                         </tr>
                                         <tr>
                                             <td><label class="badge-light">Minimum Balance<span class="text-danger">*</span></label></td>
-                                            <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal3"  /></td>
+                                            <td><input type="text" class="form-control" placeholder="Please Enter Balance...." id="Minimumbal3" /></td>
                                         </tr>
                                         <tr>
                                             <td><label class="badge-light">A/C Status<span class="text-danger">*</span></label></td>
-                                            <td><input type="text" class="form-control" placeholder="Enter Here...." id="Status3"  /></td>
+                                            <td><input type="text" class="form-control" placeholder="Enter Here...." id="Status3" /></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -485,9 +485,10 @@
                     </div>
                     <div>
                         @*<button type="submit" clas="btn btn-primary" style="height:45px" id="SaveData" onclick="Add()" value="Save">Save</button>*@
-                        <input type="button" onclick="Update()" class="btn btn-success" value="Update" style="margin-left:473px;margin-bottom:20px">
+                        <input type="button" onclick="OK()" class="btn btn-success" value="View" style="margin-left:473px;margin-bottom:20px">
                         @*<input type="button" onclick="Approve(2)" class="btn btn-danger " value="Reject" style="margin-right: 400px; margin-bottom: 20px ">*@
                         <input type="text" hidden id="Openingdetails_id" />
+
 
 
                     </div>
@@ -496,7 +497,205 @@
         </div>
 
     </div>
- 
+    <div class="modal fade" role="dialog" aria-labelledby="" aria-hidden="true" id="OpenAC">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content" style="width:980px;height:800px">
+                <div class="modal-header">
+                    <center>
+                        <h5 style="margin-left: 300px; color: chartreuse">Approve Form</h5>
+                    </center>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px;">Transaction Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="datetime-local" class="form-control" id="modaldate" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px">Voucher No</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" id="modalVoucherNO" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px">Account Number</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" id="modalAccountNO" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px">Loan Amount</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" id="modalAmount" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px">Account Charge</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" placeholder="0" id="modalAccountcharge" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left: 40px">Type</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <select class="form-control" id="Voucher_Type" onchange="show()">
+                                <option value="Cash">Cash</option>
+                                @*<option value="Transfer">Transfer</option>*@
+                                <option value="TransferAccount">Transfer To Account</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row" id="Trans_table" style="display:none">
+
+                        <div>
+                            <label style="margin-left:40px">List Of Account</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            @*<select class="form-control" id="Voucher_Type">
+                                <option value="0">Select</option>
+
+
+                            </select>*@
+
+                            <select id="BindAccount" class="form-control">
+                            </select>
+                        </div>
+
+
+
+
+
+                    </div>
+
+                    <div class="row" style="margin-top:50px">
+                        <div>
+                            <label style="margin-left: 40px">Narration</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <textarea class="form-control" id="Particular"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer" style="margin-bottom:50px">
+
+                    <button type="button" id="btn1" style="margin-right:10px" class="btn btn-success btn-sm No hbtn" data-dismiss="modal" onclick="Approve(1)">Approve</button>
+                    <button type="button" id="btn2" style="margin-right:300px" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" @*aria-label="Close"*@ onclick="Approve(2)">Reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" aria-labelledby="" aria-hidden="true" id="SuccessModel">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content" style="width:980px;height:600px">
+                <div class="modal-header">
+                    <center>
+                        <h5 style="margin-left:300px">Approve Succcessful</h5>
+                    </center>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px;">Transaction Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="datetime-local" class="form-control" id="modaldatee" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px">Branch Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" placeholder="0" id="modalbranchname" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px">Voucher No</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" id="modalVoucherNOOO" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px">Account Number</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" id="modalAccountNOO" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px">Customer Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" id="custname" readonly />
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div>
+                            <label style="margin-left:40px">Amount</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" id="modalAmountt" readonly />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="margin-bottom:50px">
+
+                    <a href="/AccountOpening/ViewPendingCustomer" style="margin-right:400px;height:40px;width:80px" class="btn btn-danger btn-sm No hbtn" title="" data-original-title="Edit">OK@*<i class="icon-edit1"></i>*@</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="SuccessModell" tabindex="1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <center><h3 class="modalMsgg" style="color: chartreuse">Approve Succcessful</h3></center><span id="voucherNo"></span>
+                </div>
+                <div class="modal-footer">
+                    <a href="/AccountOpening/ViewPendingCustomer" class=" mr-3 btn btn-outline-success" title="" data-original-title="Edit">OK</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="UnSuccessModel" tabindex="1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <center><h3 class="modalMsgg ">Reject Succcessful</h3></center>
+                </div>
+                <div class="modal-footer">
+                    <a href="/AccountOpening/ViewPendingCustomer" class=" mr-3 btn btn-outline-success" style="align-content:center" title="" data-original-title="Edit">OK@*<i class="icon-edit1"></i>*@</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script>
@@ -508,156 +707,124 @@
                 BindDetail(Openingdetails_id);
             }
         });
-        function Update() {
+        function BindDropDown(Customer_Code) {
 
-        if ($('#loantype').val() == "0") {
-            alert("Please Select Loan Type");
-            return false;
-        }
-
-
-
-
-        if ($('#Opening_Balance').val() == "") {
-            alert("Please Enter Opening Balance");
-            return false;
-        }
-        if ($('#Opening_Balance').val() <=100) {
-            alert("Opening Balance Must be greater Than 100");
-            return false;
-        }
-        if ($('#Minimum_Balance').val() == "") {
-            alert("Please Enter Loan Amount");
-            return false;
-        }
-        if ($('#Minimum_Balance').val() < 5000) {
-            alert("Loan Amount must be greater or equal to 5000");
-            return false;
-        }
-
-        if ($('#Nomineename1').val() == "") {
-            alert("Please Enter Nominee Name");
-            return false;
-        }
-        if ($('#Nomineeaddress1st1').val() == "") {
-            alert("Please Enter Nominee first Address");
-            return false;
-        }
-        //if ($('#Nomineeaddress2nd1').val() == "") {
-        //    alert("Please Enter Nominee Second Address");
-        //    return false;
-        //}
-        //if ($('#Nomineeaddress3rd1').val() == "") {
-        //    alert("Please Enter Nominee Third Address");
-        //    return false;
-        //}
-        //if ($('#pincode1').val() == "") {
-        //    alert("Please Enter PinCode");
-        //    return false;
-        //}
-        //if ($('#phone1').val() == "") {
-        //    alert("Please Enter Phone No.");
-        //    return false;
-        //}
-        //if ($('#Altphone1').val() == "") {
-        //    alert("Please Enter Alt Phone No.");
-        //    return false;
-        //}
-        if ($('#Minimumbal1').val() == "") {
-            alert("Please Enter Minimumbal");
-            return false;
-        }
-        if ($('#Status1').val() == "") {
-            alert("Please Enter Status");
-            return false;
-        }
-
-
-        var empObj = {
-            Openingdetails_id: $('#Openingdetails_id').val(),
-            Customer_Code: $('#Customer_Code').val(),
-            HeadOfAccount: $('#HeadOfAccount').val(),
-            Currentbal: $('#loantype').val(),
-            Seniorcitizen: $('#Seniorcitizen').val(),
-            customername: $('#customername').val(),
-            Certificateno: $('#Certificateno').val(),
-            staff: $('#staff').val(),
-
-
-            Accountno:$('#Accountno').val(),
-            Sex: $('#Sex').val(),
-            Caste: $('#Caste').val(),
-            Presentaddress: $('#Presentaddress').val(),
-            Permanentaddress: $('#Permanentaddress').val(),
-            Modeofoperation: $('#Modeofoperation').val(),
-            OpeningDATE: $('#OpeningDATE').val(),
-            Opening_Balance: $('#Opening_Balance').val(),
-            Minimum_Balance: $('#Minimum_Balance').val(),
-            Facevalue: $('#Facevalue').val(),
-            NoUnint: $('#NoUnint').val(),
-            Enterancefee: $('#Enterancefee').val(),
-            IntroducerPresentaddress: $('#IntroducerPresentaddress').val(),
-
-
-            Nomineename1: $('#Nomineename1').val(),
-            Nomineerelation1: $('#Nomineerelation1').val(),
-            Nomineeaddress1st1: $('#Nomineeaddress1st1').val(),
-            Nomineeaddress2nd1: $('#Nomineeaddress2nd1').val(),
-            Nomineeaddress3rd1: $('#Nomineeaddress3rd1').val(),
-            pincode1: $('#pincode1').val(),
-            phone1: $('#phone1').val(),
-            Altphone1: $('#Altphone1').val(),
-            Minimumbal1: $('#Minimumbal1').val(),
-            Status1: $('#Status1').val(),
-
-
-            Nomineename2: $('#Nomineename2').val(),
-            Nomineerelation2: $('#Nomineerelation2').val(),
-            Nomineeaddress1st2: $('#Nomineeaddress1st2').val(),
-            Nomineeaddress2nd2: $('#Nomineeaddress2nd2').val(),
-            Nomineeaddress3rd2: $('#Nomineeaddress3rd2').val(),
-            pincode2: $('#pincode2').val(),
-            phone2: $('#phone2').val(),
-            Altphone2: $('#Altphone2').val(),
-            Minimumbal2: $('#Minimumbal2').val(),
-            Status2: $('#Status2').val(),
-
-            Nomineename3: $('#Nomineename3').val(),
-            Nomineerelation3: $('#Nomineerelation3').val(),
-            Nomineeaddress1st3: $('#Nomineeaddress1st3').val(),
-            Nomineeaddress2nd3: $('#Nomineeaddress2nd3').val(),
-            Nomineeaddress3rd3: $('#Nomineeaddress3rd3').val(),
-            pincode3: $('#pincode3').val(),
-            phone3: $('#phone3').val(),
-            Altphone3: $('#Altphone3').val(),
-            Minimumbal3: $('#Minimumbal3').val(),
-            Status3: $('#Status3').val()
-        };
-      if (Pinvalidate('pincode1', 'lblCurErrorPin') == true && PhonevalidateO('phone1', 'lblErrorphone1') == true &&
-            PhonevalidateO('Altphone1', 'lblErrorAltphone1') == true) {
-
-                if (confirm("Are you sure you want to Submit ?")) {
+            $("#BindAccount").empty();
             $.ajax({
-                type: "POST",
-                url: "/AccountOpening/insertpage",
-                data: empObj,
-                /*     type: "POST",*/
+                url: "/AccountOpening/BindDdlForSavingaccount?id=" + Customer_Code,
+                type: "GET",
                 success: function (result) {
-                    if (result == 1)
-                                alert("Registation Successfully")
-                            else
-                                alert("Update Successfully")
+                    data = JSON.parse(result);
+                    var v;
+                    $.each(data.Result, function (i, item) {
+                        v += "<option value=" + item.Accountno + ">" + item.HeadOfAccount + ":(" + "00" + item.Accountno + ")"+"</option>";
+                    });
+                    $("#BindAccount").html(v);
                 },
-                error: function (errormessage) {
-                    alert("Eror");
+                error: function (error) {
+                    jsonValue = jQuery.parseJSON(error.responseText);
+                    bootbox.alert("Error : " + jsonValue);
                 }
             });
-        }//confirm
 
-        }//outer if
+            $('#BindDropDown').modal("show");
 
-    }
 
+        }
+        function show() {
+
+            if ($("#Voucher_Type").val() == 'TransferAccount')
+                $("#Trans_table").show();
+            else {
+                $("#Trans_table").hide();
+            }
+
+
+
+        }
+
+       
+        var status;
+        function OK() {
+            //var printButton4 = document.getElementById("");
+            //$('#mainmenu').hide();
+            $("#modaldate").val(dat);
+            $("#modalVoucherNO").val(Voucher_No);
+            $("#modalAccountNO").val(modalAccountNO);
+            $("#modalAmount").val(modalAmount);
+            if (headofaccount == "Loan") {
+                $("#modalAccountcharge").val(100);
+            }
+            else
+                $("#modalAccountcharge").val(modalAccountcharge);
+            $('.modalMsg').text('Are you Want To Open Account ?');
+            $('.submitConfirm').css('display', 'block');
+            $('#OpenAC').modal("show");
+        }
+        function Approve(id) {
+
+            var Items = []; //array declaring to store the records to send it to controller
+            var entity = {};
+
+           
+            if ($('#Particular').val() == "") {
+                bootbox.alert("Please Enter Narration");
+                return false;
+            }
+
+
+            entity.id = $('#Openingdetails_id').val();
+            entity.Status = id;
+            entity.HeadOfAccount = $('#HeadOfAccount').val();
+            entity.Trans_Date = $('#modaldate').val();
+            entity.Particular = $('#Particular').val();
+            entity.Voucher_Type = $('#Voucher_Type').val();
+            entity.Accountno = $('#BindAccount').val();
+            entity.AmountFromBank = $('#Minimum_Balance').val();
+            entity.CustomerName = $('#customername').val();
+            entity.CollectionBank = Items;
+            $('#OpenAC').modal("hide");
+            $.ajax({
+                url: "/AccountOpening/ApprovedCustomerAccount",
+                data: entity,
+                type: "POST",
+                success: function (result) {
+
+                    if (result > 20) {
+                        $('#OpenAC').modal("hide");
+                        $.ajax({
+                            url: "/AccountOpening/get_last_tblvoucherrecord",
+                            typr: "GET",
+                            contentType: "application/json;charset=UTF-8",
+                            dataType: "json",
+                            success: function (result) {
+                                $("#modaldatee").val(dat);
+                                $("#modalVoucherNOOO").val(result.Result.Voucher_No);
+                                $("#modalAmountt").val(result.Result.Amount);
+                                $("#modalAccountNOO").val(modalAccountNO);
+                                $("#modalbranchname").val(result.Result.Branch_Name); //
+                                $("#custname").val(custname);
+
+
+                            },
+                            error: function (errormessage) {
+                                alert(errormessage.responseText);
+                            }
+                        });
+                        $('#SuccessModel').modal("show");
+
+                    }
+                    else {
+                        $('#UnSuccessModel').modal("show");
+                    }
+
+                },
+                error: function (errormessage) {
+                    alert("error");
+                }
+            });
+        }
+      
 
 
 
@@ -685,6 +852,7 @@
                     $('#HeadOfAccount').val(result.Result.HeadOfAccount);
                     headofaccount = result.Result.HeadOfAccount;
                     $("#Customer_Code").val(result.Result.Customer_Code);
+                    BindDropDown(result.Result.Customer_Code);
                     $('#Permanentaddress').val(result.Result.Permanentaddress);
                     $("#Presentaddress").val(result.Result.Presentaddress);
                     $("#Sex").val(result.Result.Sex);
@@ -693,13 +861,13 @@
                     $("#Certificateno").val("00" + result.Result.Accountno);
                     $("#Seniorcitizen").val(result.Result.Seniorcitizen);
                     $("#staff").val(result.Result.staff);
-                    $("#Opening_Balance").val(result.Result.Opening_Balance);
-                    $("#Minimum_Balance").val(result.Result.Minimum_Balance);
+                    $("#Opening_Balance").val(result.Result.Totalsaving);
+                    $("#Minimum_Balance").val(result.Result.LoanAmount);
                     $("#loantype").val(result.Result.Currentbal);
                     //if (result.Result.Currentbal.split(' ')[1] == "Loan") {
 
                     //    $("#minimumballabel").html("Loan Amount");
-                    //    modalAmount = result.Result.Minimum_Balance;
+                    modalAmount = result.Result.LoanAmount;
                     //}
                     //else {
                     //    modalAmount = result.Result.Opening_Balance;
@@ -771,7 +939,7 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-      
+
     </script>
 </body>
 

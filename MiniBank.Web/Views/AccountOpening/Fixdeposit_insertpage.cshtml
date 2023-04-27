@@ -136,6 +136,8 @@
                                     <option value="Other">Other</option>
                                     <option value="Self">jointly two</option>
                                     <option value="Other">jointly three</option>
+                                    <option value="Other">Either or Serviver</option>
+
                                 </select>
                             </div>
 
@@ -755,7 +757,7 @@
         function BindPreDetail(DepartmentId, AcType, CustCod) {
 
             $.ajax({
-                url: "/Custmer/GetByIdCustomer?id=" + CustCod,
+                url: "/Custmer/GetByIdCustomer?id=" + CustCod + "&accountype=" + AcType,
                 typr: "GET",
                 contentType: "application/json;charset=UTF-8",
                 dataType: "json",
