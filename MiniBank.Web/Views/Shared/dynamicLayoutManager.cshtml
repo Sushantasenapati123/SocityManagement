@@ -18,11 +18,18 @@
     <script src="~/js/popper.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @*<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>*@
+
+    @*//autocomplete*@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    @*//autocomplete*@
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.js"></script>
 
 
     <script src="~/js/bootstrap.min.js"></script>
@@ -34,9 +41,10 @@
     <link href="~/Datatable/CSS/buttons.dataTables.min.css" rel="stylesheet" />
     <link href="~/Datatable/CSS/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="~/js/bootbox.js"></script>
-    <script src="~/js/bootbox.js"></script>
-    <script src="https://kit.fontawesome.com/27be94b9e4.js" crossorigin="anonymous"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist-plugin-legend/0.6.1/chartist-plugin-legend.min.js"></script>*@
 
+    <script src="https://kit.fontawesome.com/27be94b9e4.js" crossorigin="anonymous"></script>
+    @*<script src="~/js/chartist.min.js"></script>*@
 
     <style>
         .my-nav {
@@ -46,46 +54,7 @@
 
 
 </head>
-@*<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MiniBanking System</title>
-    <meta name="keywords" content="ADSYS" />
-    <meta name="description" content="ADSYS" />
-    <link rel="shortcut icon" href="#" type="image/x-icon">
-    <link href="~/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/css/icons.css" rel="stylesheet">
-    <link href="~/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/css/custom1.css" rel="stylesheet">
-    <link href="~/css/slimscrollbar.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
-
-    <script src="~/js/jquery-3.3.1.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/common.js"></script>
-    <script src="~/validation/validation.js"></script>
-    <script src="~/Datatable/JS/jquery.dataTables.min.js"></script>
-    <script src="~/Datatable/JS/dataTables.buttons.js"></script>
-    <script src="~/Datatable/JS/buttons.print.js"></script>
-    <link href="~/Datatable/CSS/buttons.dataTables.min.css" rel="stylesheet" />
-    <link href="~/Datatable/CSS/jquery.dataTables.min.css" rel="stylesheet" />
-    <script src="~/js/bootbox.js"></script>
-    <script src="~/js/bootbox.js"></script>
-    <style>
-        .my-nav {
-            max-height: 420px;
-        }
-    </style>
-    <script src="https://kit.fontawesome.com/27be94b9e4.js" crossorigin="anonymous"></script>
-
-
-</head>*@
 <body>
     <header>
         <nav class="navbar">
@@ -165,7 +134,7 @@
                     <ul class="navbar-nav " id="dynamicnav">
                     </ul>
                 </div>
-               
+
             </nav>
         </div>
         <div class="mainpanel">
@@ -175,7 +144,7 @@
         </div>
     </div>
     <footer>
-        <p><small>Copyright 2021 SMS dynamic manager</small> </p>
+        <p><small>Copyright 2021 SMS </small> </p>
     </footer>
     <div class="setting-box">
         <div class="profile-details">

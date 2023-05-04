@@ -13,6 +13,7 @@ namespace Bank.Irepository.Customer
       
         Task<IEnumerable<Report>> getAccountType();
         Task<IEnumerable<CustmerEntity>> listcustmer(CustmerEntity cu);
+        Task<IEnumerable<CustmerEntity>> listcustmerAgent(CustmerEntity cu);
         Task<IEnumerable<Report>> listOfReport(Report cu);
         Task<IEnumerable<Report>> listOfTranscationReportByAccountNum(Report cu);
         Task<IEnumerable<CustmerEntity>> listcustmerBranchWise(CustmerEntity cu);
@@ -30,17 +31,22 @@ namespace Bank.Irepository.Customer
         Task<IEnumerable<AccountopeningEntity>> listPendingcustmer(AccountopeningEntity cu);//pending account
         Task<IEnumerable<AccountopeningEntity>> listApprovedcustmer(AccountopeningEntity cu);//// approved account
         int insertcustmer(CustmerEntity rl);
-        int insertsavingAmount(CustmerEntity rl);
+        int insertsavingAmount(CustmerEntity rl);//
+        int AddAgent(CustmerEntity rl);
         int WithdrowAmount(CustmerEntity rl);
         int updatecustmer(CustmerEntity rl);
         int deletecustmer(int id);
         Task<IEnumerable<Report>> ListOfTransactionbyBank(string cu);
-              int Appprove_Deposite(int id);
+        int Appprove_Deposite(int id);
         int Appprove_WithdrowAmount(int id);
         public CustmerEntity custmerselect(int id,string Branch, string accountype);
         public CustmerEntity BindServerdate(string BranchNAme);
+        Task<List<CustmerEntity>> BindcustomerNameCodeBind();
+
+        Task<List<CustmerEntity>> BindAgentCode();
 
         public CustmerEntity GetAccountDetailByAccountNo(Int64 id);
+        public CustmerEntity GetCustomerDetailByCustomerCode(Int64 id,string branchname);
         public CustmerEntity custmerbind(int id);
         Task<IEnumerable<CustmerEntity>> Viewpendinglistcustmer(CustmerEntity cu);
     }

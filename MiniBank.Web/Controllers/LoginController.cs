@@ -35,34 +35,44 @@ namespace MiniBank.Web.Controllers
                 if (result.Count > 0)
                 {
                     if(result[0].ROLE_NAME=="Sales")
-                    {
-                        HttpContext.Session.SetInt32("USERID", result[0].Id);
-                    HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
-                    HttpContext.Session.SetString("Branch", result[0].Branch_Name);
-                    HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
-                    return Json(1);
-                    //return RedirectToAction("AddaccountSales", "AccountType");
-                }
-                    else                     {
-                         HttpContext.Session.SetInt32("USERID", result[0].Id);
-                        if(result[0].Branch_Name==null && result[0].ROLE_NAME==null)
                         {
-                            result[0].ROLE_NAME = "Super Admin";
+                            HttpContext.Session.SetInt32("USERID", result[0].Id);
+                            HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
+                            HttpContext.Session.SetString("Branch", result[0].Branch_Name);
+                            HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
+                            return Json(1);
+                            //return RedirectToAction("AddaccountSales", "AccountType");
+                       }
+                   else if (result[0].ROLE_NAME == "Agent")
+                        {
+                            HttpContext.Session.SetInt32("USERID", result[0].Id);
+                            HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
+                            HttpContext.Session.SetString("Branch", result[0].Branch_Name);
+                            HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
+                            return Json(5);
+                            //return RedirectToAction("AddaccountSales", "AccountType");
+                        }
+                  else                    
+                      {
+                             HttpContext.Session.SetInt32("USERID", result[0].Id);
+                            if(result[0].Branch_Name==null && result[0].ROLE_NAME==null)
+                            {
+                                result[0].ROLE_NAME = "Super Admin";
                           
-                        HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
-                        HttpContext.Session.SetString("Branch", result[0].adminbranchName);
-                        HttpContext.Session.SetString("Userid", result[0].USER_ID);
+                            HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
+                            HttpContext.Session.SetString("Branch", result[0].adminbranchName);
+                            HttpContext.Session.SetString("Userid", result[0].USER_ID);
+                            HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
+                            return Json(2);
+                            //return RedirectToAction("AdminDashboard", "Account");
+                        }
+                             HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
+                             HttpContext.Session.SetString("Branch", result[0].Branch_Name);
+                             HttpContext.Session.SetString("Userid", result[0].USER_ID);
                         HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
-                        return Json(2);
-                        //return RedirectToAction("AdminDashboard", "Account");
+                        return Json(3);
+                        //return RedirectToAction("index", "AccountOpening");
                     }
-                         HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
-                         HttpContext.Session.SetString("Branch", result[0].Branch_Name);
-                         HttpContext.Session.SetString("Userid", result[0].USER_ID);
-                    HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
-                    return Json(3);
-                    //return RedirectToAction("index", "AccountOpening");
-                }
                   
                    
                 }

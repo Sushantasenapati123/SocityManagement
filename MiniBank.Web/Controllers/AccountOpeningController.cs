@@ -20,6 +20,7 @@ namespace MiniBank.Web.Controllers
 {
     public class AccountOpeningController : Controller
     {
+       
         private readonly IAccountopeningRepository _IAccountopeningRepository;
         private readonly ICustmerRepository _cost;
         private readonly IBranchRepository _Branch;
@@ -59,16 +60,116 @@ namespace MiniBank.Web.Controllers
         public IActionResult DepositeAmount()
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            //var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+          
             return View();
         }
         [HttpGet]
+        public IActionResult DailyDepositeAmount()
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> RegisterAgent()
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+
+            List<CustmerEntity> pc1 = new List<CustmerEntity>();
+            // DesignationName ds = new DesignationName();//////for search
+            pc1 = await _cost.BindcustomerNameCodeBind();
+            pc1.Insert(0, new CustmerEntity { Customer_Code = 0, CUSTOMER_NAME = "Select" });
+            ViewBag.UnitName = pc1;
+
+            return View();
+        }
+        public async Task<IActionResult> ViewRegisterAgent()
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+
+            ViewBag.Result = await _cost.listcustmerAgent(CN);
+            return View();
+        }
+        [HttpPost]
+        public JsonResult AutoComplete(string prefix)//BAnkNAme
+        {
+            var prescription = (from Prescription in _IAccountopeningRepository.AutoCompleteBankName().Result
+                                where Prescription.gl_nature.ToUpper().StartsWith(prefix.ToUpper())
+                                select new
+                                {
+                                    label = Prescription.gl_nature,
+                                    val = Prescription.AccountType_id
+                                }).ToList();
+
+            return Json(prescription);
+        }
+        [HttpPost]
+        public JsonResult AutoCompleteForCustomerName(string prefix)
+        {
+            var prescription = (from CustmerEntity in  _cost.BindcustomerNameCodeBind().Result
+                                where CustmerEntity.CUSTOMER_NAME.ToUpper().StartsWith(prefix.ToUpper())
+                                select new
+                                {
+                                    label = CustmerEntity.CUSTOMER_NAME+"("+CustmerEntity.Customer_Code+")",
+                                    val = CustmerEntity.Customer_Code
+                                }).ToList();
+
+            return Json(prescription);
+        }
+        [HttpPost]
+        public JsonResult AutoCompleteForAgentCode(string prefix)
+        {
+            var prescription = (from CustmerEntity in _cost.BindAgentCode().Result
+                                where CustmerEntity.Agent_Code.ToUpper().StartsWith(prefix.ToUpper())
+                                select new
+                                {
+                                    label = CustmerEntity.Agent_Code+ ":"+CustmerEntity.CUSTOMER_NAME,
+                                    val = CustmerEntity.Agent_Code
+                                }).ToList();
+
+            return Json(prescription);
+        }
+        [HttpPost]
+        public async Task<JsonResult> AddAgent(CustmerEntity custe)
+        {
+
+            custe.Branch_Name = HttpContext.Session.GetString("Branch");
+            custe.EnteredByy = HttpContext.Session.GetString("Userid");
+            int retMsg = _cost.AddAgent(custe);
+
+            if (retMsg == 1390)
+            {
+                return Json("Record Saved Successfully");
+            }
+           else if (retMsg == 1391)
+            {
+                return Json("Record Already Exist");
+            }
+
+            else
+            {
+                return Json("Error");
+            }
+        }
+            [HttpGet]
+        public IActionResult GetCustomerDetailByCustomerCode(string code)
+        {
+            var Departments = _cost.GetCustomerDetailByCustomerCode(Convert.ToInt64(code),HttpContext.Session.GetString("Branch"));
+            return Ok(JsonConvert.SerializeObject(Departments));
+        }
+
+
+
+    
+  
+
+    [HttpGet]
         public IActionResult WithdrowAmount()
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            //var X = _IAccountopeningRepository.getdetails(id);
-            // ViewBag.USERID = X.Result.branch_id;
+           
             return View();
         }
 
@@ -114,6 +215,13 @@ namespace MiniBank.Web.Controllers
             return View();
         }
         [HttpGet]
+        public IActionResult DailyDepositePage(string id = null)
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+
+            return View();
+        }
+        [HttpGet]
         public IActionResult Fixdeposit_insertpageForViewByAdmin(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
@@ -144,19 +252,18 @@ namespace MiniBank.Web.Controllers
             // ViewBag.USERID = X.Result.branch_id;
             return View();
         }
-        [HttpPost]
-        public JsonResult AutoComplete(string prefix)
-      {
-            var prescription = (from Prescription in _IAccountopeningRepository.AutoCompleteBankName().Result
-                                where Prescription.gl_nature.ToUpper().StartsWith(prefix.ToUpper())
-                                select new
-                                {
-                                    label = Prescription.gl_nature,
-                                    val = Prescription.AccountType_id
-                                }).ToList();
+        public async Task<IActionResult> indexForAgent(string id = null)
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
 
-            return Json(prescription);
+            ViewBag.Result = await _cost.viewPendingDepositeamount(CN);
+            return View();
+          
+           
         }
+
         [HttpGet]
         public IActionResult GetRateOfIntrest(string accountType)
         {

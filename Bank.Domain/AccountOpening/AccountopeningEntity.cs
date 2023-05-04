@@ -8,6 +8,7 @@ namespace Bank.Domain.AccountOpening
     public class AccountopeningEntity
     {
         //for binding Entity
+        public string Agent_Code { get; set; }
         public int Openingdetails_id { get; set; }//
         public double Totalsaving { get; set; }
         public string Voucher_No { get; set; }

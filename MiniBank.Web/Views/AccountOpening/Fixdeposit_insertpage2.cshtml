@@ -221,11 +221,11 @@
                             </div>
                             <div class="col-3">
                                 <label class="badge-light"> From Date <span class="text-danger">*</span></label>
-                                <input type="date" id="OpeningDATE" class="form-control" style="width: 230px; margin-left: 0px;" />@*//OpeningDATE*@
+                                <input type="datetime" id="OpeningDATE" class="form-control" style="width: 230px; margin-left: 0px;" />@*//OpeningDATE*@
                             </div>
                             <div class="col-3">
                                 <label class="badge-light"> To Date <span class="text-danger">*</span></label>
-                                <input type="date" id="Minimum_Balance" class="form-control" style="width: 230px; margin-left: 5px" />
+                                <input type="datetime" id="Minimum_Balance" class="form-control" style="width: 230px; margin-left: 5px" />
                             </div>
 
                         </div>
@@ -1070,7 +1070,7 @@
                     $("#Seniorcitizen").val(result.Result.Seniorcitizen);
                     $("#staff").val(result.Result.staff);
                     $("#Opening_Balance").val(result.Result.Opening_Balance);
-                    $("#Minimum_Balance").val(result.Result.Minimum_Balance);//to Date
+                    $("#Minimum_Balance").val(result.Result.LoanFixDepositeEndDate1);//to Date
 
                     if (result.Result.Currentbal.split(' ')[1] == "Loan")
                         $("#bal").html("Loan Type");

@@ -176,11 +176,10 @@ namespace Bank.Repository.Customer
                     dypara.Add("@TYPE_OF_COMP_OTHER", cust.TYPE_OF_COMP_OTHER);
                     dypara.Add("@AddreeProofType", cust.AddreeProofType);
                     dypara.Add("@AddreeProofCopy", cust.AddreeProofCopy);
+                    dypara.Add("@EnteredByy", cust.EnteredByy);
+                    dypara.Add("@ApprovedBy", null);
 
-                dypara.Add("@EnteredByy", cust.EnteredByy);
-                dypara.Add("@ApprovedBy", null);
-
-                dypara.Add("PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+                    dypara.Add("PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
                     int Result = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
 
                     var cc = Convert.ToInt32(dypara.Get<String>("PMSGOUT"));
@@ -202,16 +201,18 @@ namespace Bank.Repository.Customer
                 var dypara = new DynamicParameters();
                 dypara.Add("@Action", "Temp_savingAmount");
                 dypara.Add("@NewAccountNo", cust.NewAccountNo);
+                if(cust.Account_Type== "DailyDeposite")
+                {
+                    dypara.Add("@Agent_Code", cust.Agent_Code.Split(":")[0]);
+                    dypara.Add("@Collection_date", cust.Collection_date);
+                }
+               
                 dypara.Add("@Account_Typee", cust.Account_Type);
                 dypara.Add("@Name", cust.customername);
                 dypara.Add("@Amount", cust.Amount); 
-                     dypara.Add("@Branch", cust.BranchName);
-
-
-
+                dypara.Add("@Branch", cust.BranchName);
                 dypara.Add("PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
                 int Result = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
-
                 var cc = Convert.ToInt32(dypara.Get<String>("PMSGOUT"));
                 return cc;
 
@@ -222,6 +223,7 @@ namespace Bank.Repository.Customer
             }
 
         }
+     
         public int WithdrowAmount(CustmerEntity cust)
         {
             try
@@ -334,6 +336,53 @@ namespace Bank.Repository.Customer
                 throw ex;
             }
         }
+        
+             public CustmerEntity GetCustomerDetailByCustomerCode(Int64 ccode,string branchname)
+        {
+            try
+            {
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "GetCustomerDetailByCustomerCode");
+                dypara.Add("@Customer_Code", ccode);
+                dypara.Add("@Branch_Name", branchname);
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.FirstOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int AddAgent(CustmerEntity cust)
+        {
+            try
+            {
+                var query = "USP_customer";
+
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "AddAgent");
+
+                dypara.Add("@Customer_Code", cust.Customer_Code);
+                dypara.Add("@Agent_Code", cust.Agent_Code);
+                dypara.Add("@Branch_Name", cust.Branch_Name);
+
+
+
+                dypara.Add("PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+                int Result = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
+
+                var cc = Convert.ToInt32(dypara.Get<String>("PMSGOUT"));
+                return cc;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
 
         public int deletecustmer(int id)
         {
@@ -416,6 +465,26 @@ namespace Bank.Repository.Customer
                 dypara.Add("@Branch_Name", cu.Branch_Name);
 
                 dypara.Add("@Action", "z");
+
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<CustmerEntity>> listcustmerAgent(CustmerEntity cu)
+        {
+            try
+            {
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
+               
+                dypara.Add("@Branch_Name", cu.Branch_Name);
+
+                dypara.Add("@Action", "listcustmerAgent");
 
                 var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
                 return res.ToList();
@@ -755,11 +824,64 @@ namespace Bank.Repository.Customer
             }
 
         }
+        public async Task<List<CustmerEntity>> BindAgentCode()
+        {
+            try
+            {
 
-       
+                DynamicParameters ObjParm = new DynamicParameters();
+
+                ObjParm.Add("@Action", "BindAgentCode");
+                ObjParm.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+
+
+                var query = "USP_customer";
+                var GetAppById = Connection.Query<CustmerEntity>(query, ObjParm, commandType: CommandType.StoredProcedure);
+
+                return GetAppById.ToList();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+
+            }
+        }
+
+
+        public async Task<List<CustmerEntity>> BindcustomerNameCodeBind()
+        {
+            try
+            {
+
+                DynamicParameters ObjParm = new DynamicParameters();
+
+                ObjParm.Add("@Action", "BindcustomerNameCodeBind");
+                ObjParm.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+
+
+                var query = "USP_customer";
+                var GetAppById = Connection.Query<CustmerEntity>(query, ObjParm, commandType: CommandType.StoredProcedure);
+
+                return GetAppById.ToList();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+
+            }
+        }
+
+
 
 
         //paging//
 
     }
+   
 }

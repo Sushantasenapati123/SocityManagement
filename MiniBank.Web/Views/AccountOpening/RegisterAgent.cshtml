@@ -1,0 +1,327 @@
+﻿@model Bank.Domain.AccountOpening.AccountopeningEntity
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    //ViewData["Title"] = "RoleView";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #Nominee1 {
+            background-color: lightgoldenrodyellow;
+        }
+
+        #Nominee2 {
+            background-color: lightgray;
+        }
+
+        body {
+            font-family: Arial;
+        }
+
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+            /* Style the buttons inside the tab */
+            .tab button {
+                background-color: greenyellow;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                    background-color: #ddd;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
+</head>
+
+
+<style type="text/css">
+    .drpdown {
+        width: 150px;
+    }
+
+    /*.container {
+        padding: 50px;
+    }*/
+
+    input[type=reset] {
+        background-color: red;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        align-content: center;
+    }
+</style>
+
+<body>
+
+    <div class="page-title">
+        <div class="title-details">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                    <li class="breadcrumb-item">Society Management</li>
+                    <li class="breadcrumb-item active" aria-current="page"><b>Registration Agent</b></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="container">
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs nav-fill" role="tablist">
+                            <a class="nav-item nav-link active" asp-controller="AccountOpening" asp-action="RegisterAgent">Add</a>
+                            <a class="nav-item nav-link " asp-controller="AccountOpening" asp-action="ViewRegisterAgent">View</a>
+
+
+                        </ul>
+                        <div class="indicatorslist">
+                            <p class="text-danger">(*) Indicates mandatory </p>
+                        </div>
+
+                    </div>
+                 
+                    <div class="card-body">
+
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Name <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="cname" type="text" class="form-control inputs" onKeyPress="edValueKeyPress()" />
+                                @*<select id="Ccode" class="form-control" onchange="FindCustomerDetailsByCCode()" asp-items="@(new SelectList(ViewBag.UnitName,"Customer_Code","CUSTOMER_NAME"))">
+                    </select>*@
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Father Name <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="FName" class="form-control" readonly />
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Customer Code <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="c_code" class="form-control" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">DOB <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="DOB" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">Agent ID <span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="agentcode" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-md-2 col-xl-2 control-label" for="RegstrationNo">MemberShip Charge<span class="text-danger">*</span></label>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <input id="charge" class="form-control" readonly />
+                                <input hidden id="cod" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <span id="bt" class="text-danger" style="margin-left:30px"></span>
+                            <button class="btn-danger form-control" style="width:150px;margin-left:180px;" id="submit" onclick="Add()">Register</button>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <input type="button" />
+    
+  
+
+    <script type="text/javascript">
+
+        function edValueKeyPress() {
+            $("#cname").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '/AccountOpening/AutoCompleteForCustomerName/',
+                            data: { "prefix": request.term },
+                            type: "POST",
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return item;
+                                }))
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            }
+                        });
+                    },
+                    select: function (e, i) {
+                        $("#cod").val(i.item.val);
+                        FindCustomerDetailsByCCode();
+                    },
+                    minLength: 1
+                });
+           
+        }
+      
+        function Add() {
+            if ($('#cname').val() == "") {
+                Swal.fire("Please Enter Customer Name")
+               
+                return false;
+
+
+           
+            }
+            if ($('#agentcode').val() == "") {
+                Swal.fire("Please Enter Name Again")
+
+                return false;
+
+
+
+            }
+            var empObj = {
+                Customer_Code: $('#c_code').val(),
+                Agent_Code: $('#agentcode').val(),
+               
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/AccountOpening/AddAgent",
+                data: empObj,
+                /*     type: "POST",*/
+                success: function (result) {
+                    if (result == "Record Saved Successfully") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Successful',
+                            text: '',
+                            //footer: '<a href="">Why do I have this issue?</a>'
+                        })
+
+
+
+                        $("#FName").val("");
+                        $("#cname").val("");
+                        $('#c_code').val("");
+                        $("#DOB").val("");
+                        $("#agentcode").val("");
+                        $("#charge").val("");
+                        $('#Ccode').val("0")
+                    }
+                    else if (result == "Record Already Exist") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Record Already Exist',
+                            text: '',
+                            //footer: '<a href="">Why do I have this issue?</a>'
+                        })
+
+
+
+                        $("#FName").val("");
+                        $("#cname").val("");
+                        $('#c_code').val("");
+                        $("#DOB").val("");
+                        $("#agentcode").val("");
+                        $("#charge").val("");
+                        $('#Ccode').val("0")
+                    }
+                   
+
+                },
+                error: function (errormessage) {
+                    alert("Eror");
+                }
+            });
+        }
+
+      
+
+        function FindCustomerDetailsByCCode() {
+            $.ajax({
+                url: "/AccountOpening/GetCustomerDetailByCustomerCode?code=" + $("#cod").val(),
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result != null) {
+
+                        $("#FName").val(result.FATHER_HUSBAND);
+                        $('#c_code').val(result.Customer_Code);
+                        $("#DOB").val(result.DOB);
+                        $("#agentcode").val(result.Agent_Code); 
+                        $("#charge").val("100/-");
+
+
+                    }
+                    else {
+                        $("#FName").val("");
+                        $('#c_code').val("");
+                        $("#DOB").val("");
+                        $("#agentcode").val("");
+                        $("#charge").val("");
+
+                    }
+
+                  
+
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    </script>
+
+
+
+
+
+</body>
+
+

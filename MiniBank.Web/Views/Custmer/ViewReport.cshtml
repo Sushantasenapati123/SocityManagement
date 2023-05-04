@@ -12,6 +12,22 @@
         background: url("https://png.pngtree.com/png-vector/20191011/ourmid/pngtree-printer-icon-png-image_1817556.jpg") no-repeat left;
         background-size: 30px;
     }
+
+    .dynamicTable {
+        font: .7em Arial;
+        border: 1px solid gray;
+    }
+
+    .dynamicTableTh {
+        background-color: #584df0;
+        color: White;
+    }
+
+    .dynamicTableTd {
+        padding: 3px;
+        width: 90px;
+        color: red
+    }
 </style>
 
 <div class="page-title">
@@ -33,16 +49,16 @@
                 <div class="search-sec" style="display: block;">
                     <form method="post" id="indsearch">
                         <div class="form-group form-row">
-                          <div class="col-12 col-md-6 col-xl-3">
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <label class="control-label" id="fromdateL">From Date<span class="text-danger">*</span></label>
                                 <input type="date" id="fromdate" class="form-control" asp-for="From_Date" />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
-                                <label class="control-label" id="todateL">To Date<span class="text-danger" >*</span></label>
+                                <label class="control-label" id="todateL">To Date<span class="text-danger">*</span></label>
                                 <input type="date" id="todate" class="form-control" asp-for="To_Date" />
                             </div>
-                          <div class="col-lg-2 ">
-                                <button id="btnSearch"  onclick="valid()" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Search</button>
+                            <div class="col-lg-2 ">
+                                <button id="btnSearch" onclick="valid()" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Search</button>
                             </div>
                             <div class="col-lg-2 ">
                                 <input type="button" id="print" onclick="Print()" class="icon btn btn-default mt-xl-4 mt-2" style="margin-left:-60px" value="" placeholder="Search">
@@ -58,253 +74,369 @@
             <!-- Search Panel -->
             <!--===================================================-->
             <div id="divv">
-            @if (SectorData.ToList() != null)
-            {
-                @foreach (var items in SectorData.ToList())
+                @if (SectorData.ToList() != null)
                 {
-                    <div class="card">
-                       
-                        @if (ResultData.Where(u => u.GL_NAME == items.gl_nature).Count() != 0 @*&& ResultData[0].DataEntryEligibility*@)
-                        {
-                            <div id="collapse-@items.gl_nature" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    @foreach (var items in SectorData.ToList())
+                    {
+                        <div class="card">
 
-                                <div class="card-body p-0 pt-0">
-                                    <div class="table-responsive">
-                                        <table data-toggle="table" class="table table-bordered mb-0">
-                                           <thead>
-                                               <div class="card-header" id="headingOne" style="background-color:aquamarine">
-                                                   <h5 class="mb-0">
-                                                       <a class="accordianhead" data-toggle="collapse" data-target="#collapse-@items.gl_nature" aria-expanded="true" aria-controls="collapse-@items.gl_nature">
-                                                           @items.gl_nature
-                                                       </a>
-                                                   </h5>
-                                               </div> 
+                            @if (ResultData.Where(u => u.GL_NAME == items.gl_nature).Count() != 0@*&& ResultData[0].DataEntryEligibility*@)
+{
+<div id="collapse-@items.gl_nature" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 
-                                           </thead>
-                                            <thead>
-                                                <tr>
-                                                    <th width="60px">Sl#</th>
-                                                    <th>Customer Code</th>
-                                                    <th>Customer Name </th>
-                                                    <th>Branch </th>
-                                                    <th>Date </th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbody-@items.gl_nature">
-                                                @if (ResultData != null)
-                                                {
-                                                    int count = 1;
-                                                    @foreach (var list in ResultData.Where(u => u.GL_NAME == items.gl_nature))
-                                                    {
-                                                <tr>
-
-                                                    <td>@count</td>
-                                                    <td> @list.Customer_Code</td>
-                                                    <td>@list.CUSTOMER_NAME</td>
-                                                    @if (@list.BranchCode == 1000)
-                                                    {
-                                                        <td>KALPANA</td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td>KHORDHA</td>
-                                                    }
-
-
-
-                                                    <td> @list.Trans_Date</td>
-
-
-
-                                                </tr>
-                                                        count++;
-                                                    }
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+    <div class="card-body p-0 pt-0">
+        <div class="table-responsive">
+            <table data-toggle="table" class="table table-bordered mb-0">
+                <thead>
+                    <div class="card-header" id="headingOne" style="background-color:aquamarine">
+                        <h5 class="mb-0">
+                            <a class="accordianhead" data-toggle="collapse" data-target="#collapse-@items.gl_nature" aria-expanded="true" aria-controls="collapse-@items.gl_nature">
+                                @items.gl_nature
+                            </a>
+                        </h5>
                     </div>
-                }
-            }
 
-            <!--===================================================-->
+                </thead>
+                <thead>
+                    <tr>
+                        <th width="60px">Sl#</th>
+                        <th>Customer Code</th>
+                        <th>Customer Name </th>
+                        <th>Branch </th>
+                        <th>Date </th>
+
+                    </tr>
+                </thead>
+                <tbody id="tbody-@items.gl_nature">
+                    @if (ResultData != null)
+                    {
+                        int count = 1;
+                        @foreach (var list in ResultData.Where(u => u.GL_NAME == items.gl_nature))
+                        {
+                            <tr>
+
+                                <td>@count</td>
+                                <td> @list.Customer_Code</td>
+                                <td>@list.CUSTOMER_NAME</td>
+                                @if (@list.BranchCode == 1000)
+                                {
+                                    <td>KALPANA</td>
+                                }
+                                else
+                                {
+                                    <td>KHORDHA</td>
+                                }
+                                <td> @list.Trans_Date</td>
+                            </tr>
+                            count++;
+                        }
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<script>
-    function Print() {
-      
-        var divContents = document.getElementById("divv").innerHTML;
-        var a = window.open('', '', 'height=1500, width=1500');
-        a.document.write('<html>');
-        a.document.write('<body > <center><h1>Monthly Report</center><br>');
-        a.document.write(divContents);
-        a.document.write('</body></html>');
-        a.document.close();
-        a.print();
-       
-    }
-    function valid() {
-        if ($("#branch_id").val() == 0) {
-            alert("Plz Select Branch");
-            return false;
-        }
-        if ($("#fromdate").val() == 0) {
-            alert("Plz Select From Date");
-            return false;
-        }
-        if ($("#todate").val() == 0) {
-            alert("Plz Select To Date");
-            return false;
-        }
-    }
-    $(document).ready(function () {
-        getDataTable();
-    })
-    function ViewAccount(id) {
-
-        location.href = "/Custmer/ViewPendingCustomerDetails?id=" + id;
-
-
-
-    }
-    function BindDropDown(CUSTOMER_id, Customer_Code) {
-
-        $("#BindAccount").empty();
-        $.ajax({
-            url: "/AccountOpening/BindDdlForpendingaccount?id=" + Customer_Code,
-            type: "GET",
-            success: function (result) {
-                data = JSON.parse(result);
-                var v;
-                $.each(data.Result, function (i, item) {
-                    v += "<option value=" + item.Openingdetails_id + ">" + item.HeadOfAccount + ":(" + "00" + item.Accountno + ")" + "</option>";
-                });
-                $("#BindAccount").html(v);
-            },
-            error: function (error) {
-                jsonValue = jQuery.parseJSON(error.responseText);
-                bootbox.alert("Error : " + jsonValue);
-            }
-        });
-
-        $('#BindDropDown').modal("show");
-
-
-    }
-    var x;
-    var cid;
-    function OpenACC(Id, CustId) {
-        $('.modalMsg').text('Are you Want To Open Account ?');
-        $('.submitConfirm').css('display', 'block');
-        $('#OpenAC').modal("show");
-        x = Id;
-        cid = CustId;
-
-    }
-    var type = "Saving";
-    function DisplayPage() {
-        type = $('#TypAc').val()
-    }
-
-    function OK() {
-        debugger
-        if (type == "Loan") {
-            location.href = "/AccountOpening/Loaninsertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
-
-        }
-        else if (type == "Fixed") {
-            location.href = "/AccountOpening/Fixdeposit_insertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
-
-        }
-        else {
-            location.href = "/AccountOpening/insertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
-
-        }
-    }
-
-
-    //Pagination
-    function getDataTable() {
-        $('#tblDoctor').DataTable({
-            "searching": true,
-            //"bStateSave": true,
-            "dom": 'Bfrtip',
-            "autoWidth": false,
-            "buttons": [
-                //{
-                //    extend: 'print',
-                //    title: 'Manage Block',
-                //    exportOptions: {
-                //        columns: [0, 1, 2, 3, 4]
-                //    },
-                //    customize: function (win) { $(win.document.body).css('font-size', '10pt').prepend('<img src="' + origin + '/images/t5-logo-white.png"  style="position:absolute; top:0; left:0;" />'); $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit'); }
-
-                //}
-                ,
-                {
-                    extend: 'pageLength'
-                }
-            ],
-            "lengthMenu": [
-                [10, 25, 50, 100, 1000 - 1],
-                ['10 rows', '25 rows', '50 rows', '100 rows', '1000 rows', 'Show all']
-            ]
-        });
-    }
-    var code;
-    function updateDepartment(Id, custcode) {
-        $('.modalMsg').text('Are you sure to View the details ?');
-        $('.submitConfirm').css('display', 'block');
-        $('#SubmitModal').modal("show");
-        x = Id;
-        code = custcode;
-        //location.href = "/RegistrationUser/User_Registration?id=" + DepartmentId;
-        // }
-    }
-
-    $(".submitConfirm").click(function () {
-        location.href = "/Custmer/customerinsert?id=" + x + "&Code=" + code;
-    });
-
-
-    var dl;
-    function deleteDoctor(UserId) {
-        $('.DmodalMsg').text('Are you sure to delete ?');
-        $('.DsubmitConfirm').css('display', 'block');
-        $('#DSubmitModal').modal("show");
-        dl = UserId;
-    }
-
-    $(".DsubmitConfirm").click(function () {
-        $.ajax({
-            url: "/Custmer/Deletecustomer?id=" + dl,
-            type: "POST",
-            dataType: "json",
-            contentType: "application/json;charset=UTF-8",
-            success: function (data) {
-                if (data == "3") {
-                    $('.modalMsg').text('');
-                    $('#DSubmitModal').modal("hide");
-                    $('.msgsuccess').text('Data Deleted successfully.');
-                    $('#SuccessModal').modal('show');
-                    /* window.location.href = "/RegistrationUser/GetAllUsers";*/
+}
+                        </div>
+                    }
                 }
 
+                <!--===================================================-->
+                @*<table id="table_product" class="table table-bordered mb-0">
+                    <thead id="">
+                        <div class="card-header" id="headingOne" style="background-color:aquamarine">
+                            <h5 class="mb-0">
+                                <a class="accordianhead" data-toggle="collapse" aria-expanded="true">
+                                    Saving
+                                </a>
+                            </h5>
+                        </div>
+                    </thead>
+                    <thead id="second"></thead>
 
-            },
-            error: function (error) {
-                jsonValue = jQuery.parseJSON(error.responseText);
-                bootbox.alert("Error : " + jsonValue);
+                    <tbody>
+                    </tbody>
+                </table>
+                <table id="table_productL" class="table table-bordered mb-0">
+                    <thead id="">
+                        <div class="card-header" id="headingOne" style="background-color:aquamarine">
+                            <h5 class="mb-0">
+                                <a class="accordianhead" data-toggle="collapse" aria-expanded="true">
+                                    Loan
+                                </a>
+                            </h5>
+                        </div>
+                    </thead>
+                    <thead id="second"></thead>
+
+                    <tbody>
+                    </tbody>
+                </table>*@
+                @*<table border="0" cellpadding="0" width="100%" id='providersFormElementsTable'> </table>*@
+            </div>
+        </div>
+    </div>
+
+
+    <div id="dynamicTable">
+    </div>
+    <script>
+        function createTable() {
+            $("#dynamicTable").append("<table>");
+            $("#dynamicTable").append("<caption>My table</caption>");
+            $("#dynamicTable").append("<thead>");
+           
+            $("#dynamicTable").append("<tr>");
+            $("#dynamicTable").append("<th>A</th>");
+            $("#dynamicTable").append("<th>B</th>");
+            $("#dynamicTable").append("<th>C</th>");
+            $("#dynamicTable").append("</tr>");
+            $("#dynamicTable").append("</thead>");
+
+            $("#dynamicTable").append("<tbody>");
+
+            $("#dynamicTable").append("<tr>");
+            $("#dynamicTable").append("<td>what</td>");
+            $("#dynamicTable").append("<td>now</td>");
+            $("#dynamicTable").append("<td>cow</td>");
+            $("#dynamicTable").append("</tr>");
+
+            $("#dynamicTable").append("<tr>");
+            $("#dynamicTable").append("<td>bach</td>");
+            $("#dynamicTable").append("<td>v</td>");
+            $("#dynamicTable").append("<td>dang</td>");
+            $("#dynamicTable").append("</tr>");
+
+            $("#dynamicTable").append("</tbody>");
+            $("#dynamicTable").append("</table>");
+
+            $('#dynamicTable table').addClass("dynamicTable");
+            $('#dynamicTable table thead').addClass("dynamicTableTh");
+            $('#dynamicTable table tbody td').addClass("dynamicTableTd");
+        }
+        //$(document).ready(function () {
+        //    $("#table_product #second").html("<tr><th>SL#</th><th>Type</th><th>Customer Code</th><th> Customer Name</th><th>Branch</th><th>Date</th></tr>");
+        //});
+        $(window).on("load", function () {
+
+            //ReportPrint();
+            //createTable();
+
+
+        });
+        function ReportPrint() {
+
+            $("#table_product tbody tr").remove();
+            $.ajax({
+                url: "/Custmer/listOfReport",
+                type: "GET",
+                success: function (result) {
+                    data = JSON.parse(result);
+                    var count = 1;
+                    $.each(data.Result, function (i, prod) {
+                        if (prod.GL_NAME == "Saving") {
+                            $("#table_product #second").html("<tr><th>SL#</th><th>Type</th><th>Customer Code</th><th> Customer Name</th><th>Branch</th><th>Date</th></tr>");
+
+                            $("#table_product tbody").append(
+                                `<tr><td>` + count++ + `</td><td>` + prod.GL_NAME + `</td><td>` + prod.Customer_Code + `</td><td>` + prod.CUSTOMER_NAME + `</td><td>` + prod.BranchCode + `</td><td>` + prod.Trans_Date + `</td>
+                      </tr>`
+                            );
+
+                        }
+                        else {
+                            $("#table_productL #second").html("<tr><th>SL#</th><th>Type</th><th>Customer Code</th><th> Customer Name</th><th>Branch</th><th>Date</th></tr>");
+
+                            $("#table_productL tbody").append(
+                                `<tr><td>` + count++ + `</td><td>` + prod.GL_NAME + `</td><td>` + prod.Customer_Code + `</td><td>` + prod.CUSTOMER_NAME + `</td><td>` + prod.BranchCode + `</td><td>` + prod.Trans_Date + `</td>
+                      </tr>`
+                            );
+
+                        }
+
+
+
+
+
+                    });
+
+                },
+                error: function (error) {
+                    jsonValue = jQuery.parseJSON(error.responseText);
+                    bootbox.alert("Error : " + jsonValue);
+                }
+            });
+
+
+        }
+        function Print() {
+
+            var divContents = document.getElementById("divv").innerHTML;
+            var a = window.open('', '', 'height=1500, width=1500');
+            a.document.write('<html>');
+            a.document.write('<body > <center><h1>Monthly Report</center><br>');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+
+        }
+        function valid() {
+            if ($("#branch_id").val() == 0) {
+                alert("Plz Select Branch");
+                return false;
             }
+            if ($("#fromdate").val() == 0) {
+                alert("Plz Select From Date");
+                return false;
+            }
+            if ($("#todate").val() == 0) {
+                alert("Plz Select To Date");
+                return false;
+            }
+        }
+        $(document).ready(function () {
+            getDataTable();
+        })
+        function ViewAccount(id) {
+
+            location.href = "/Custmer/ViewPendingCustomerDetails?id=" + id;
+
+
+
+        }
+        function BindDropDown(CUSTOMER_id, Customer_Code) {
+
+            $("#BindAccount").empty();
+            $.ajax({
+                url: "/AccountOpening/BindDdlForpendingaccount?id=" + Customer_Code,
+                type: "GET",
+                success: function (result) {
+                    data = JSON.parse(result);
+                    var v;
+                    $.each(data.Result, function (i, item) {
+                        v += "<option value=" + item.Openingdetails_id + ">" + item.HeadOfAccount + ":(" + "00" + item.Accountno + ")" + "</option>";
+                    });
+                    $("#BindAccount").html(v);
+                },
+                error: function (error) {
+                    jsonValue = jQuery.parseJSON(error.responseText);
+                    bootbox.alert("Error : " + jsonValue);
+                }
+            });
+
+            $('#BindDropDown').modal("show");
+
+
+        }
+        var x;
+        var cid;
+        function OpenACC(Id, CustId) {
+            $('.modalMsg').text('Are you Want To Open Account ?');
+            $('.submitConfirm').css('display', 'block');
+            $('#OpenAC').modal("show");
+            x = Id;
+            cid = CustId;
+
+        }
+        var type = "Saving";
+        function DisplayPage() {
+            type = $('#TypAc').val()
+        }
+
+        function OK() {
+            debugger
+            if (type == "Loan") {
+                location.href = "/AccountOpening/Loaninsertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
+
+            }
+            else if (type == "Fixed") {
+                location.href = "/AccountOpening/Fixdeposit_insertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
+
+            }
+            else {
+                location.href = "/AccountOpening/insertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
+
+            }
+        }
+
+
+        //Pagination
+        function getDataTable() {
+            $('#tblDoctor').DataTable({
+                "searching": true,
+                //"bStateSave": true,
+                "dom": 'Bfrtip',
+                "autoWidth": false,
+                "buttons": [
+                    //{
+                    //    extend: 'print',
+                    //    title: 'Manage Block',
+                    //    exportOptions: {
+                    //        columns: [0, 1, 2, 3, 4]
+                    //    },
+                    //    customize: function (win) { $(win.document.body).css('font-size', '10pt').prepend('<img src="' + origin + '/images/t5-logo-white.png"  style="position:absolute; top:0; left:0;" />'); $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit'); }
+
+                    //}
+                    ,
+                    {
+                        extend: 'pageLength'
+                    }
+                ],
+                "lengthMenu": [
+                    [10, 25, 50, 100, 1000 - 1],
+                    ['10 rows', '25 rows', '50 rows', '100 rows', '1000 rows', 'Show all']
+                ]
+            });
+        }
+        var code;
+        function updateDepartment(Id, custcode) {
+            $('.modalMsg').text('Are you sure to View the details ?');
+            $('.submitConfirm').css('display', 'block');
+            $('#SubmitModal').modal("show");
+            x = Id;
+            code = custcode;
+            //location.href = "/RegistrationUser/User_Registration?id=" + DepartmentId;
+            // }
+        }
+
+        $(".submitConfirm").click(function () {
+            location.href = "/Custmer/customerinsert?id=" + x + "&Code=" + code;
         });
 
-    });
+
+        var dl;
+        function deleteDoctor(UserId) {
+            $('.DmodalMsg').text('Are you sure to delete ?');
+            $('.DsubmitConfirm').css('display', 'block');
+            $('#DSubmitModal').modal("show");
+            dl = UserId;
+        }
+
+        $(".DsubmitConfirm").click(function () {
+            $.ajax({
+                url: "/Custmer/Deletecustomer?id=" + dl,
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    if (data == "3") {
+                        $('.modalMsg').text('');
+                        $('#DSubmitModal').modal("hide");
+                        $('.msgsuccess').text('Data Deleted successfully.');
+                        $('#SuccessModal').modal('show');
+                        /* window.location.href = "/RegistrationUser/GetAllUsers";*/
+                    }
 
 
-</script>
+                },
+                error: function (error) {
+                    jsonValue = jQuery.parseJSON(error.responseText);
+                    bootbox.alert("Error : " + jsonValue);
+                }
+            });
+
+        });
+
+
+    </script>
 

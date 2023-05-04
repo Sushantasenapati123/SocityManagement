@@ -163,14 +163,15 @@ namespace MiniBank.Web.Controllers
             {
                 return Json("Record Saved Successfully");
             }
-           
+            if (retMsg == 135)
+            {
+                return Json("Invalid Agent Id");
+            }
+
             else
             {
                 return Json("Error");
             }
-
-
-
         }
         [HttpPost]
         public async Task<JsonResult> WithdrowAmount(CustmerEntity custe)
@@ -198,7 +199,6 @@ namespace MiniBank.Web.Controllers
             ViewBag.Role = HttpContext.Session.GetString("Role");
             CustmerEntity CN = new CustmerEntity();
             CN.Branch_Name= HttpContext.Session.GetString("Branch");
-            
             ViewBag.Result = await _cost.listcustmer(CN);
             return View();
         }
@@ -231,9 +231,47 @@ namespace MiniBank.Web.Controllers
             pc7 = (List<Report>)await _cost.getAccountType();
             ViewBag.accounts = pc7;
 
+
+
+
             ViewBag.Result = await _cost.listOfReport(new Report());
             return View();
         }
+        /// <summary>
+        /// ///////////////////////////////////////////////////////////////////ABP Trail
+        /// </summary>
+        /// <returns></returns>
+        public async Task<JsonResult> getAccountType()//GetSales
+        {
+             List<Report> pc7 = new List<Report>();
+            pc7 = (List<Report>)await _cost.getAccountType();
+            //List<Report> lstprod = await _cost.getAccountType();
+            var jsonres = JsonConvert.SerializeObject(pc7);
+            return Json(jsonres);
+        }
+        //public async Task<JsonResult> listOfReport()//GetSales
+        //{
+        //    List<Report> pc7 = new List<Report>();
+        //    pc7 = (List<Report>)await _cost.listOfReport(new Report());
+
+        //    //List<Report> lstprod = await _cost.getAccountType();
+        //    var jsonres = JsonConvert.SerializeObject(pc7);
+        //    return Json(jsonres);
+        //}
+
+
+
+
+        [HttpGet]
+        public IActionResult listOfReport()
+        {
+            var Departments = _cost.listOfReport(new Report());
+            return Ok(JsonConvert.SerializeObject(Departments));
+        }
+        /// <summary>
+        /// /////////////////////////////////////////////////////ABP Trail
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> ViewTransactionReport()//Account wise transaction
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
@@ -258,7 +296,7 @@ namespace MiniBank.Web.Controllers
             CustmerEntity CN = new CustmerEntity();
            
             ViewData["Serverdate"] =  _cost.BindServerdate(HttpContext.Session.GetString("Branch")).SERVER_DATE;
-            ViewBag.Result = await _cost.listOfTranscationReportByAccountNum(new Report());
+            ViewBag.Result = await _cost.ListOfTransactionbyBank(HttpContext.Session.GetString("Branch"));
             return View();
         }
         [HttpGet]

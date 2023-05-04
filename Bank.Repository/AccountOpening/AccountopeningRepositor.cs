@@ -30,6 +30,10 @@ namespace Bank.Repository.AccountOpening
                     var dypara = new DynamicParameters();
                     dypara.Add("@ACTION", "I");
                     dypara.Add("@Openingdetails_id", acc.Openingdetails_id);
+                    if (acc.HeadOfAccount == "DailyDeposite")
+                    {
+                        dypara.Add("@Agent_Code", acc.Agent_Code.Split(":")[0]);
+                    }
                     dypara.Add("@HeadOfAccount", acc.HeadOfAccount);
                     dypara.Add("@BranchCode", acc.BranchCode);
                     dypara.Add("@Customer_Code", acc.Customer_Code);
@@ -44,19 +48,16 @@ namespace Bank.Repository.AccountOpening
                     dypara.Add("@Presentaddress", acc.Presentaddress);
                     dypara.Add("@Permanentaddress", acc.Permanentaddress);
                     dypara.Add("@Modeofoperation", acc.Modeofoperation); 
-                if(acc.HeadOfAccount=="Fixed")
-                {
-                    dypara.Add("@LoanFixDepositeEndDate1", acc.LoanFixDepositeEndDate1);
-                    dypara.Add("@LoanPaybleAmount", acc.FixdepositeMaturityAmount); 
-                }
-                else if (acc.HeadOfAccount == "Loan")
-                {
-                    dypara.Add("@LoanFixDepositeEndDate", acc.LoanFixDepositeEndDate);
-                    dypara.Add("@LoanPaybleAmount", acc.LoanPaybleAmount);
-                }
-                   
-                   
-
+                    if(acc.HeadOfAccount=="Fixed")
+                    {
+                        dypara.Add("@LoanFixDepositeEndDate1", acc.LoanFixDepositeEndDate1);
+                        dypara.Add("@LoanPaybleAmount", acc.FixdepositeMaturityAmount); 
+                    }
+                    else if (acc.HeadOfAccount == "Loan")
+                    {
+                        dypara.Add("@LoanFixDepositeEndDate", acc.LoanFixDepositeEndDate);
+                        dypara.Add("@LoanPaybleAmount", acc.LoanPaybleAmount);
+                    }
                     dypara.Add("@OpeningDATE", acc.OpeningDATE);
                     dypara.Add("@Facevalue", acc.Facevalue);
                     dypara.Add("@NoUnint", acc.NoUnint);
@@ -120,7 +121,6 @@ namespace Bank.Repository.AccountOpening
                 {
                     dypara.Add("@ACTION", "ApprovedCustomerAccount");
                 }
-               
                 else
                 dypara.Add("@ACTION", "RejectCustomer");
                 dypara.Add("@NewAccountNo", accountno);//bigint
