@@ -22,7 +22,9 @@ namespace Bank.Irepository.Customer
         public int UpdateServerDate(string date, string BranchName);//approve customer profile
 
         Task<IEnumerable<CustmerEntity>> viewApprovedCustomerBefore(CustmerEntity cu);// approved customer
-        Task<IEnumerable<CustmerEntity>> viewPendingDepositeamount(CustmerEntity cu);
+        Task<IEnumerable<CustmerEntity>> viewPendingDepositeamount(CustmerEntity cu);//
+        Task<IEnumerable<CustmerEntity>> viewPendingDailyDepositeamount(CustmerEntity cu);
+        Task<IEnumerable<CustmerEntity>> viewAllDailyDepositeApproveAccount(CustmerEntity cu);
         Task<IEnumerable<CustmerEntity>> viewPendingWithdrowamount(CustmerEntity cu);
         Task<IEnumerable<CustmerEntity>> BindVoucher(string branch);
         Task<IEnumerable<CustmerEntity>> viewPendingCustomerBefore(CustmerEntity cu);// pending customer
@@ -37,7 +39,8 @@ namespace Bank.Irepository.Customer
         int updatecustmer(CustmerEntity rl);
         int deletecustmer(int id);
         Task<IEnumerable<Report>> ListOfTransactionbyBank(string cu);
-        int Appprove_Deposite(int id);
+        int Appprove_Deposite(int id); 
+            int Appprove_DepositeByAgent(DateTime Date,int id,string agentID, string branch, int Amount,int transid);
         int Appprove_WithdrowAmount(int id);
         public CustmerEntity custmerselect(int id,string Branch, string accountype);
         public CustmerEntity BindServerdate(string BranchNAme);

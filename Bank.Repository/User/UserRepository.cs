@@ -34,6 +34,7 @@ namespace Bank.Repository.User
                     dypara.Add("@USER_EMAIL", usr.USER_EMAIL);
                     dypara.Add("@USER_MOBILE", usr.USER_MOBILE);
                     dypara.Add("@BRANCH_id", usr.BRANCH_id);
+                    dypara.Add("@Agent_Code", usr.Agent_Code);
                     dypara.Add("PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
                     int res = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
                     var cc = Convert.ToInt32(dypara.Get<String>("PMSGOUT"));

@@ -112,7 +112,7 @@ namespace MiniBank.Web.Controllers
                                 where CustmerEntity.CUSTOMER_NAME.ToUpper().StartsWith(prefix.ToUpper())
                                 select new
                                 {
-                                    label = CustmerEntity.CUSTOMER_NAME+"("+CustmerEntity.Customer_Code+")",
+                                    label = CustmerEntity.CUSTOMER_NAME+":"+CustmerEntity.Customer_Code,
                                     val = CustmerEntity.Customer_Code
                                 }).ToList();
 
@@ -252,16 +252,27 @@ namespace MiniBank.Web.Controllers
             // ViewBag.USERID = X.Result.branch_id;
             return View();
         }
-        public async Task<IActionResult> indexForAgent(string id = null)
+        public async Task<IActionResult> indexForAgent()
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
             CustmerEntity CN = new CustmerEntity();
             CN.Branch_Name = HttpContext.Session.GetString("Branch");
-
-            ViewBag.Result = await _cost.viewPendingDepositeamount(CN);
+            CN.Agent_Code = HttpContext.Session.GetString("Agent_Code");
             return View();
-          
            
+        }
+        [HttpPost]
+        public async Task<IActionResult> indexForAgent(string SERVER_DATE)
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+            CN.Agent_Code = HttpContext.Session.GetString("Agent_Code");
+            CN.SERVER_DATE = SERVER_DATE;
+            ViewBag.Result = await _cost.viewAllDailyDepositeApproveAccount(CN);
+            return View();
+
+
         }
 
         [HttpGet]

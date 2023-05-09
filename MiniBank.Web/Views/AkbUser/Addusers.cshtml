@@ -11,8 +11,8 @@
 {
 <script>
 
-        location.href = "../AkbUser/AddUsers";
-        alert("@ViewBag.msg");
+    location.href = "../AkbUser/AddUsers";
+    alert("@ViewBag.msg");
 
 </script>
 }
@@ -52,7 +52,7 @@
                     <div class="form-group col-md-4">
                         <label class="badge-light">Role <span class="text-danger">*</span></label>
                         <select class="form-control" id="ddlRoleId" asp-for="ROLE_ID"
-                                asp-items="@(new SelectList(ViewBag.RoleName, "ROLE_ID","ROLE_NAME"));">
+                                asp-items="@(new SelectList(ViewBag.RoleName, "ROLE_ID","ROLE_NAME"));" onchange="showagenttextbox()">
                             <option value="0">--Select One--</option>
                         </select>
                     </div>
@@ -118,6 +118,11 @@
                         <label class="badge-light"> Confirm Password<span class="text-danger">*</span></label>
                         <input type="password" id="textCPwd" asp-for="CONFIRM_PASSWORD" class="form-control" placeholder="Please Enter Your pwd">
                     </div>
+                    <div class="form-group col-md-4" style="display:none" id="agentidd">
+
+                        <label class="badge-light"> Agent Id<span class="text-danger">*</span></label>
+                        <input type="number" id="agentid" asp-for="Agent_Code" class="form-control" placeholder="Please Enter Your Agent Code">
+                    </div>
                 </div>
 
 
@@ -132,7 +137,18 @@
     </div>
 </div>
 
-<script>function validate() {
+<script>
+    function showagenttextbox() {
+        if ($("#ddlRoleId").val()== "6") {
+            $("#agentidd").show();
+           
+        }
+        else {
+            $("#agentidd").hide();
+
+        }
+    }
+    function validate() {
 
 
         var branchid = document.getElementById("ddlBranchId").value;
@@ -146,6 +162,7 @@
         var mobile = document.getElementById("textMobile").value;
         var password = document.getElementById("textPwd").value;
         var confirmPassword = document.getElementById("textCPwd").value;
+        var agentid = document.getElementById("agentid").value;
 
         if (branchid == "0") {
             bootbox.alert("Please Select branchid")
@@ -200,7 +217,11 @@
             return false;
         }
         else if (password != confirmPassword) {
-            alert("Passwords do not match.");
+            bootbox.alert("Passwords do not match.");
+            return false;
+        }
+        else if (agentid == "" && RollId=="6") {
+            bootbox.alert("Please Enter Agent id");
             return false;
         }
 

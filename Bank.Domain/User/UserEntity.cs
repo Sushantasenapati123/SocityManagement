@@ -7,6 +7,7 @@ namespace Bank.Domain.User
     public class UserEntity
     {
         public int ID { get; set; }
+        public string Agent_Code { get; set; }
         public string USER_ID { get; set; }
         public string USER_NAME { get; set; }
         public string USER_PASSWORD { get; set; }

@@ -365,6 +365,7 @@ namespace Bank.Repository.Customer
                 dypara.Add("@Action", "AddAgent");
 
                 dypara.Add("@Customer_Code", cust.Customer_Code);
+                dypara.Add("@Name", cust.Name.Split(":")[0]);
                 dypara.Add("@Agent_Code", cust.Agent_Code);
                 dypara.Add("@Branch_Name", cust.Branch_Name);
 
@@ -406,7 +407,7 @@ namespace Bank.Repository.Customer
                 throw ex;
             }
         }
-
+      
         public int Appprove_Deposite(int id)
         {
             try
@@ -645,6 +646,7 @@ namespace Bank.Repository.Customer
                 throw ex;
             }
         }
+        
 
         public async Task<IEnumerable<CustmerEntity>> viewPendingDepositeamount(CustmerEntity cu)
         {
@@ -655,6 +657,7 @@ namespace Bank.Repository.Customer
                 var dypara = new DynamicParameters();
               
                 dypara.Add("@Action", "getall_savingTranAmount");
+               
 
 
                 var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
@@ -666,7 +669,7 @@ namespace Bank.Repository.Customer
                 throw ex;
             }
         }
-        public async Task<IEnumerable<CustmerEntity>> viewPendingWithdrowamount(CustmerEntity cu)
+        public async Task<IEnumerable<CustmerEntity>> viewPendingDailyDepositeamount(CustmerEntity cu)
         {
             try
             {
@@ -674,9 +677,79 @@ namespace Bank.Repository.Customer
                 var query = "USP_customer";
                 var dypara = new DynamicParameters();
 
+                dypara.Add("@Action", "getall_PendingDailyDeposite");
+
+
+
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        public async Task<IEnumerable<CustmerEntity>> viewAllDailyDepositeApproveAccount(CustmerEntity cu)
+        
+        {
+            try
+            {
+
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "viewAllDailyDepositeApproveAccount");//newly opened approve account
+                dypara.Add("@Agent_Code", cu.Agent_Code);
+                dypara.Add("@SERVER_DATE", cu.SERVER_DATE);
+                dypara.Add("@Branch_Name", cu.Branch_Name);
+                dypara.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                int ress = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));
+                return res.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int Appprove_DepositeByAgent(DateTime date,int id,string agentid,string branch,int amount,int Temp_Id)
+        {
+            try
+            {
+                var query = "USP_customer";
+
+
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "Appprove_DailyDepositeByAgent");
+                dypara.Add("@Agent_Code", agentid);
+                dypara.Add("@Collection_date", date);
+                dypara.Add("@Branch", branch);
+                dypara.Add("@Temp_Id", Temp_Id);
+                dypara.Add("@Amount", amount);
+                dypara.Add("@Openingdetails_id", id);
+                dypara.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+                Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
+                int res = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));
+                return res;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<CustmerEntity>> viewPendingWithdrowamount(CustmerEntity cu)
+        {
+            try
+            {
+
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
                 dypara.Add("@Action", "getall_WithdrowTranAmount");
-
-
                 var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
                 return res.ToList();
 

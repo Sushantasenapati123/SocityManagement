@@ -207,7 +207,7 @@
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label class="badge-light">Current Bal.<span class="text-danger">*</span></label>
+                                <label class="badge-light">Daily Deposite Amount<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="Currentbal" placeholder="0" style="width:280px" />
                             </div>
                           
@@ -720,6 +720,10 @@
         }
         if ($('#Minimum_Balance').val() == "" && $('#HeadOfAccount').val() != "Current") {
             alert("Please Enter Minimum Balance");
+            return false;
+        }
+        if ($('#agentid').val() == "") {
+            alert("Please Enter Agent Id");
             return false;
         }
         if ($('#Minimum_Balance').val() < 100 && $('#HeadOfAccount').val() != "Current") {

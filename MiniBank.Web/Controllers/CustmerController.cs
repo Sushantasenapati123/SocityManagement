@@ -367,6 +367,15 @@ namespace MiniBank.Web.Controllers
             ViewBag.Result = await _cost.viewPendingDepositeamount(CN);
             return View();
         }
+        public async Task<IActionResult> viewPendingDailyDepositeamount()//view by Manager
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+
+            ViewBag.Result = await _cost.viewPendingDailyDepositeamount(CN);
+            return View();
+        }
         public async Task<IActionResult> viewPendingWithdrowamount()
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
@@ -382,6 +391,19 @@ namespace MiniBank.Web.Controllers
             try
             {
                 int Result = _cost.Appprove_Deposite(Convert.ToInt32( id));
+                return Ok(Result);
+            }
+            catch (Exception Ex)
+            {
+                throw Ex;
+            }
+        }
+        [HttpPost]
+        public IActionResult Appprove_DepositeByAgent(string id,DateTime Date,int Amount, int Temp_Id)
+        {
+            try
+            {
+                int Result = _cost.Appprove_DepositeByAgent(Date,Convert.ToInt32(id),HttpContext.Session.GetString("Agent_Code"), HttpContext.Session.GetString("Branch"),Amount, Temp_Id);
                 return Ok(Result);
             }
             catch (Exception Ex)

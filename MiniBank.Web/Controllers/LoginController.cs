@@ -49,7 +49,9 @@ namespace MiniBank.Web.Controllers
                             HttpContext.Session.SetString("Role", result[0].ROLE_NAME);
                             HttpContext.Session.SetString("Branch", result[0].Branch_Name);
                             HttpContext.Session.SetInt32("ROLE_ID", result[0].ROLE_ID);
-                            return Json(5);
+                            HttpContext.Session.SetString("Agent_Code", result[0].Agent_Code);
+
+                    return Json(5);
                             //return RedirectToAction("AddaccountSales", "AccountType");
                         }
                   else                    

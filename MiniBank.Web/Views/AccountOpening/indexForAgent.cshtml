@@ -22,7 +22,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><span class="icon-home1"></span></li>
                 <li class="breadcrumb-item">Society Management</li>
-                <li class="breadcrumb-item active" aria-current="page"><b>Pending Deposite Transaction</b></li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Pending Daily Deposite</b></li>
             </ol>
         </nav>
     </div>
@@ -35,24 +35,40 @@
 
             </div>
             <!-- Search Panel-->
+            @*<div class="search-container">
+            <form method="post" id="indsearch">
+                <div class="search-sec form-group form-row" style="display: block;">
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <label class="control-label">Date</label>
+                        <input id="dat" class="form-control" type="date" asp-for="SERVER_DATE"/>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <button id="btnSearch" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> ShoW</button>
+                    </div>
 
+            </form>
+                </div>
+                <div class="text-center"> <a class="searchopen" title="Search" data-toggle="tooltip" data-placement="bottom"> <i class="icon-angle-arrow-down"></i> </a></div>
+        </div>*@
 
             <div class="search-container">
                 <div class="search-sec" style="display: block;">
-                    @*<form method="post" id="indsearch">
-                            <div class="form-group form-row">
-                                <div class="col-12 col-md-6 col-xl-3">
-                                    <label class="control-label">CUSTOMER NAME</label>
-                                    <input id="Dname" class="form-control" asp-for="CUSTOMER_NAME" />
-                                </div>
-
-                                <div class="col-lg-2 ">
-                                    <button id="btnSearch" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Search</button>
-                                </div>
+                    <form method="post" id="indsearch">
+                        <div class="form-group form-row">
+                            <div class="col-12 col-md-6 col-xl-2">
+                                <label class="control-label">Date</label>
+                                <input id="dat" class="form-control" type="date" asp-for="SERVER_DATE" />
                             </div>
-                        </form>*@
+
+
+                            <div class="col-lg-2 ">
+                                <button id="btnSearch" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Show</button>
+                            </div>
+                           
+                        </div>
+                    </form>
                 </div>
-                <div class="text-center"> <a class="searchopen" title="Search" data-toggle="tooltip" data-placement="bottom"> <i class="icon-angle-arrow-down"></i> </a></div>
+           
             </div>
 
             <!-- Search Panel -->
@@ -66,12 +82,8 @@
                                 <tr>
                                     <th width="60px" class="align-top text-center">Sl#</th>
 
-                                    <th width="150px" class="align-top">
-                                        Branch
-                                    </th>
-                                    <th width="150px" class="align-top">
-                                        Account Type
-                                    </th>
+
+
                                     <th width="150px" class="align-top">
                                         Account Number
                                     </th>
@@ -79,6 +91,13 @@
                                     <th width="150px" class="align-top">
                                         Name
                                     </th>
+                                    <th width="150px" class="align-top">
+                                        Collection Date
+                                    </th>
+                                    <th width="150px" class="align-top" hidden>
+                                        xxxxx
+                                    </th>
+
                                     <th width="150px" class="align-top">
                                         Amount
                                     </th>
@@ -96,26 +115,33 @@
                                     <tr>
                                         <td class="text-center">@count</td>
                                         <td>
-                                            @list.BranchName
+                                            @list.NewAccountNo
                                         </td>
                                         <td>
-                                            @list.Account_Type
+                                            @list.customername
+                                        </td>
+                                        <td>
+                                            @list.Collection_date
+                                        </td>
+                                        <td hidden>
+                                            @list.Temp_Id
                                         </td>
 
-
-                                        <td>
-                                            00 @list.NewAccountNo
+                                        <td tdName>
+                                            <input type="text" class=" form-control txtamt" id="amt" value="@list.Amount" />
                                         </td>
-                                        <td>
-                                            @list.Name
-                                        </td>
-                                        <td>
-                                            @list.Amount
-                                        </td>
-                                        <td>
-                                            @*<a href="/RegistrationUser/User_Registration?id=@Convert.ToString(@list.UserId)" class="text-primary mr-3" title="" data-original-title="Edit"><i class="icon-edit1"></i></a>*@
-                                            <button type="button" onclick="Approve('@list.trans_id')" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">Approve</button>
-                                        </td>
+                                        @if (@list.Collected_Status.Trim() == "No")
+                                        {
+                                            <td class="inputs">
+                                                <button type="button" onclick="Approve('@list.Openingdetails_id','@list.Temp_Id')" style="width:150px;height:40px" class="btn btn-danger btn-sm No hbtn btn-save" data-dismiss="modal" aria-label="Close">Collect</button>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="inputs">
+                                                <button type="button" class=" btn btn-info btn-sm No hbtn" data-dismiss="modal" aria-label="Close" style="width: 150px; height: 40px">Paid</button>
+                                            </td>
+                                        }
                                     </tr>
                                     count++;
                                 }
@@ -185,14 +211,17 @@
             <!--===================================================-->
         </div>
     </div>
-</div>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function () {
         getDataTable();
     })
-
+    var amount;
+    $('#tblDoctor').on('click', '.btn-save', function () {
+         amount = $(this).parent().parent().find(".txtamt").val();
+    });
 
 
 
@@ -236,7 +265,7 @@
         // }
     }
     var dl;
-    function Approve(Id) {
+    function Approve(Id,tempid) {
         Swal.fire({
             title: 'Do You Want To Approve?',
             text: "You won't be able to revert this!",
@@ -248,12 +277,12 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "/Custmer/Appprove_Deposite?id=" + Id,
+                    url: "/Custmer/Appprove_DepositeByAgent?id=" + Id + "&Date=" + $('#dat').val() + "&Amount=" + amount + "&Temp_Id=" + tempid,
                     type: "POST",
                     dataType: "json",
                     contentType: "application/json;charset=UTF-8",
                     success: function (data) {
-                        if (data == "135") {
+                        if (data == "135665") {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Successful',

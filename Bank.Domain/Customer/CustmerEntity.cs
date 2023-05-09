@@ -11,6 +11,7 @@ namespace Bank.Domain.Customer
         public string Opening_Balance { get; set; }//
         public string Agent_Code { get; set; }
         public int CUSTOMER_id { get; set; }
+        public int Openingdetails_id { get; set; }
         public int Charge { get; set; }
         public string Collection_date { get; set; }
 
@@ -30,7 +31,8 @@ namespace Bank.Domain.Customer
         public string EnteredByy { get; set; }
         public string IdentificationNo { get; set; }
         public string BranchName { get; set; }
-
+        public string Collected_Status { get; set; }
+        public int Temp_Id { get; set; }
         public int branch_id { get; set; }
         public int trans_id { get; set; }
         public string BranchCode { get; set; }

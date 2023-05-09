@@ -50,6 +50,10 @@ namespace MiniBank.Web.Controllers
             {
                 ViewBag.msg = "This Mobile Number Already Registerd Plz Try Another!!! ";
             }
+            else if (ViewBag.res == 55)
+            {
+                ViewBag.msg = "Invalid Agent Id!!! ";
+            }
 
 
             else
