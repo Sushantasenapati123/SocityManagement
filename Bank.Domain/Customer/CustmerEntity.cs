@@ -1,20 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Bank.Domain.Customer
 {
     public class CustmerEntity
     {
+        [NotMapped]
         public double Totalsaving { get; set; }
-        public string Opening_Balance { get; set; }//
+        public string Opening_Balance { get; set; }
         public string Agent_Code { get; set; }
         public int CUSTOMER_id { get; set; }
+        [NotMapped]
+        public int totalsum { get; set; }
         public int Openingdetails_id { get; set; }
         public int Charge { get; set; }
         public string Collection_date { get; set; }
-
+        public DateTime cdate { get; set; }
         public int RATE_APPLICABLE { get; set; }
         public Int64 NewAccountNo { get; set; }
         public Int64 Amount { get; set; }

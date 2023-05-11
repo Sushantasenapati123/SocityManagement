@@ -15,6 +15,7 @@ namespace Bank.Irepository.Customer
         Task<IEnumerable<CustmerEntity>> listcustmer(CustmerEntity cu);
         Task<IEnumerable<CustmerEntity>> listcustmerAgent(CustmerEntity cu);
         Task<IEnumerable<Report>> listOfReport(Report cu);
+        Task<IEnumerable<CustmerEntity>> Agentwise_ViewDailyDepositeReport(CustmerEntity cu);
         Task<IEnumerable<Report>> listOfTranscationReportByAccountNum(Report cu);
         Task<IEnumerable<CustmerEntity>> listcustmerBranchWise(CustmerEntity cu);
         public int ApprovedCustomer(int id, string manager,int status);//approve customer profile//
@@ -39,8 +40,9 @@ namespace Bank.Irepository.Customer
         int updatecustmer(CustmerEntity rl);
         int deletecustmer(int id);
         Task<IEnumerable<Report>> ListOfTransactionbyBank(string cu);
-        int Appprove_Deposite(int id); 
-            int Appprove_DepositeByAgent(DateTime Date,int id,string agentID, string branch, int Amount,int transid);
+        int Appprove_Deposite(int id);
+        int Appprove_DailyDepositeTextfile(CustmerEntity ce);
+        int Appprove_DepositeByAgent(DateTime Date,int id,string agentID, string branch, int Amount,int transid);
         int Appprove_WithdrowAmount(int id);
         public CustmerEntity custmerselect(int id,string Branch, string accountype);
         public CustmerEntity BindServerdate(string BranchNAme);

@@ -1,0 +1,105 @@
+﻿
+
+@model Bank.Domain.Customer.CustmerEntity
+@{
+    ViewData["Title"] = "ViewDoctor";
+    Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
+    var ResultData = ViewBag.Result as List<Bank.Domain.Customer.CustmerEntity>;
+
+}
+@if (ViewBag.msg != null)
+{
+@*<script>
+        alert("@ViewBag.msg");
+    window.location.href = "../fileUpload/fileUpload";
+</script>*@
+}
+
+<div class="page-title">
+    <div class="title-details">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><span class="icon-home1"></span></li>
+                <li class="breadcrumb-item">Society Management</li>
+                <li class="breadcrumb-item active" aria-current="page"><b>Upload Daily Deposite File</b></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+                    <a class="nav-item nav-link" asp-controller="Custmer" asp-action="customerinsert"></a>
+                    <a class="nav-item nav-link " asp-controller="Custmer" asp-action="ViewCustomer"></a>
+                </ul>
+            </div>
+            <!-- Search Panel-->
+            <!--<div class="search-container">
+    <div class="search-sec" style="display: block;">-->
+            @*<form method="post" id="indsearch">
+            <div class="form-group form-row">
+                <div class="col-12 col-md-6 col-xl-3">
+                    <label class="control-label">CUSTOMER NAME</label>
+                    <input id="Dname" class="form-control" asp-for="CUSTOMER_NAME" />
+                </div>
+
+                <div class="col-lg-2 ">
+                    <button id="btnSearch" class="btn btn-primary mt-xl-4 mt-2"> <i class="fa fa-search"></i> Search</button>
+                </div>
+            </div>
+        </form>*@
+            <!--</div>
+        <div class="text-center"> <a class="searchopen" title="Search" data-toggle="tooltip" data-placement="bottom"> <i class="icon-angle-arrow-down"></i> </a></div>
+    </div>-->
+            <!-- Search Panel -->
+            <!--===================================================-->
+
+            @using (@Html.BeginForm("upload", "fileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+            {
+               
+               
+                <div style="padding-left:100px">
+                    <table>
+                        <tr>
+                            <td style="padding-bottom: 35px" colspan="2">
+                                <h2 style="color: #FF5722">Upload Daily Deposite Text File</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px;">
+                                <b>choose Text file:<span style="color:red">*</span></b>
+                            </td>
+                            <td>
+                                <input type="file" name="file" id="file" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colspan="2" style="padding-top: 30px">
+                                <input type="submit" class="btn btn-outline-primary btn-purple" value="Upload" name="submit" />
+                                @if (ViewData["msg"] != null)
+                                {
+                            <label style="font-family: Arial; font-size: 16px; font-weight: 200; color: red">@ViewData["msg"]</label>
+
+                                }
+
+
+                            </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    }
+
+
+
+                    <!--===================================================-->
+                </div>
+            </div>
+        </div>
+        

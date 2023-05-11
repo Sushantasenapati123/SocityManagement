@@ -84,7 +84,8 @@ namespace MiniBank.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Login}/{action=loginpage}/{id?}");
+                    //template: "{controller=fileUpload}/{action=fileUpload}/{id?}");
+        template: "{controller=Login}/{action=loginpage}/{id?}");
             });
         }
     }

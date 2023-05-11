@@ -2372,3 +2372,5 @@ C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\o
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\DailyDepositeAmount.cshtml.g.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\indexForAgent.cshtml.g.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\viewPendingDailyDepositeamount.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\fileUpload\fileUpload.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\Agentwise_ViewDailyDepositeReport.cshtml.g.cs

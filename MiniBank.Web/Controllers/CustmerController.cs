@@ -230,11 +230,28 @@ namespace MiniBank.Web.Controllers
             List<Report> pc7 = new List<Report>();
             pc7 = (List<Report>)await _cost.getAccountType();
             ViewBag.accounts = pc7;
-
-
-
-
             ViewBag.Result = await _cost.listOfReport(new Report());
+            return View();
+        }
+        public async Task<IActionResult> Agentwise_ViewDailyDepositeReport()//by admin
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+
+           
+            ViewBag.Result = await _cost.listOfReport(new Report());
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Agentwise_ViewDailyDepositeReport(CustmerEntity cu)//by admin
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+
+
+            ViewBag.Result = await _cost.Agentwise_ViewDailyDepositeReport(cu);
             return View();
         }
         /// <summary>

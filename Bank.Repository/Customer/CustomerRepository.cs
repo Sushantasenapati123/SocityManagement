@@ -407,7 +407,37 @@ namespace Bank.Repository.Customer
                 throw ex;
             }
         }
-      
+        
+       public int Appprove_DailyDepositeTextfile(CustmerEntity ce)
+        {
+            try
+            {
+                var query = "USP_customer";
+
+
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "Appprove_DailyDepositeTextfile");
+                dypara.Add("@Account_Numberr", ce.NewAccountNo);
+                dypara.Add("@Amount", ce.Amount);//collected amount
+                dypara.Add("@Branch", ce.BranchName);
+                dypara.Add("@Agent_Code", ce.Agent_Code);
+                dypara.Add("@Collection_date", ce.Collection_date);
+               
+
+
+
+                dypara.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+                Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
+                int res = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));
+                return res;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public int Appprove_Deposite(int id)
         {
             try
@@ -506,6 +536,31 @@ namespace Bank.Repository.Customer
                 var dypara = new DynamicParameters();
                 dypara.Add("@Action", "z");
                 var res = await Connection.QueryAsync<Report>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+             public async Task<IEnumerable<CustmerEntity>> Agentwise_ViewDailyDepositeReport(CustmerEntity cu)
+        {
+            try
+            {
+                var query = "USP_customer";
+              
+                var dypara = new DynamicParameters();
+               
+                dypara.Add("@From_Date", cu.From_Date);
+                dypara.Add("@Agent_Code", cu.Agent_Code);
+                dypara.Add("@To_Date", cu.To_Date);
+              
+
+                dypara.Add("@Action", "Agentwise_ViewDailyDepositeReport");
+
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
                 return res.ToList();
 
             }
