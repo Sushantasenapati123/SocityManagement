@@ -142,7 +142,7 @@
 
 <script>function gicodefill() {
         var GlGroup_code = $("#ddlGIGroupCode").val();
-        debugger;
+        ;
         var url = '../AccountType/BindGIcode';
         $.getJSON(url, { GlGroup_code: GlGroup_code }, function (data) {
             var obj = data.data

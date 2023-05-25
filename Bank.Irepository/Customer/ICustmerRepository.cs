@@ -10,9 +10,11 @@ namespace Bank.Irepository.Customer
 {
     public interface ICustmerRepository
     {
-      
+        public int InsertingDailyDepositeListIntoTempTable(CustmerEntity ce);
         Task<IEnumerable<Report>> getAccountType();
-        Task<IEnumerable<CustmerEntity>> listcustmer(CustmerEntity cu);
+        Task<IEnumerable<CustmerEntity>> listcustmer(CustmerEntity cu); 
+               Task<IEnumerable<CustmerEntity>> ViewSummaryOfDatFile(CustmerEntity cu);
+        Task<IEnumerable<CustmerEntity>> ViewUploadDatfileRecord(CustmerEntity cu);
         Task<IEnumerable<CustmerEntity>> listcustmerAgent(CustmerEntity cu);
         Task<IEnumerable<Report>> listOfReport(Report cu);
         Task<IEnumerable<CustmerEntity>> Agentwise_ViewDailyDepositeReport(CustmerEntity cu);
@@ -30,7 +32,7 @@ namespace Bank.Irepository.Customer
         Task<IEnumerable<CustmerEntity>> BindVoucher(string branch);
         Task<IEnumerable<CustmerEntity>> viewPendingCustomerBefore(CustmerEntity cu);// pending customer
 
-
+             Task<IEnumerable<CustmerEntity>> viewRejectCustomer(CustmerEntity cu);
         Task<IEnumerable<AccountopeningEntity>> listPendingcustmer(AccountopeningEntity cu);//pending account
         Task<IEnumerable<AccountopeningEntity>> listApprovedcustmer(AccountopeningEntity cu);//// approved account
         int insertcustmer(CustmerEntity rl);

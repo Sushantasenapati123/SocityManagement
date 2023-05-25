@@ -87,7 +87,7 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
                                                                 <td class="auto-style2">
                                                                     <strong>
                                                                         <input id="Textcustmerid" type="text" asp-for="CUSTOMER_id" hidden />
-                                                                        <input id="TextcustmerCode" type="text" asp-for="Customer_Code" />
+                                                                        <input id="TextcustmerCode"  type="text" asp-for="Customer_Code" />
 
                                                                     </strong>
                                                                 </td>
@@ -289,7 +289,7 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
                                                     <td>contact No(s)<span class="text-danger">*</span>:</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Landline :</td>
+                                                    <td>Landline<span class="text-danger">*</span> :</td>
                                                     <td>
                                                         <input type="number" id="Txtmbl1" asp-for="PHONE_NO_1" onchange="Phonevalidate('Txtmbl1','lblErrorLand')" /><br />
                                                         <span id="lblErrorLand" style="color:red"></span>
@@ -468,10 +468,7 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
                                                             <option value="Corporations">Corporations</option>
                                                         </select>
                                                     </td>
-
                                                 </tr>
-
-
                                                 <tr>
                                                     <td>Self Employed Professional<span class="text-danger">*</span>:</td>
                                                     <td>
@@ -483,8 +480,6 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
                                                             <option value=" investors"> investors</option>
                                                         </select>
                                                     </td>
-
-
                                                 </tr>
                                                 <tr>
                                                     <td>Address Proof Type<span class="text-danger"></span>:</td>
@@ -497,28 +492,18 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
                                                             <option value="4"> Voter Card</option>
                                                         </select>
                                                     </td>
-
-
                                                 </tr>
                                                 <tr>
                                                     <td>Upload Address Proof<span class="text-danger"></span>:</td>
                                                     <td>
                                                         <input type="file" id="AddreeProofCopy" />
                                                     </td>
-                                                    @*<td>
-                                                        <img height="40" width="40" id="AddreeProofCopyimg" src="" />
-                                                    </td>*@
-
-
                                                 </tr>
                                                 <tr>
                                                     <td>Identification Number<span class="text-danger"></span>:</td>
                                                     <td>
                                                         <input type="text" id="IdentificationNo" />
                                                     </td>
-                                                  
-
-
                                                 </tr>
                                                 <tr>
                                                     <td>Source of Funds<span class="text-danger">*</span>:</td>
@@ -554,12 +539,9 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
                                 </table>
 
                                 <div class="row bt">
-                                    @*<input type="submit" class="btn-success bt"  >
-                                        <button class="btn-danger" id="btnCancel">Reset</button>*@
 
                                     <button class="btn btn-primary mb-1" id="btnSubmit">Submit</button>
-
-                                    <input type="button" value="Reset" class="btn btn-danger mb-1" id="btnCancel" />
+                                    <input type="button" value="Reset" class="btn btn-danger mb-1" id="btnCancel"/>
 
                                 </div>
 
@@ -629,68 +611,8 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
     });
 
     $("#btnSubmit").click(function () {
+
        
-        var Photo = $("#photo").val();
-        var addresprof = $("#AddreeProofCopy").val();
-
-        if (Photo == "") {
-            alert("Please select Photo")
-            return false;
-        }
-      
-
-
-
-
-        var files = $('#photo').prop("files");
-        formData = new FormData();
-        formData.append("MyUploader", files[0]);
-        $.ajax({
-            data: formData,
-            url: '@Url.Action("UploadImage", "Custmer")',
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType:"json",
-            
-            success: function (data) {
-                if (data.status == "success") {
-                  
-                }
-            },
-            error: function () {
-                alert("Error occurs");
-            }
-
-        });
-        
-        var files1 = $('#AddreeProofCopy').prop("files");
-        formData = new FormData();
-        formData.append("MyUploaderadh", files1[0]);
-
-          $.ajax({
-            data: formData,
-            url: '@Url.Action("UploadAadhar", "Custmer")',
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType:"json",
-          
-            success: function (data) {
-                if (data.status == "success") {
-                }
-            },
-            error: function () {
-                alert("Error occurs");
-            }
-
-        });
-
-
-
-
         var doc = {
             CUSTOMER_id: $("#Textcustmerid").val(),
             Customer_Code: $("#TextcustmerCode").val(),
@@ -752,6 +674,53 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
             if ($("#CurrentPIN").val() == "") {
 
                 if (confirm("Are you sure you want to Submit ?")) {
+                     var files = $('#photo').prop("files");
+                        formData = new FormData();
+                        formData.append("MyUploader", files[0]);
+                        $.ajax({
+                            data: formData,
+                            url: '@Url.Action("UploadImage", "Custmer")',
+                            type: 'POST',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            dataType:"json",
+
+                            success: function (data) {
+                                if (data.status == "success") {
+
+                                }
+                            },
+                            error: function () {
+                                alert("Error occurs");
+                            }
+
+                        });
+
+                        var files1 = $('#AddreeProofCopy').prop("files");
+                        formData = new FormData();
+                        formData.append("MyUploaderadh", files1[0]);
+
+                         $.ajax({
+            data: formData,
+            url: '@Url.Action("UploadAadhar", "Custmer")',
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType:"json",
+
+            success: function (data) {
+                if (data.status == "success") {
+                }
+            },
+            error: function () {
+                alert("Error occurs");
+            }
+
+        });
+
+
                     $.ajax({
                         url: "/Custmer/customerinsert",
                         data: doc,
@@ -967,7 +936,7 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
                 var obj = data.data
                 $('#Txtcreatedby').val(obj.createD_BY);
                 $('#drpinitial').val(obj.namE_INITIALS);
-                $('#txtcustmername').val(obj.customeR_NAME); 
+                $('#txtcustmername').val(obj.customeR_NAME);
                 $('#TxtFatherName').val(obj.fatheR_HUSBAND);
                 $('#Txtmothername').val(obj.motheR_WIFE);
                 $("input[name='SEX'][value='" + obj.sex + "']").prop('checked', true);
@@ -1054,7 +1023,7 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
                 $('#SOURCE_OF_FUNDS').val("0");
                 $("#ANNUAL_INCOME_1").val("0");
             }
-           
+
         });
 
 
@@ -1068,6 +1037,12 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
 <script>
     function validate() {//validate
 
+      
+        var addresprof = $("#AddreeProofCopy").val();
+
+     
+        var Photo = $("#photo").val();
+
         var name = document.getElementById("txtcustmername").value;
         var Fathername = document.getElementById("TxtFatherName").value;
         var Mothername = document.getElementById("Txtmothername").value;
@@ -1075,6 +1050,7 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
         var address2 = document.getElementById("txtaddress2").value;
         var address3 = document.getElementById("txtaddress3").value;
         var pin = document.getElementById("Txtpin").value;
+        var Txtmbl1 = document.getElementById("Txtmbl1").value;
         var mbl2 = document.getElementById("Txtmbl2").value;
         var HAIR_NAME = document.getElementById("txtligalhairname").value;
         var birthday = document.getElementById("dtbirthday").value;
@@ -1107,6 +1083,10 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
         }
         if (Mothername == "") {
             alert("Please Enter Mothername")
+            return false;
+        }
+        if (Photo == "") {
+            alert("Please Choose Photo")
             return false;
         }
 
@@ -1150,6 +1130,8 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
             return false;
         }
 
+       
+
 
         function isChecked(id) {
 
@@ -1170,6 +1152,10 @@ else if (ViewBag.msg == "Customer registation Succesfully !!!")
         }
         if (pin == "") {
             alert(" Please Enter Pin code")
+            return false;
+        }
+        if (Txtmbl1 == "") {
+            alert(" Please Enter LandLine")
             return false;
         }
         if (mbl2 == "") {

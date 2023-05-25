@@ -40,20 +40,21 @@ namespace Bank.Repository.AccountOpening
                     dypara.Add("@Currentbal", acc.Currentbal);
                     dypara.Add("@Seniorcitizen", acc.Seniorcitizen);
                     dypara.Add("@customername", acc.customername);
-                    dypara.Add("@Certificateno", acc.Accountno);
-                    dypara.Add("@staff", acc.staff);
+                dypara.Add("@Certificateno", acc.Certificateno);
+
+                dypara.Add("@staff", acc.staff);
                     dypara.Add("@Accountno", acc.Accountno);
                      dypara.Add("@Sex", acc.Sex);
                     dypara.Add("@Caste", acc.Caste);
                     dypara.Add("@Presentaddress", acc.Presentaddress);
                     dypara.Add("@Permanentaddress", acc.Permanentaddress);
                     dypara.Add("@Modeofoperation", acc.Modeofoperation); 
-                    if(acc.HeadOfAccount=="Fixed")
+                    if(acc.HeadOfAccount== "FIXED DEPOSIT")
                     {
                         dypara.Add("@LoanFixDepositeEndDate1", acc.LoanFixDepositeEndDate1);
                         dypara.Add("@LoanPaybleAmount", acc.FixdepositeMaturityAmount); 
                     }
-                    else if (acc.HeadOfAccount == "Loan")
+                    else if (acc.HeadOfAccount == "TRANSPORT LOAN" || acc.HeadOfAccount == "BUSINESS LOAN")
                     {
                         dypara.Add("@LoanFixDepositeEndDate", acc.LoanFixDepositeEndDate);
                         dypara.Add("@LoanPaybleAmount", acc.LoanPaybleAmount);
@@ -96,6 +97,7 @@ namespace Bank.Repository.AccountOpening
                     dypara.Add("@Minimumbal3", acc.Minimumbal3);
                     dypara.Add("@Status3", acc.Status3);
                     dypara.Add("@Userid", acc.Userid);
+                    dypara.Add("@Agent_Code", acc.Accountno);
                     dypara.Add("PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
                     int res = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
                     var cc = Convert.ToInt32(dypara.Get<String>("PMSGOUT"));
@@ -130,7 +132,7 @@ namespace Bank.Repository.AccountOpening
                 dypara.Add("@HeadOfAccount", headofaccount);//string
                 dypara.Add("@AmountFromBank", AmountFromBank);//int
                 dypara.Add("@Trans_Date", Trans_Date);//date
-                if (headofaccount == "Fixed")
+                if (headofaccount == "FIXED DEPOSIT")
                     dypara.Add("@Trans_TimeOfEntry", DateTime.Now.ToString().Split(' ')[1]);//date
                 else
                     dypara.Add("@Trans_TimeOfEntry", time);
@@ -360,7 +362,6 @@ namespace Bank.Repository.AccountOpening
                 throw ex;
             }
         }
-
         public async  Task<AccountopeningEntity> ViewAccountDetailsById(int id)
         {
             try
@@ -370,7 +371,9 @@ namespace Bank.Repository.AccountOpening
                 var dypara = new DynamicParameters();
                 dypara.Add("@Action", "ViewAccountDetails");
                 dypara.Add("@Openingdetails_id", id);
+                dypara.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
                 var res = Connection.Query<AccountopeningEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                int x = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));
                 return res.FirstOrDefault();
 
             }
@@ -395,8 +398,6 @@ namespace Bank.Repository.AccountOpening
                 throw ex;
             }
         }
-
-
         public async Task<AccountopeningEntity> BindShearDetails(int Customer_Code, string branchname)
         {
             try
@@ -416,7 +417,5 @@ namespace Bank.Repository.AccountOpening
                 throw ex;
             }
         }
-        
-
     }
 }

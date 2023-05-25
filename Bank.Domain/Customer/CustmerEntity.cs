@@ -6,11 +6,25 @@ using System.Text;
 
 namespace Bank.Domain.Customer
 {
+    public class ApproveDailyDeposite
+    {
+        public string customername { get; set; }
+        public long Amount { get; set; }
+        public Int64 NewAccountNo { get; set; }
+        public string Collection_date { get; set; }
+        public string Agent_Code { get; set; }
+    }
     public class CustmerEntity
     {
+        public List<ApproveDailyDeposite> ApproveDailyDeposit { get; set; }
         [NotMapped]
+        public string Agent_Status { get; set; }
+        public DateTime coltdate { get; set; }
+        public DateTime DAT_File_CollecttionDate { get; set; }
         public double Totalsaving { get; set; }
         public string Opening_Balance { get; set; }
+        public string currentym { get; set; }
+        public string IP { get; set; }
         public string Agent_Code { get; set; }
         public int CUSTOMER_id { get; set; }
         [NotMapped]
@@ -174,6 +188,7 @@ namespace Bank.Domain.Customer
             public string GL_NAME { get; set; }
 
         }
+           
         public class Report
         {
             public string SERVER_DATE { get; set; }

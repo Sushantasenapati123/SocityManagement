@@ -2374,3 +2374,10 @@ C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\o
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\viewPendingDailyDepositeamount.cshtml.g.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\fileUpload\fileUpload.cshtml.g.cs
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\Agentwise_ViewDailyDepositeReport.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\Agentinsertpage.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\AccountOpening\AGENT_SUSPENSE_ForApproveByManager.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\ViewUploadDatfileRecord.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\fileUpload\ViewSummaryOfDatFile.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Custmer\viewRejectCustomer.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\obj\Debug\netcoreapp3.1\Razor\Views\Test\ViewBranchWiseCustomerTest.cshtml.g.cs
+C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\MiniBank.Web\bin\Debug\netcoreapp3.1\libman.json

@@ -674,7 +674,7 @@
 
             var id = getUrlVars()["id"];
             var Accountopeningid = getUrlVars()["Accountopeningid"];
-            var AcType = getUrlVars()["AcType"];
+            var AcType = getUrlVars()["AcType"].replace(/%20/g, " ");;;
             var CustCod = getUrlVars()["CustCode"];
             if (CustCod != undefined) {
                 $("#btnSubmit").html("Update");
@@ -871,13 +871,7 @@
             alert("Please Enter Deposite Amount");
             $('#Opening_Balance').focus();
             return false;
-         
-
         }
-       
-      
-
-       
         if ($('#Opening_Balance').val() <=100) {
             alert("Amount Must Be Greater Than 100");
             $('#Opening_Balance').focus();

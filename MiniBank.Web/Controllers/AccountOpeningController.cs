@@ -38,6 +38,13 @@ namespace MiniBank.Web.Controllers
             return View();
         }
         [HttpGet]
+        public IActionResult Agentinsertpage(string id = null)
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+
+            return View();
+        }
+        [HttpGet]
         public IActionResult insertpage_ForEdit(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
@@ -60,14 +67,12 @@ namespace MiniBank.Web.Controllers
         public IActionResult DepositeAmount()
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-          
             return View();
         }
         [HttpGet]
         public IActionResult DailyDepositeAmount()
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
-
             return View();
         }
         [HttpGet]
@@ -138,7 +143,7 @@ namespace MiniBank.Web.Controllers
             custe.Branch_Name = HttpContext.Session.GetString("Branch");
             custe.EnteredByy = HttpContext.Session.GetString("Userid");
             int retMsg = _cost.AddAgent(custe);
-
+            
             if (retMsg == 1390)
             {
                 return Json("Record Saved Successfully");
@@ -146,6 +151,10 @@ namespace MiniBank.Web.Controllers
            else if (retMsg == 1391)
             {
                 return Json("Record Already Exist");
+            }
+            else if (retMsg == 1399)
+            {
+                return Json("Reject");
             }
 
             else
@@ -191,6 +200,7 @@ namespace MiniBank.Web.Controllers
             
             return View();
         }
+       
         [HttpGet]
         public IActionResult Loaninsertpage_ForEdit(string id = null)
         {
@@ -201,6 +211,14 @@ namespace MiniBank.Web.Controllers
         }
         [HttpGet]
         public IActionResult Loaninsertpage_ForApproveByManager(string id = null)
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+
+            return View();
+
+        }
+        [HttpGet]
+        public IActionResult AGENT_SUSPENSE_ForApproveByManager(string id = null)
         {
             ViewBag.Role = HttpContext.Session.GetString("Role");
 

@@ -45,4 +45,3 @@ C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Domain\ob
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Domain\obj\Debug\netcoreapp3.1\Bank.Domain.csproj.CoreCompileInputs.cache
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Domain\obj\Debug\netcoreapp3.1\Bank.Domain.dll
 C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Domain\obj\Debug\netcoreapp3.1\Bank.Domain.pdb
-C:\Users\sushanta.senapati\Desktop\CSM_FRAMEWORK\SocityManagement\Bank.Domain\obj\Debug\netcoreapp3.1\Bank.Domain.csproj.AssemblyReference.cache

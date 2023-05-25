@@ -159,7 +159,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="modal fade" id="BindDropDown" tabindex="1" role="dialog"
                  aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -182,8 +181,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="modal fade" id="DSubmitModal" tabindex="1" role="dialog"
                  aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -201,8 +198,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -212,11 +207,16 @@
         getDataTable();
     })
     function ViewAccount(id, HeadOfAccount) {
-        if (HeadOfAccount == 'Fixed') {
+        if (HeadOfAccount == 'FIXED DEPOSIT')
+        {
             location.href = "/AccountOpening/Fixdeposit_insertpage2?id=" + id;
         }
-        else if (HeadOfAccount == 'Loan') {
+        else if (HeadOfAccount == 'TRANSPORT LOAN' || HeadOfAccount == 'BUSINESS LOAN')
+        {
             location.href = "/AccountOpening/Loaninsertpage_ForApproveByManager?id=" + id;
+        }
+        else if (HeadOfAccount == 'AGENT SUSPENSE') {
+            location.href = "/AccountOpening/AGENT_SUSPENSE_ForApproveByManager?id=" + id;
         }
         else
         location.href = "/AccountOpening/ViewPendingCustomerDetails?id=" +id;

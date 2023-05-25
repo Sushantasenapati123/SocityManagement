@@ -197,7 +197,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <label class="badge-light"> Opening Balance <span class="text-danger">*</span></label>
-                                <input type="number" id="Opening_Balance" class="form-control" placeholder="0" readonly />
+                                <input type="number" id="Opening_Balance" class="form-control"  readonly />
                             </div>
                            
                             <div class="col-4">
@@ -549,7 +549,7 @@
         $(document).ready(function () {
            
             var DepartmentId = getUrlVars()["id"];
-            var AcType = getUrlVars()["AcType"];
+            var AcType = getUrlVars()["AcType"].replace(/%20/g, " ");;;
             var CustCod = getUrlVars()["CustCode"];
             if (DepartmentId != undefined) {
                 $("#btnSubmit").html("Update");
@@ -573,7 +573,7 @@
         var RI;
        
         function findLoanCharge() {
-            debugger
+            
             set();
             var paybleamount = parseInt($("#Minimum_Balance").val()) * RI / 100 * parseInt($("#year").val());
             $("#returnamount").val(Math.round(paybleamount) + parseInt($("#Minimum_Balance").val()));
@@ -641,7 +641,7 @@
             else {
                 time = dt.getHours() + ":" + dt.getMinutes();
             }
-            debugger
+            
             
             $.ajax({
                
@@ -701,15 +701,15 @@
 <script>
    
     function Add() {
-
+        if ($('#Opening_Balance').val() == "0") {
+            alert("Please Create A Saving Account");
+            return false;
+        }
         if ($('#loantype').val() == "0") {
             alert("Please Select Loan Type");
             return false;
         }
-        if ($('#Opening_Balance').val() == "") {
-            alert("Please Enter Opening Balance");
-            return false;
-        }
+       
       
         if ($('#Minimum_Balance').val() == "") {
             alert("Please Enter Loan Amount");

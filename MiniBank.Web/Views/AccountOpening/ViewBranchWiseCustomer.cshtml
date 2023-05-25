@@ -1,4 +1,4 @@
-﻿@model Bank.Domain.Customer.CustmerEntity
+﻿    @model Bank.Domain.Customer.CustmerEntity
 @{
     ViewData["Title"] = "ViewDoctor";
     Layout = "~/Views/Shared/dynamicLayoutManager.cshtml";
@@ -102,12 +102,10 @@
                                         {
                                             <input type="submit" onclick="OpenACC('@list.CUSTOMER_id','@list.Customer_Code')" class="btn btn-info btn-sm  hbtn" value="Open AC" />
                                             <button type="button" onclick="BindDropDown('@list.CUSTOMER_id', '@list.Customer_Code')" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">View AC</button>
-
                                         }
                                         else
                                         {
                                             <button type="button" onclick="BindDropDown('@list.CUSTOMER_id', '@list.Customer_Code')" class="btn btn-danger btn-sm No hbtn" data-dismiss="modal" aria-label="Close">View AC</button>
-
                                         }
                                     </td>
                                 </tr>
@@ -259,27 +257,33 @@
         cid = CustId;
 
     }
-    var type = "Saving";
+    var type;
     function DisplayPage() {
         type = $('#TypAc').val()
     }
-
     function OK() {
-        
-        if (type == "Loan") {
-            location.href = "/AccountOpening/Loaninsertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
+        if ($('#TypAc').val() == "TRANSPORT LOAN") {
+            location.href = "/AccountOpening/Loaninsertpage?id=" + x + "&AcType=" + $('#TypAc').val() + "&CustCode=" + cid;
 
         }
-       else if (type == "Fixed") {
-            location.href = "/AccountOpening/Fixdeposit_insertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
+       else if ($('#TypAc').val() == "BUSINESS LOAN") {
+            location.href = "/AccountOpening/Loaninsertpage?id=" + x + "&AcType=" + $('#TypAc').val() + "&CustCode=" + cid;
 
         }
-        else if (type == "DailyDeposite") {
-            location.href = "/AccountOpening/DailyDepositePage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
+        else if ($('#TypAc').val() == "FIXED DEPOSIT") {
+            location.href = "/AccountOpening/Fixdeposit_insertpage?id=" + x + "&AcType=" + $('#TypAc').val() + "&CustCode=" + cid;
+
+        }
+        else if ($('#TypAc').val() == "DailyDeposite") {
+            location.href = "/AccountOpening/DailyDepositePage?id=" + x + "&AcType=" + $('#TypAc').val() + "&CustCode=" + cid;
+
+        }
+        else if ($('#TypAc').val() == "AGENT SUSPENSE") {
+            location.href = "/AccountOpening/Agentinsertpage?id=" + x + "&AcType=" + $('#TypAc').val() + "&CustCode=" + cid;
 
         }
         else {
-            location.href = "/AccountOpening/insertpage?id=" + x + "&AcType=" + type + "&CustCode=" + cid;
+            location.href = "/AccountOpening/insertpage?id=" + x + "&AcType=" + $('#TypAc').val() + "&CustCode=" + cid;
 
         }
            }

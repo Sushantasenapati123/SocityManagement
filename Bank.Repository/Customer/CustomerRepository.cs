@@ -368,14 +368,25 @@ namespace Bank.Repository.Customer
                 dypara.Add("@Name", cust.Name.Split(":")[0]);
                 dypara.Add("@Agent_Code", cust.Agent_Code);
                 dypara.Add("@Branch_Name", cust.Branch_Name);
+                dypara.Add("@Agent_Status", cust.Agent_Status);
+                
 
 
 
                 dypara.Add("PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
-                int Result = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
+                int cc = Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
+                var Result = Convert.ToInt32(dypara.Get<String>("PMSGOUT"));
+                if (Result== 1390)
+                {
+                    if (cust.Agent_Status == "Active")
+                        Result = 1390;
+                    else
+                        Result = 1399;
 
-                var cc = Convert.ToInt32(dypara.Get<String>("PMSGOUT"));
-                return cc;
+                }
+
+           
+                return Result;
 
             }
             catch (Exception ex)
@@ -413,25 +424,50 @@ namespace Bank.Repository.Customer
             try
             {
                 var query = "USP_customer";
-
-
                 var dypara = new DynamicParameters();
                 dypara.Add("@Action", "Appprove_DailyDepositeTextfile");
                 dypara.Add("@Account_Numberr", ce.NewAccountNo);
                 dypara.Add("@Amount", ce.Amount);//collected amount
                 dypara.Add("@Branch", ce.BranchName);
                 dypara.Add("@Agent_Code", ce.Agent_Code);
-                dypara.Add("@Collection_date", ce.Collection_date);
-               
-
-
-
+                dypara.Add("@Collection_date", DateTime.Parse(ce.Collection_date));
+                dypara.Add("@Trans_TimeOfEntry", ce.currentym);
+                dypara.Add("@Scroll_Terminal_Code", ce.IP);
+                dypara.Add("@Entered_By1", ce.customername);
+                dypara.Add("@Approved_By1", ce.customername);
                 dypara.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
                 Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
-                int res = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));
+                int res = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));//665:data already exist/666:Data inserted
                 return res;
 
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int InsertingDailyDepositeListIntoTempTable(CustmerEntity ce)
+        {
+            try
+            {
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "InsertingDailyDepositeListIntoTempTable");
+                dypara.Add("@Account_Numberr", ce.NewAccountNo);
+                dypara.Add("@Amount", ce.Amount);//collected amount
+                dypara.Add("@Branch", ce.BranchName);
+                dypara.Add("@Agent_Code", ce.Agent_Code);
+                dypara.Add("@Collection_date", ce.coltdate);
+                dypara.Add("@DAT_File_CollecttionDate", ce.DAT_File_CollecttionDate);
+                dypara.Add("@Trans_TimeOfEntry", ce.currentym);
+                dypara.Add("@Scroll_Terminal_Code", ce.IP);
+                dypara.Add("@Entered_By1", ce.customername);
+                dypara.Add("@Approved_By1", ce.customername);
+                dypara.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+                Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
+                int res = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));//665:data already exist/666:Data inserted
+                return res;
             }
             catch (Exception ex)
             {
@@ -443,8 +479,6 @@ namespace Bank.Repository.Customer
             try
             {
                 var query = "USP_customer";
-
-
                 var dypara = new DynamicParameters();
                 dypara.Add("@Action", "Appprove_Deposite");
                 dypara.Add("@trans_id", id);
@@ -452,8 +486,6 @@ namespace Bank.Repository.Customer
                 Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
                 int res = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));
                 return res;
-
-
             }
             catch (Exception ex)
             {
@@ -465,8 +497,6 @@ namespace Bank.Repository.Customer
             try
             {
                 var query = "USP_customer";
-
-
                 var dypara = new DynamicParameters();
                 dypara.Add("@Action", "Appprove_Withdrow");
                 dypara.Add("@trans_id", id);
@@ -474,16 +504,12 @@ namespace Bank.Repository.Customer
                 Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
                 int res = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));
                 return res;
-
-
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-
-
         public async Task<IEnumerable<CustmerEntity>> listcustmer(CustmerEntity cu)
         {
             try
@@ -494,12 +520,44 @@ namespace Bank.Repository.Customer
                 var dypara = new DynamicParameters();
                 dypara.Add("@pname",cu.CUSTOMER_NAME);
                 dypara.Add("@Branch_Name", cu.Branch_Name);
-
                 dypara.Add("@Action", "z");
-
                 var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
                 return res.ToList();
-
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+             public async Task<IEnumerable<CustmerEntity>> ViewSummaryOfDatFile(CustmerEntity cu)
+        {
+            try
+            {
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
+                dypara.Add("@pname", cu.CUSTOMER_NAME);
+                dypara.Add("@Branch_Name", cu.Branch_Name);
+                dypara.Add("@Action", "ViewSummaryOfDatFile");
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<CustmerEntity>> ViewUploadDatfileRecord(CustmerEntity cu)
+        {
+            try
+            {
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
+                dypara.Add("@pname", cu.CUSTOMER_NAME);
+                dypara.Add("@Branch_Name", cu.Branch_Name);
+                dypara.Add("@Action", "ViewInsertingDailyDepositeListIntoTempTable");
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.ToList();
             }
             catch (Exception ex)
             {
@@ -599,7 +657,6 @@ namespace Bank.Repository.Customer
             try
             {
                 var query = "USP_customer";
-              
                 var dypara = new DynamicParameters();
                 dypara.Add("@From_Date", cu.From_Date);
                 dypara.Add("@To_Date", cu.To_Date);
@@ -626,9 +683,7 @@ namespace Bank.Repository.Customer
                 var dypara = new DynamicParameters();
                 dypara.Add("@pname", cu.CUSTOMER_NAME);
                 dypara.Add("@Branch_Name", cu.Branch_Name);
-
                 dypara.Add("@Action", "CustPending");
-
                 var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
                 return res.ToList();
 
@@ -647,8 +702,6 @@ namespace Bank.Repository.Customer
                 var dypara = new DynamicParameters();
                 dypara.Add("@Branch_Name", cu.Branch_Name);
                 dypara.Add("@Action", "ViewPendingAccount");
-               
-
                 var res = Connection.Query<AccountopeningEntity>(query, dypara, commandType: CommandType.StoredProcedure);
                 return res.ToList();
 
@@ -662,7 +715,6 @@ namespace Bank.Repository.Customer
         {
             try
             {
-
                 var query = "USP_customer";
                 var dypara = new DynamicParameters();
                 dypara.Add("@Branch_Name", cu.Branch_Name);
@@ -834,6 +886,7 @@ namespace Bank.Repository.Customer
                 throw ex;
             }
         }
+        
         public async Task<IEnumerable<CustmerEntity>> viewPendingCustomerBefore(CustmerEntity cu)////pending customer
         {
             try
@@ -843,6 +896,26 @@ namespace Bank.Repository.Customer
                 var dypara = new DynamicParameters();
                 dypara.Add("@Branch_Name", cu.Branch_Name);
                 dypara.Add("@Action", "ViewPendingCustomer");
+
+
+                var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);
+                return res.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<IEnumerable<CustmerEntity>> viewRejectCustomer(CustmerEntity cu)////pending customer
+        {
+            try
+            {
+
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
+                dypara.Add("@Branch_Name", cu.Branch_Name);
+                dypara.Add("@Action", "viewRejectCustomer");
 
 
                 var res = Connection.Query<CustmerEntity>(query, dypara, commandType: CommandType.StoredProcedure);

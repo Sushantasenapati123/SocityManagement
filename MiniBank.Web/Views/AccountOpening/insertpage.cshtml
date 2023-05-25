@@ -514,14 +514,15 @@
     <script>
         $(document).ready(function () {
             var DepartmentId = getUrlVars()["id"];
-            var AcType = getUrlVars()["AcType"];
+            debugger
+            var AcType = getUrlVars()["AcType"].replace(/%20/g, " ");;
             var CustCod = getUrlVars()["CustCode"];
             if (DepartmentId != undefined) {
                 $("#btnSubmit").html("Update");
                 $("#btnCancel").val("Cancel");
                 BindDetail(DepartmentId, AcType, CustCod);
             }
-            if (AcType != "Share_Cap") {
+            if (AcType != "SHARE CAPITAL") {
                 $('#Facevalue').attr('readonly', true);
                 $('#Facevalue').val("0");
                 $('#NoUnint').attr('readonly', true);
@@ -628,7 +629,7 @@
                     $("#Certificateno").val("00" + result.NewAccountNo);
                     $("#Seniorcitizen").val(result.SENIOR_CITIZEN);
                     $("#staff").val(result.IS_STAFF);
-                    debugger
+                    
                     $('#OpeningDATE').val(result.serverdate + " " + time);
 
 

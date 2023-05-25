@@ -232,7 +232,7 @@
                 dataType: "json",
                 success: function (result) {
                     if (result != null) {
-                        if (result.HeadOfAccount == 'Saving' || result.HeadOfAccount == 'Current') {
+                        if (result.HeadOfAccount == 'SAVING BANK DEPOSIT' || result.HeadOfAccount == 'Current') {
                             $("#FName").val(result.FATHER_HUSBAND);
                             $('#Name').val(result.customername);
                             $("#Branch").val(result.BranchName);
@@ -241,7 +241,7 @@
                             $("#submit").show();
                             $("#bt").html("");
                         }
-                        else if (result.HeadOfAccount == 'DailyDeposite' ||result.HeadOfAccount == 'Share_Cap' || result.HeadOfAccount == 'Fixed' || result.HeadOfAccount == 'Recuring' || result.HeadOfAccount == 'Loan') {
+                        else if (result.HeadOfAccount == 'DailyDeposite' || result.HeadOfAccount == 'SHARE CAPITAL' || result.HeadOfAccount == 'FIXED DEPOSIT' || result.HeadOfAccount == 'Recuring' || result.HeadOfAccount == 'BUSINESS LOAN' || result.HeadOfAccount == 'TRANSPORT LOAN') {
                           
                             $("#FName").val("");
                             $('#Name').val("");

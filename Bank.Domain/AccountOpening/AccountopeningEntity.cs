@@ -9,7 +9,9 @@ namespace Bank.Domain.AccountOpening
     {
         //for binding Entity
         public string Agent_Code { get; set; }
+        public string TypeOfLoan { get; set; }
         public int Openingdetails_id { get; set; }//
+        public int RateOfIntrest { get; set; }
         public double Totalsaving { get; set; }
         public string Voucher_No { get; set; }
         public int LoanAmount { get; set; }

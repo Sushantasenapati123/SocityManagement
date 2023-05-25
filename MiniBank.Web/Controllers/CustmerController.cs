@@ -66,7 +66,6 @@ namespace MiniBank.Web.Controllers
         {
             var Retval = _cost.ApprovedCustomer(id, HttpContext.Session.GetString("Userid"),status);
             return Ok(Retval);
-
         }
         public IActionResult ChangeBranchByAdmin(int branchid)
         {
@@ -85,14 +84,11 @@ namespace MiniBank.Web.Controllers
             if (MyUploader != null )
             {
                 string uploadsFolder = Path.Combine(_environment.WebRootPath, "prodimage");
-
                 string filePath = Path.Combine(uploadsFolder, MyUploader.FileName);
-
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     MyUploader.CopyTo(fileStream);
                 }
-               
                 return new ObjectResult(new { status = "success" });
             }
             return new ObjectResult(new { status = "fail" });
@@ -122,10 +118,8 @@ namespace MiniBank.Web.Controllers
             string[] files = custe.Photo.Split('\\');
             custe.Photo = "prodimage/" + files[files.Length - 1];
             if(custe.AddreeProofCopy!=null)
-            {
-                string[] address = custe.AddreeProofCopy.Split('\\');
+            {   string[] address = custe.AddreeProofCopy.Split('\\');
                 custe.AddreeProofCopy = "AddressImage/" + address[files.Length - 1];
-
             }
             custe.Branch_Name= HttpContext.Session.GetString("Branch");
             custe.EnteredByy= HttpContext.Session.GetString("Userid");
@@ -147,14 +141,11 @@ namespace MiniBank.Web.Controllers
             {
                 return Json("Record Already Exist");
             }
-
-
             
         }
         [HttpPost]
         public async Task<JsonResult> insertsavingAmount(CustmerEntity custe)
         {
-           
             custe.Branch_Name = HttpContext.Session.GetString("Branch");
             custe.EnteredByy = HttpContext.Session.GetString("Userid");
             int retMsg = _cost.insertsavingAmount(custe);
@@ -176,23 +167,17 @@ namespace MiniBank.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> WithdrowAmount(CustmerEntity custe)
         {
-
             custe.Branch_Name = HttpContext.Session.GetString("Branch");
             custe.EnteredByy = HttpContext.Session.GetString("Userid");
             int retMsg = _cost.WithdrowAmount(custe);
-
             if (retMsg == 134)
             {
                 return Json("Record Saved Successfully");
             }
-
             else
             {
                 return Json("Error");
             }
-
-
-
         }
         public async Task<IActionResult> ViewCustomer()
         {
@@ -200,6 +185,15 @@ namespace MiniBank.Web.Controllers
             CustmerEntity CN = new CustmerEntity();
             CN.Branch_Name= HttpContext.Session.GetString("Branch");
             ViewBag.Result = await _cost.listcustmer(CN);
+            return View();
+        }
+       
+        public async Task<IActionResult> ViewUploadDatfileRecord()
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+            ViewBag.Result = await _cost.ViewUploadDatfileRecord(CN);
             return View();
         }
         public async Task<IActionResult> ViewPendingCustomer()///pending Account
@@ -364,6 +358,15 @@ namespace MiniBank.Web.Controllers
             CN.Branch_Name = HttpContext.Session.GetString("Branch");
 
             ViewBag.Result = await _cost.viewPendingCustomerBefore(CN);
+            return View();
+        }
+        public async Task<IActionResult> viewRejectCustomer()
+        {
+            ViewBag.Role = HttpContext.Session.GetString("Role");
+            CustmerEntity CN = new CustmerEntity();
+            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+
+            ViewBag.Result = await _cost.viewRejectCustomer(CN);
             return View();
         }
         public async Task<IActionResult> viewApprovedCustomerBefore()///approved Customer

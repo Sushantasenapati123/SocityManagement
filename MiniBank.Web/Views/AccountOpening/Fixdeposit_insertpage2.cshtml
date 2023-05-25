@@ -875,7 +875,7 @@
             $("#modalVoucherNO").val(Voucher_No);
             $("#modalAccountNO").val(modalAccountNO);
             $("#modalAmount").val(modalAmount);
-            if (headofaccount == "Loan") {
+            if (headofaccount == "BUSINESS LOAN" || headofaccount == "TRANSPORT LOAN") {
                 $("#modalAccountcharge").val(100);
             }
             else
@@ -1072,9 +1072,9 @@
                     $("#Opening_Balance").val(result.Result.Opening_Balance);
                     $("#Minimum_Balance").val(result.Result.LoanFixDepositeEndDate1);//to Date
 
-                    if (result.Result.Currentbal.split(' ')[1] == "Loan")
+                    if (result.Result.Currentbal.split(' ')[1] == "TRANSPORT LOAN" || result.Result.Currentbal.split(' ')[1] == "BUSINESS LOAN" )
                         $("#bal").html("Loan Type");
-                    $("#intrest").val(result.Result.Currentbal);
+                    $("#intrest").val(result.Result.RateOfIntrest);
                     $("#Modeofoperation").val(result.Result.Modeofoperation);
                     $("#Facevalue").val(result.Result.Facevalue);
                     $("#NoUnint").val(result.Result.NoUnint);
@@ -1090,7 +1090,7 @@
                     dat = result.Result.OpeningDATE;
                     Voucher_No = result.Result.Voucher_No;
                     modalAccountNO = "00" + result.Result.Accountno;
-                    if (result.Result.HeadOfAccount == "Fixed") {
+                    if (result.Result.HeadOfAccount == "FIXED DEPOSIT") {
                         modalAmount = result.Result.Opening_Balance;
                     }
                     else {
