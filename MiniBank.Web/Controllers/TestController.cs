@@ -45,6 +45,7 @@ namespace MiniBank.Web.Controllers
             ViewBag.Result = await _cost.listcustmerBranchWise(new CustmerEntity());
             return View();
         }
+
         [HttpPost]
         public async Task<JsonResult> ViewBranchWiseCustomerTest(int  id)
         {
@@ -60,8 +61,8 @@ namespace MiniBank.Web.Controllers
 
 
             ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
-
+            ViewBag.Branchn = "Khordha";// HttpContext.Session.GetString("Branch");
+            ViewData["ch"] = "Khordha";
             ViewBag.Result = await _cost.listcustmerBranchWise(new CustmerEntity());
 
             CustmerEntity cs = new CustmerEntity();

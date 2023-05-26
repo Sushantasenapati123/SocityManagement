@@ -44,6 +44,7 @@ namespace Bank.Irepository.Customer
         Task<IEnumerable<Report>> ListOfTransactionbyBank(string cu);
         int Appprove_Deposite(int id);
         int Appprove_DailyDepositeTextfile(CustmerEntity ce);
+        int Appprove_DailyDepositeTextfileXML(CustmerEntity ce);
         int Appprove_DepositeByAgent(DateTime Date,int id,string agentID, string branch, int Amount,int transid);
         int Appprove_WithdrowAmount(int id);
         public CustmerEntity custmerselect(int id,string Branch, string accountype);

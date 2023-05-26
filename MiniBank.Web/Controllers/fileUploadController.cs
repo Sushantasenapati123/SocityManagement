@@ -11,6 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace MiniBank.Web.Controllers
 {
@@ -31,6 +34,9 @@ namespace MiniBank.Web.Controllers
         }
         public async Task<IActionResult> ViewSummaryOfDatFile()
         {
+           // SaveTemplateConfig();
+
+
             ViewBag.Role = HttpContext.Session.GetString("Role");
             CustmerEntity CN = new CustmerEntity();
             CN.Branch_Name = HttpContext.Session.GetString("Branch");
@@ -57,6 +63,67 @@ namespace MiniBank.Web.Controllers
                 }
             }
             throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
+        [HttpPost]
+        public IActionResult SaveTemplateConfig()
+        {
+            try
+            {
+                //int UserId = 0;
+                //UserId = (int)HttpContext.Session.GetInt32("_UserId");
+                //var data = HttpContext.Request.Form["TemplateConfig"];//await _cost.ViewUploadDatfileRecord(CN);
+
+                List< CustmerEntity > listvalue = _cost.ViewUploadDatfileRecord(new CustmerEntity()).Result.ToList();
+                //var ResultDtls = JsonConvert.DeserializeObject<List<CustmerEntity>>(listvalue.ToString());
+                          
+                CustmerEntity model = new CustmerEntity();
+                var xEle = new XDocument();
+                var dec = new XDeclaration("1.0", "UTF-8", "yes");
+                xEle.Declaration = dec;
+                xEle.Add(new XElement("person", from emp in listvalue
+                                                select new XElement("row",
+                                                new XElement("customername", emp.customername),
+                                             
+                                                
+                                                new XElement("Amount", emp.Amount),
+                                                new XElement("Account_Number", emp.Account_Number),
+                                                 new XElement("Account_Number", emp.Account_Number),
+                                                new XElement("Agent_Code", emp.Agent_Code)
+                                                           )));
+                string result = string.Empty;
+                model.TemplateConfigXml = xEle;
+                int x = _cost.Appprove_DailyDepositeTextfile(model);
+                return View();
+
+                //try
+                //{
+                //    int count = _dashboard.CheckExcelTemplateMapping(Schemeid, SubSchemeid).Result;
+                //    if (count == 0)
+                //    {
+                //        string Result = _dashboard.InsertTemplateConfig(model);
+                //        ViewBag.Schemeview = _dashboard.SchemeViewLevels().Result;
+                //        return Json(Result);
+                //    }
+                //    else
+                //    {
+                //        ViewBag.Result = 2;
+                //        ViewBag.Schemeview = _dashboard.SchemeViewLevels().Result;
+                //        return View();
+                //    }
+
+                //}
+                //catch (Exception ex)
+                //{
+                //    result = ex.Message;
+                //    return Json(ex.Message);
+                //}
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
         public IActionResult ApprovedCustomerAccount(CustmerEntity en)
         {  string ipaddress= GetLocalIPAddress();

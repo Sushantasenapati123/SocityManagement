@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Xml.Linq;
 
 namespace Bank.Domain.Customer
 {
@@ -14,8 +15,15 @@ namespace Bank.Domain.Customer
         public string Collection_date { get; set; }
         public string Agent_Code { get; set; }
     }
+    public class CustmerEntityDomain
+    { 
+        public XDocument TemplateConfigXml { get; set; }
+        public List<CustmerEntity> TemplateConfig { get; set; }
+    }
     public class CustmerEntity
     {
+        public XDocument TemplateConfigXml { get; set; }
+        public List<CustmerEntity> TemplateConfig { get; set; }
         public List<ApproveDailyDeposite> ApproveDailyDeposit { get; set; }
         [NotMapped]
         public string Agent_Status { get; set; }

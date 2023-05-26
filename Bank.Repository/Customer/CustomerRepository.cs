@@ -419,7 +419,36 @@ namespace Bank.Repository.Customer
             }
         }
         
-       public int Appprove_DailyDepositeTextfile(CustmerEntity ce)
+             public int Appprove_DailyDepositeTextfileXML(CustmerEntity ce)
+        {
+            try
+            {
+                var query = "USP_customer";
+                var dypara = new DynamicParameters();
+                dypara.Add("@Action", "Appprove_DailyDepositeTextfile");
+                dypara.Add("@Account_Numberr", ce.NewAccountNo);
+                dypara.Add("@Amount", ce.Amount);//collected amount
+                dypara.Add("@Branch", ce.BranchName);
+                dypara.Add("@Agent_Code", ce.Agent_Code);
+                dypara.Add("@Collection_date", DateTime.Parse(ce.Collection_date));
+                dypara.Add("@Trans_TimeOfEntry", ce.currentym);
+                dypara.Add("@Scroll_Terminal_Code", ce.IP);
+                dypara.Add("@Entered_By1", ce.customername);    
+                dypara.Add("@Approved_By1", ce.customername);
+                dypara.Add("@PMSGOUT", dbType: DbType.String, direction: ParameterDirection.Output, size: 5215585);
+                Connection.Execute(query, dypara, commandType: CommandType.StoredProcedure);
+                int res = Convert.ToInt32(dypara.Get<string>("@PMSGOUT"));//665:data already exist/666:Data inserted
+                return res;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int Appprove_DailyDepositeTextfile(CustmerEntity ce)
         {
             try
             {

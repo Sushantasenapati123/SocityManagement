@@ -230,21 +230,25 @@
     <link href="~/Datatable/CSS/jquery.dataTables.min.css" rel="stylesheet" />
     <script src="~/Datatable/JS/jquery.dataTables.min.js"></script>
     <script src="~/Datatable/JS/dataTables.buttons.js"></script>
+
+    
     <script>
+        //Data Table site Link:https://codewithmukesh.com/blog/jquery-datatable-in-aspnet-core/
         function find() {
+          
             if ($.fn.DataTable.isDataTable('#customerDatatable')) {
                 $('#customerDatatable').DataTable().destroy();
             }
             $('#customerDatatable').dataTable({
                 "processing": true,
                 "serverSide": true,
-                "filter": true,
+                "filter": false,
                 "ajax": {
                     "url": "/Test/ViewBranchWiseCustomerTest?id=" + $("#branch_id").val(),
                     "type": "POST",
                     "datatype": "json"
                 },
-              
+
                 "columnDefs": [{
                     "targets": [0],
                     "visible": false,
@@ -257,9 +261,23 @@
                     { "data": "email", "name": "Email", "autoWidth": true },
                     { "data": "phonE_NO_1", "name": "phonE_NO_1", "autoWidth": true },
 
-                    { "data": "peR_ADDRESS_1", "name": "Date Of Birth", "autoWidth": true },
+                    { "data": "peR_ADDRESS_1", "name": "Date Of Birth"},
+
                     {
-                        "render": function (data, row) { return "<a href='#' class='btn btn-danger' onclick=DeleteCustomer('" + row.id + "'); >Delete</a>" + "<a href='#' class='btn btn-danger' onclick=DeleteCustomer('" + row.CUSTOMER_id + "'); >View account</a>"},
+                        "render": function (data, type, full, meta) {
+                            //alert('@ViewData["ch"]');
+                            alert("@ViewBag.Branchn")
+                            if (full.branch_Name == 'Khordha') {
+                                return "<a href='#' class='btn btn-danger' onclick=OpenACC('" + full.customeR_id + "','" + full.customer_Code + "'); >Open AC</a>" + "<a href='#' class='btn btn-info' onclick=BindDropDown('" + full.customeR_id + "','" + full.customer_Code + "'); >KK View AC</a>"
+                            }
+                            else {
+                                return "<a href='#' class='btn btn-danger' onclick=OpenACC('" + full.customeR_id + "','" + full.customer_Code + "'); >Open AC</a>" + "<a href='#' class='btn btn-info' onclick=BindDropDown('" + full.customeR_id + "','" + full.customer_Code + "'); >View AC</a>"
+
+                            }
+
+
+                        },
+
 
                     },
 

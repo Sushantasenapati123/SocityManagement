@@ -84,8 +84,8 @@ namespace MiniBank.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Test}/{action=ViewBranchWiseCustomerTest}/{id?}");
-       // template: "{controller=Login}/{action=loginpage}/{id?}");
+                   // template: "{controller=Test}/{action=ViewBranchWiseCustomerTest}/{id?}");
+       template: "{controller=Login}/{action=loginpage}/{id?}");
             });
         }
     }
