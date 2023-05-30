@@ -1,5 +1,6 @@
 ﻿using Bank.Domain.AccountType;
 using Bank.Irepository.AccountType;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,92 +18,194 @@ namespace MiniBank.Web.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+               
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpGet]
         public IActionResult Addaccount()
         {
-            ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         [HttpGet]
         public IActionResult AddaccountSales()
         {
-            ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         [HttpPost]
         public IActionResult Addaccount(AccountTypeModel at)
         {
-            if (at.AccountType_id == 0)
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
-                var res = _iat.accountAdd(at);
-                if (res != 0)
+
+                if (at.AccountType_id == 0)
                 {
-                    ViewBag.msg = "data added";
+                    ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
+                    var res = _iat.accountAdd(at);
+                    if (res != 0)
+                    {
+                        ViewBag.msg = "data added";
+                    }
+                    else
+                    {
+                        ViewBag.msg = "some error found";
+                    }
+
                 }
                 else
                 {
-                    ViewBag.msg = "some error found";
+                    int res = _iat.Updateaccount(at);
+
+                    if (res != 0)
+                    {
+                        ViewBag.msg = "data updated";
+                    }
+                    else
+                    {
+                        ViewBag.msg = "some error found";
+                    }
                 }
-               
+                return View();
             }
             else
             {
-                int res = _iat.Updateaccount(at);
-
-                if (res != 0)
-                {
-                    ViewBag.msg = "data updated";
-                }
-                else
-                {
-                    ViewBag.msg = "some error found";
-                }
+                return RedirectToAction("loginpage", "Login");
             }
-            return View();
+
+           
         }
         public IActionResult ViewAccount()
         {
-            ViewBag.Grouplist = _iat.getaccount();
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Grouplist = _iat.getaccount();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+       
         }
         public IActionResult ViewAccountSales()
         {
-            ViewBag.Grouplist = _iat.getaccount();
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Grouplist = _iat.getaccount();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         public IActionResult EditAccount(int id)
         {
-            ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
-            AccountTypeModel at = new AccountTypeModel();
-            at = _iat.Getaccount(id).Result;
-            return View(at);
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
+                AccountTypeModel at = new AccountTypeModel();
+                at = _iat.Getaccount(id).Result;
+                return View(at);
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+          
 
         }
         public IActionResult EditAccountSales(int id)
         {
-            ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
-            AccountTypeModel at = new AccountTypeModel();
-            at = _iat.Getaccount(id).Result;
-            return View(at);
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
+                AccountTypeModel at = new AccountTypeModel();
+                at = _iat.Getaccount(id).Result;
+                return View(at);
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+       
         }
         [HttpPost]
         public IActionResult EditAccount(AccountTypeModel at)
         {
-            int res = _iat.Updateaccount(at);
-            if (res != 0)
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                return RedirectToAction("ViewAccount");
+
+                int res = _iat.Updateaccount(at);
+                if (res != 0)
+                {
+                    return RedirectToAction("ViewAccount");
+                }
+                return View();
             }
-            return View();
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         public IActionResult FillGIGroupCode()
         {
-            ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
 
-            return View();
+                ViewBag.Grouplist1 = _iat.GetGIGroupCode().Result;
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+         
         }
 
         public IActionResult deleteaccount(int id)

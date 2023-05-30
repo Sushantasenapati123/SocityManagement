@@ -1,6 +1,7 @@
 ﻿using Bank.Domain.MenuMaster;
 using Bank.IRepository.MenuMaster;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -24,11 +25,22 @@ namespace MiniBank.Web.Controllers
         }
         public IActionResult AddMenu()
         {
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpPost]
         public async Task<JsonResult> AddMenu(MenuClass entity)
         {
+
             try
             {
                 int retMsg = _menuRepository.MenuInsertAndUpdate(entity).Result;
@@ -53,8 +65,18 @@ namespace MiniBank.Web.Controllers
         }
         public IActionResult ViewMenu()
         {
-            ViewBag.Result = _menuRepository.MenuSelectAll(new MenuClass()).Result;
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Result = _menuRepository.MenuSelectAll(new MenuClass()).Result;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
 
         [HttpPost]

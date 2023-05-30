@@ -33,69 +33,150 @@ namespace MiniBank.Web.Controllers
         [HttpGet]
         public IActionResult insertpage(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+          
         }
         [HttpGet]
         public IActionResult Agentinsertpage(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
 
-            return View();
+                return View();
+
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+          
         }
         [HttpGet]
         public IActionResult insertpage_ForEdit(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-         
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpPost]
         public IActionResult insertpage(AccountopeningEntity empObj)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            empObj.BranchCode = HttpContext.Session.GetString("Branch");
-            empObj.Userid = HttpContext.Session.GetString("Userid");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                empObj.BranchCode = HttpContext.Session.GetString("Branch");
+                empObj.Userid = HttpContext.Session.GetString("Userid");
 
-            empObj.OpeningDATE = Convert.ToDateTime(empObj.OpeningDATE);
-            var Retval = _IAccountopeningRepository.AddAccount(empObj);
-            return Ok(Retval);
+                empObj.OpeningDATE = Convert.ToDateTime(empObj.OpeningDATE);
+                var Retval = _IAccountopeningRepository.AddAccount(empObj);
+                return Ok(Retval);
+
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
 
         }
         [HttpGet]
         public IActionResult DepositeAmount()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                return View();
+
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         [HttpGet]
         public IActionResult DailyDepositeAmount()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                return View();
+
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpGet]
         public async Task<IActionResult> RegisterAgent()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
 
-            List<CustmerEntity> pc1 = new List<CustmerEntity>();
-            // DesignationName ds = new DesignationName();//////for search
-            pc1 = await _cost.BindcustomerNameCodeBind();
-            pc1.Insert(0, new CustmerEntity { Customer_Code = 0, CUSTOMER_NAME = "Select" });
-            ViewBag.UnitName = pc1;
+                List<CustmerEntity> pc1 = new List<CustmerEntity>();
+                // DesignationName ds = new DesignationName();//////for search
+                pc1 = await _cost.BindcustomerNameCodeBind();
+                pc1.Insert(0, new CustmerEntity { Customer_Code = 0, CUSTOMER_NAME = "Select" });
+                ViewBag.UnitName = pc1;
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+          
         }
         public async Task<IActionResult> ViewRegisterAgent()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            CustmerEntity CN = new CustmerEntity();
-            CN.Branch_Name = HttpContext.Session.GetString("Branch");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                CustmerEntity CN = new CustmerEntity();
+                CN.Branch_Name = HttpContext.Session.GetString("Branch");
 
-            ViewBag.Result = await _cost.listcustmerAgent(CN);
-            return View();
+                ViewBag.Result = await _cost.listcustmerAgent(CN);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         [HttpPost]
         public JsonResult AutoComplete(string prefix)//BAnkNAme
@@ -177,9 +258,18 @@ namespace MiniBank.Web.Controllers
     [HttpGet]
         public IActionResult WithdrowAmount()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
            
             return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
 
 
@@ -188,107 +278,214 @@ namespace MiniBank.Web.Controllers
         [HttpGet]
         public IActionResult ViewpendingAccountDetailsByFrontoffice(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
            
-            return View();
         }
 
         [HttpGet]
         public IActionResult Loaninsertpage(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
         }
        
         [HttpGet]
         public IActionResult Loaninsertpage_ForEdit(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
 
         }
         [HttpGet]
         public IActionResult Loaninsertpage_ForApproveByManager(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
 
         }
         [HttpGet]
         public IActionResult AGENT_SUSPENSE_ForApproveByManager(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
 
         }
         [HttpGet]
         public IActionResult Fixdeposit_insertpage(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-           
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
         }
         [HttpGet]
         public IActionResult DailyDepositePage(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
         }
         [HttpGet]
         public IActionResult Fixdeposit_insertpageForViewByAdmin(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-       
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
         }
         [HttpGet]
         public IActionResult Fixdeposit_insertpage2(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-           
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
         }
         [HttpGet]
         public IActionResult Fixdeposit_insertpage2_forEdit(string id = null)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-           
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
         }
         public IActionResult index(string id = null)
         {
             // ViewBag.USER_ID = id;
-           
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branch = HttpContext.Session.GetString("Branch");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Branch = HttpContext.Session.GetString("Branch");
 
-            // ViewBag.USERID = X.Result.branch_id;
-            return View();
+                // ViewBag.USERID = X.Result.branch_id;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+         
         }
         public async Task<IActionResult> indexForAgent()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            CustmerEntity CN = new CustmerEntity();
-            CN.Branch_Name = HttpContext.Session.GetString("Branch");
-            CN.Agent_Code = HttpContext.Session.GetString("Agent_Code");
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                CustmerEntity CN = new CustmerEntity();
+                CN.Branch_Name = HttpContext.Session.GetString("Branch");
+                CN.Agent_Code = HttpContext.Session.GetString("Agent_Code");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
            
         }
         [HttpPost]
         public async Task<IActionResult> indexForAgent(string SERVER_DATE)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            CustmerEntity CN = new CustmerEntity();
-            CN.Branch_Name = HttpContext.Session.GetString("Branch");
-            CN.Agent_Code = HttpContext.Session.GetString("Agent_Code");
-            CN.SERVER_DATE = SERVER_DATE;
-            ViewBag.Result = await _cost.viewAllDailyDepositeApproveAccount(CN);
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                CustmerEntity CN = new CustmerEntity();
+                CN.Branch_Name = HttpContext.Session.GetString("Branch");
+                CN.Agent_Code = HttpContext.Session.GetString("Agent_Code");
+                CN.SERVER_DATE = SERVER_DATE;
+                ViewBag.Result = await _cost.viewAllDailyDepositeApproveAccount(CN);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
 
 
         }
@@ -403,9 +600,19 @@ namespace MiniBank.Web.Controllers
 
         public IActionResult ViewAccountDetails(AccountopeningEntity empObj)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            var Retval = _IAccountopeningRepository.AddAccount(empObj);
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                var Retval = _IAccountopeningRepository.AddAccount(empObj);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+           
 
         }
         /// <summary>
@@ -415,9 +622,18 @@ namespace MiniBank.Web.Controllers
         /// <returns></returns>
         public IActionResult ViewAccountDetailsByAdmin(AccountopeningEntity empObj)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-           //var Retval = _IAccountopeningRepository.AddAccount(empObj);
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                //var Retval = _IAccountopeningRepository.AddAccount(empObj);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
 
         }
         /// <summary>
@@ -428,155 +644,264 @@ namespace MiniBank.Web.Controllers
 
         public async Task<IActionResult> ViewCustomerForACOpening()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Result = await _cost.listcustmer(new CustmerEntity());
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Result = await _cost.listcustmer(new CustmerEntity());
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
 
         [HttpPost]
         public async Task<IActionResult> ViewCustomerForACOpening(CustmerEntity d)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Result = await _cost.listcustmer(d);
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Result = await _cost.listcustmer(d);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
 
         public async Task<IActionResult> ViewBranchWiseCustomer()
         {
-            List<BranchEntity> pc5 = new List<BranchEntity>();
-            pc5 = await _Branch.getbranch();
-            pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "---Select---" });
-            ViewBag.Branch = pc5;
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                List<BranchEntity> pc5 = new List<BranchEntity>();
+                pc5 = await _Branch.getbranch();
+                pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "---Select---" });
+                ViewBag.Branch = pc5;
 
-            List<Report> pc6 = new List<Report>();
-            pc6 = (List<Report>)await _cost.getAccountType();
-           // pc6.Insert(0, new Report { AccountType_id = 0, gl_nature = "---Select---" });
-            ViewBag.Account = pc6;
+                List<Report> pc6 = new List<Report>();
+                pc6 = (List<Report>)await _cost.getAccountType();
+                // pc6.Insert(0, new Report { AccountType_id = 0, gl_nature = "---Select---" });
+                ViewBag.Account = pc6;
 
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
-            ViewBag.Result = await _cost.listcustmerBranchWise(new CustmerEntity());
-            return View();
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+                ViewBag.Result = await _cost.listcustmerBranchWise(new CustmerEntity());
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
 
         [HttpPost]
         public async Task<IActionResult> ViewBranchWiseCustomer(CustmerEntity d)
         {
-            List<BranchEntity> pc5 = new List<BranchEntity>();
-            pc5 = await _Branch.getbranch();
-            pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
-            ViewBag.Branch = pc5;
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                List<BranchEntity> pc5 = new List<BranchEntity>();
+                pc5 = await _Branch.getbranch();
+                pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
+                ViewBag.Branch = pc5;
 
-            List<Report> pc6 = new List<Report>();
-            pc6 = (List<Report>)await _cost.getAccountType();
-            //pc6.Insert(0, new Report { AccountType_id = 0, gl_nature = "---Select---" });
-            ViewBag.Account = pc6;
+                List<Report> pc6 = new List<Report>();
+                pc6 = (List<Report>)await _cost.getAccountType();
+                //pc6.Insert(0, new Report { AccountType_id = 0, gl_nature = "---Select---" });
+                ViewBag.Account = pc6;
 
 
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Branchn = HttpContext.Session.GetString("Branch");
 
-            ViewBag.Result = await _cost.listcustmerBranchWise(d);
-            return View();
+                ViewBag.Result = await _cost.listcustmerBranchWise(d);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
 
         public async Task<IActionResult> ViewPendingCustomer()////pending account
         {
-            List<BranchEntity> pc5 = new List<BranchEntity>();
-            pc5 = await _Branch.getbranch();
-            pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
-            ViewBag.Branch = pc5;
-           
-            HttpContext.Session.SetString("Approved", "Approved");
-            AccountopeningEntity cu = new AccountopeningEntity();
-            cu.Branch_Name= HttpContext.Session.GetString("Branch");
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                List<BranchEntity> pc5 = new List<BranchEntity>();
+                pc5 = await _Branch.getbranch();
+                pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
+                ViewBag.Branch = pc5;
 
-            ViewBag.Result = await _cost.listPendingcustmer(cu);
-            return View();
+                HttpContext.Session.SetString("Approved", "Approved");
+                AccountopeningEntity cu = new AccountopeningEntity();
+                cu.Branch_Name = HttpContext.Session.GetString("Branch");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+
+                ViewBag.Result = await _cost.listPendingcustmer(cu);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+           
         }
         public async Task<IActionResult> ViewPendingAccount()////pending account by Executive assistance
         {
-            List<BranchEntity> pc5 = new List<BranchEntity>();
-            pc5 = await _Branch.getbranch();
-            pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
-            ViewBag.Branch = pc5;
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                List<BranchEntity> pc5 = new List<BranchEntity>();
+                pc5 = await _Branch.getbranch();
+                pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
+                ViewBag.Branch = pc5;
 
-            HttpContext.Session.SetString("Approved", "Approved");
-            AccountopeningEntity cu = new AccountopeningEntity();
-            cu.Branch_Name = HttpContext.Session.GetString("Branch");
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+                HttpContext.Session.SetString("Approved", "Approved");
+                AccountopeningEntity cu = new AccountopeningEntity();
+                cu.Branch_Name = HttpContext.Session.GetString("Branch");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Branchn = HttpContext.Session.GetString("Branch");
 
-            ViewBag.Result = await _cost.listPendingcustmer(cu);
-            return View();
+                ViewBag.Result = await _cost.listPendingcustmer(cu);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         public async Task<IActionResult> ViewPendingCustomerDetails()
         {
-            List<BranchEntity> pc5 = new List<BranchEntity>();
-            pc5 = await _Branch.getbranch();
-            pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
-            ViewBag.Branch = pc5;
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                List<BranchEntity> pc5 = new List<BranchEntity>();
+                pc5 = await _Branch.getbranch();
+                pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "Select" });
+                ViewBag.Branch = pc5;
 
+
+                AccountopeningEntity cu = new AccountopeningEntity();
+                cu.Branch_Name = HttpContext.Session.GetString("Branch");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+
+                ViewBag.Result = await _cost.listPendingcustmer(cu);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
            
-            AccountopeningEntity cu = new AccountopeningEntity();
-            cu.Branch_Name = HttpContext.Session.GetString("Branch");
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
-
-            ViewBag.Result = await _cost.listPendingcustmer(cu);
-            return View();
         }
         public async Task<IActionResult> ViewAppprovedCustomer()
         {
-           AccountopeningEntity cu = new AccountopeningEntity();
-            cu.Branch_Name = HttpContext.Session.GetString("Branch");
-            ViewBag.Result = await _cost.listApprovedcustmer(cu);
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                AccountopeningEntity cu = new AccountopeningEntity();
+                cu.Branch_Name = HttpContext.Session.GetString("Branch");
+                ViewBag.Result = await _cost.listApprovedcustmer(cu);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         [HttpGet]
         public async Task<IActionResult> Viewallaccountballance()
         {
-            AccountopeningEntity cu = new AccountopeningEntity();
-            cu.Branch_Name = HttpContext.Session.GetString("Branch");
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
-            ViewBag.Result = await _IAccountopeningRepository.Viewallaccountballance(456);
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                AccountopeningEntity cu = new AccountopeningEntity();
+                cu.Branch_Name = HttpContext.Session.GetString("Branch");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+                ViewBag.Result = await _IAccountopeningRepository.Viewallaccountballance(456);
 
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpPost]
         public async Task<IActionResult> Viewallaccountballance(int Customer_Code)
         {
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                AccountopeningEntity cu = new AccountopeningEntity();
+                cu.Branch_Name = HttpContext.Session.GetString("Branch");
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+                //ViewBag.Result = await _cost.listApprovedcustmer(cu);
 
-            AccountopeningEntity cu = new AccountopeningEntity();
-            cu.Branch_Name = HttpContext.Session.GetString("Branch");
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
-            //ViewBag.Result = await _cost.listApprovedcustmer(cu);
+                ViewBag.Result = await _IAccountopeningRepository.Viewallaccountballance(Customer_Code);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
 
-            ViewBag.Result = await _IAccountopeningRepository.Viewallaccountballance(Customer_Code);
-            return View();
+          
         }
 
 
 
         public async Task<IActionResult> ViewCustomerAfterACOpening()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Res = await _IAccountopeningRepository.ViewAccountOpendedCustomer(new AccountopeningEntity());
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Res = await _IAccountopeningRepository.ViewAccountOpendedCustomer(new AccountopeningEntity());
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
 
 
         [HttpPost]
         public async Task<IActionResult> ViewCustomerAfterACOpening(AccountopeningEntity d)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Res = await _IAccountopeningRepository.ViewAccountOpendedCustomer(d);
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Res = await _IAccountopeningRepository.ViewAccountOpendedCustomer(d);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
 
         [HttpPost]

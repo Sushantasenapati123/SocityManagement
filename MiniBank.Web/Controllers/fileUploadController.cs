@@ -34,14 +34,23 @@ namespace MiniBank.Web.Controllers
         }
         public async Task<IActionResult> ViewSummaryOfDatFile()
         {
-           // SaveTemplateConfig();
+            // SaveTemplateConfig();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                CustmerEntity CN = new CustmerEntity();
+                CN.Branch_Name = HttpContext.Session.GetString("Branch");
+                ViewBag.Result = await _cost.ViewSummaryOfDatFile(CN);
+                return View();
+               
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
 
-
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            CustmerEntity CN = new CustmerEntity();
-            CN.Branch_Name = HttpContext.Session.GetString("Branch");
-            ViewBag.Result = await _cost.ViewSummaryOfDatFile(CN);
-            return View();
+          
         }
 
         public ActionResult pigme()
@@ -72,10 +81,9 @@ namespace MiniBank.Web.Controllers
                 //int UserId = 0;
                 //UserId = (int)HttpContext.Session.GetInt32("_UserId");
                 //var data = HttpContext.Request.Form["TemplateConfig"];//await _cost.ViewUploadDatfileRecord(CN);
-
                 List< CustmerEntity > listvalue = _cost.ViewUploadDatfileRecord(new CustmerEntity()).Result.ToList();
                 //var ResultDtls = JsonConvert.DeserializeObject<List<CustmerEntity>>(listvalue.ToString());
-                          
+                                                                             
                 CustmerEntity model = new CustmerEntity();
                 var xEle = new XDocument();
                 var dec = new XDeclaration("1.0", "UTF-8", "yes");
@@ -83,18 +91,16 @@ namespace MiniBank.Web.Controllers
                 xEle.Add(new XElement("person", from emp in listvalue
                                                 select new XElement("row",
                                                 new XElement("customername", emp.customername),
-                                             
-                                                
                                                 new XElement("Amount", emp.Amount),
                                                 new XElement("Account_Number", emp.Account_Number),
-                                                 new XElement("Account_Number", emp.Account_Number),
+                                                new XElement("Account_Number", emp.Account_Number),
                                                 new XElement("Agent_Code", emp.Agent_Code)
-                                                           )));
+                                                )));
+
                 string result = string.Empty;
                 model.TemplateConfigXml = xEle;
                 int x = _cost.Appprove_DailyDepositeTextfile(model);
                 return View();
-
                 //try
                 //{
                 //    int count = _dashboard.CheckExcelTemplateMapping(Schemeid, SubSchemeid).Result;
@@ -110,7 +116,6 @@ namespace MiniBank.Web.Controllers
                 //        ViewBag.Schemeview = _dashboard.SchemeViewLevels().Result;
                 //        return View();
                 //    }
-
                 //}
                 //catch (Exception ex)
                 //{
@@ -126,30 +131,45 @@ namespace MiniBank.Web.Controllers
 
         }
         public IActionResult ApprovedCustomerAccount(CustmerEntity en)
-        {  string ipaddress= GetLocalIPAddress();
-            CustmerEntity ce = new CustmerEntity();
-            foreach (var DD in en.ApproveDailyDeposit)
+        {
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                ce.NewAccountNo = DD.NewAccountNo;
-                ce.Amount = DD.Amount;
-                ce.customername = HttpContext.Session.GetString("Userid");
-                ce.Collection_date = DD.Collection_date;
-                ce.Agent_Code = DD.Agent_Code;
-                ce.IP = ipaddress;
-                ce.currentym = DateTime.Now.ToString("h:mm:ss tt");
-                ce.BranchName = HttpContext.Session.GetString("Branch");
-                int x = _cost.Appprove_DailyDepositeTextfile(ce);
-            }
 
-            return RedirectToAction("fileUpload");
+                string ipaddress = GetLocalIPAddress();
+                CustmerEntity ce = new CustmerEntity();
+                foreach (var DD in en.ApproveDailyDeposit)
+                {
+                    ce.NewAccountNo = DD.NewAccountNo;
+                    ce.Amount = DD.Amount;
+                    ce.customername = HttpContext.Session.GetString("Userid");
+                    ce.Collection_date = DD.Collection_date;
+                    ce.Agent_Code = DD.Agent_Code;
+                    ce.IP = ipaddress;
+                    ce.currentym = DateTime.Now.ToString("h:mm:ss tt");
+                    ce.BranchName = HttpContext.Session.GetString("Branch");
+                    int x = _cost.Appprove_DailyDepositeTextfile(ce);
+                }
+
+                return RedirectToAction("fileUpload");
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         [HttpPost]
         public IActionResult upload(IFormFile file)
         {
-            try
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                //if (file != null)
-                //{
+
+                try
+                {
+                    //if (file != null)
+                    //{
                     //if (file.FileName.ToString().Split(".")[1] != "dat")
                     //{
                     //    ViewData["msg"] = "Please select DAT File";
@@ -157,9 +177,10 @@ namespace MiniBank.Web.Controllers
                     //}
                     string ln;
                     using (StreamReader ss = new StreamReader(BaseUrl + "pig_2_pc.dat"))
-                    {   DateTime colllectdat = DateTime.Now;
-                    DateTime datFilecolllectdate = DateTime.Now; ;
-                    int counter = 0;
+                    {
+                        DateTime colllectdat = DateTime.Now;
+                        DateTime datFilecolllectdate = DateTime.Now; ;
+                        int counter = 0;
                         int no = -6;
                         while ((ln = ss.ReadLine()) != null)
                         {
@@ -171,8 +192,8 @@ namespace MiniBank.Web.Controllers
                                 {
                                     s = ln.Split(",");
                                     colllectdat = Convert.ToDateTime(s[3]);
-                                datFilecolllectdate  = Convert.ToDateTime(s[3]);
-                                counter++;
+                                    datFilecolllectdate = Convert.ToDateTime(s[3]);
+                                    counter++;
                                 }
                                 else
                                 {
@@ -194,8 +215,8 @@ namespace MiniBank.Web.Controllers
                                         no++;
                                         k++;
                                     }
-                                no = -6;
-                            }
+                                    no = -6;
+                                }
 
                             }
                             else
@@ -207,21 +228,27 @@ namespace MiniBank.Web.Controllers
                     }
                     ViewBag.msg = "Successfully Uploaded";
                     return View("fileUpload");
-                //}
-                //else
-                //{
-                //    ViewData["msg"] = "Please select a file";
-                //    return View("fileUpload");
-                //    //return RedirectToAction("fileUpload", "fileUpload");
-                //}
-            }
-            catch (Exception Ex)
-            {
-                ViewBag.msg = Ex.Message;
-                return View("fileUpload");
-                throw Ex;
+                    //}
+                    //else
+                    //{
+                    //    ViewData["msg"] = "Please select a file";
+                    //    return View("fileUpload");
+                    //    //return RedirectToAction("fileUpload", "fileUpload");
+                    //}
+                }
+                catch (Exception Ex)
+                {
+                    ViewBag.msg = Ex.Message;
+                    return View("fileUpload");
+                    throw Ex;
 
+                }
             }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
     }
 }

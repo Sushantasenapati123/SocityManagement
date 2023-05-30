@@ -19,83 +19,166 @@ namespace MiniBank.Web.Controllers
         [HttpGet]
         public IActionResult AddGroups()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpGet]
         public IActionResult AddGroupsSales()
         {
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+           
         }
         [HttpPost]
         public IActionResult AddGroups(group_entity gr)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            if (gr.Grouptype_id == 0)
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                ViewBag.res = _igr.AddGroup(gr);
-            }
-            if (ViewBag.res == 2)
-            {
-                ViewBag.msg = "Group Save Succesfully !!!";
-            }
-            else if (ViewBag.res == 1)
-            {
-                ViewBag.msg = "Group Name already exist";
-            }
 
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                if (gr.Grouptype_id == 0)
+                {
+                    ViewBag.res = _igr.AddGroup(gr);
+                }
+                if (ViewBag.res == 2)
+                {
+                    ViewBag.msg = "Group Save Succesfully !!!";
+                }
+                else if (ViewBag.res == 1)
+                {
+                    ViewBag.msg = "Group Name already exist";
+                }
+
+                else
+                {
+                    ViewBag.msg = "Some Error Found";
+                }
+                return View();
+            }
             else
             {
-                ViewBag.msg = "Some Error Found";
+                return RedirectToAction("loginpage", "Login");
             }
-            return View();
+           
         }
         [HttpGet]
         public IActionResult ViewGroups()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Grouplist = _igr.getgroups();
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Grouplist = _igr.getgroups();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpGet]
         public IActionResult ViewGroupsSales()
         {
-            ViewBag.Grouplist = _igr.getgroups();
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Grouplist = _igr.getgroups();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+           
         }
         [HttpGet]
         public IActionResult EditGroups(int id)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            group_entity gr = new group_entity();
-            gr = _igr.GetGroup(id).Result;
-            return View(gr);
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                group_entity gr = new group_entity();
+                gr = _igr.GetGroup(id).Result;
+                return View(gr);
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+          
         }
         [HttpGet]
         public IActionResult EditGroupsSales(int id)
         {
-            group_entity gr = new group_entity();
-            gr = _igr.GetGroup(id).Result;
-            return View(gr);
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                group_entity gr = new group_entity();
+                gr = _igr.GetGroup(id).Result;
+                return View(gr);
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
 
         [HttpPost]
         public IActionResult EditGroups(group_entity gr)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            if (gr.Grouptype_id != 0)
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                ViewBag.res = _igr.UpdateGroup(gr);
-            }
-            if (ViewBag.res == 3)
-            {
-                ViewBag.msg = "Updation Save Succesfully !!!";
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                if (gr.Grouptype_id != 0)
+                {
+                    ViewBag.res = _igr.UpdateGroup(gr);
+                }
+                if (ViewBag.res == 3)
+                {
+                    ViewBag.msg = "Updation Save Succesfully !!!";
+                }
+                else
+                {
+                    ViewBag.msg = "Some Error Found in Data Updation";
+                }
+                return View();
             }
             else
             {
-                ViewBag.msg = "Some Error Found in Data Updation";
+                return RedirectToAction("loginpage", "Login");
             }
-            return View();
+            
         }
 
         [HttpGet]

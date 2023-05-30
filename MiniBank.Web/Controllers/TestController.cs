@@ -26,24 +26,44 @@ namespace MiniBank.Web.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+         
         }
         public async Task<IActionResult> ViewBranchWiseCustomerTest()
         {
-            List<BranchEntity> pc5 = new List<BranchEntity>();
-            pc5 = await _Branch.getbranch();
-            pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "---Select---" });
-            ViewBag.Branch = pc5;
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
 
-            List<Report> pc6 = new List<Report>();
-            pc6 = (List<Report>)await _cost.getAccountType();
-            // pc6.Insert(0, new Report { AccountType_id = 0, gl_nature = "---Select---" });
-            ViewBag.Account = pc6;
+                List<BranchEntity> pc5 = new List<BranchEntity>();
+                pc5 = await _Branch.getbranch();
+                pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "---Select---" });
+                ViewBag.Branch = pc5;
 
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Branchn = HttpContext.Session.GetString("Branch");
-            ViewBag.Result = await _cost.listcustmerBranchWise(new CustmerEntity());
-            return View();
+                List<Report> pc6 = new List<Report>();
+                pc6 = (List<Report>)await _cost.getAccountType();
+                // pc6.Insert(0, new Report { AccountType_id = 0, gl_nature = "---Select---" });
+                ViewBag.Account = pc6;
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Branchn = HttpContext.Session.GetString("Branch");
+                ViewBag.Result = await _cost.listcustmerBranchWise(new CustmerEntity());
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
 
         [HttpPost]

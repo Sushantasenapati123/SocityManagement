@@ -1,5 +1,6 @@
 ﻿using Bank.Domain.GlGroup;
 using Bank.Irepository.GlGroup;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -18,48 +19,78 @@ namespace MiniBank.Web.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         [HttpGet]
         public async Task<IActionResult> GlgroupinsertSales(int id)
         {
-            ViewBag.groupID = _rlo.glgroupbind();
-            GlgroupEntity gle = new GlgroupEntity();
-            if (id == 0)
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
 
-                ViewBag.Button = "Save";
+                ViewBag.groupID = _rlo.glgroupbind();
+                GlgroupEntity gle = new GlgroupEntity();
+                if (id == 0)
+                {
+
+                    ViewBag.Button = "Save";
+                }
+                else
+                {
+                    ViewBag.Button = "Update";
+                    //ViewBag.id = id;
+                    gle = await _rlo.groupselect(id);
+                    return View(gle);
+
+                }
+                return View();
             }
             else
             {
-                ViewBag.Button = "Update";
-                //ViewBag.id = id;
-                gle = await _rlo.groupselect(id);
-                return View(gle);
-
+                return RedirectToAction("loginpage", "Login");
             }
-            return View();
+           
         }
 
         [HttpGet]
         public async Task< IActionResult> Glgroupinsert(int id)
         {
-            ViewBag.groupID = _rlo.glgroupbind();
-            GlgroupEntity gle = new GlgroupEntity();
-            if (id == 0)
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
 
-                ViewBag.Button = "Save";
+                ViewBag.groupID = _rlo.glgroupbind();
+                GlgroupEntity gle = new GlgroupEntity();
+                if (id == 0)
+                {
+
+                    ViewBag.Button = "Save";
+                }
+                else
+                {
+                    ViewBag.Button = "Update";
+                    //ViewBag.id = id;
+                    gle = await _rlo.groupselect(id);
+                    return View(gle);
+
+                }
+                return View();
             }
             else
             {
-                ViewBag.Button = "Update";
-                //ViewBag.id = id;
-                gle =await _rlo.groupselect(id);
-                return View(gle);
-
+                return RedirectToAction("loginpage", "Login");
             }
-            return View();
+           
         }
 
 
@@ -67,36 +98,46 @@ namespace MiniBank.Web.Controllers
         [HttpPost]
         public IActionResult Glgroupinsert(GlgroupEntity gl)
         {
-            ViewBag.groupID = _rlo.glgroupbind();
-            if (gl.GlGroup_id == 0)
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                ViewBag.data = _rlo.insertgroup(gl);
+
+                ViewBag.groupID = _rlo.glgroupbind();
+                if (gl.GlGroup_id == 0)
+                {
+                    ViewBag.data = _rlo.insertgroup(gl);
+                }
+                else
+                {
+                    ViewBag.data = _rlo.updatgroupl(gl);
+                }
+
+                if (ViewBag.data == 2)
+                {
+                    ViewBag.msg = " Registation Succesfully !!!";
+                }
+                else if (ViewBag.data == 1)
+                {
+
+                    ViewBag.msg = "already exist";
+                }
+                else if (ViewBag.data == 3)
+                {
+                    ViewBag.msg = "update successfully";
+
+                }
+                else
+                {
+                    ViewBag.msg = "some error found";
+                }
+
+                return View();
             }
             else
             {
-                ViewBag.data = _rlo.updatgroupl(gl);
+                return RedirectToAction("loginpage", "Login");
             }
-
-            if (ViewBag.data == 2)
-            {
-                ViewBag.msg = " Registation Succesfully !!!";
-            }
-            else if (ViewBag.data == 1)
-            {
-
-                ViewBag.msg = "already exist";
-            }
-            else if (ViewBag.data == 3)
-            {
-                ViewBag.msg = "update successfully";
-
-            }
-            else
-            {
-                ViewBag.msg = "some error found";
-            }
-
-            return View();
+            
         }
         [HttpGet]
         public IActionResult GlgroupView()
@@ -109,10 +150,20 @@ namespace MiniBank.Web.Controllers
         [HttpGet]
         public IActionResult GlgroupViewSales()
         {
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
 
-            GlgroupEntity gle = new GlgroupEntity();
-            gle.GlGrouplist = _rlo.listrgroup();
-            return View(gle);
+                GlgroupEntity gle = new GlgroupEntity();
+                gle.GlGrouplist = _rlo.listrgroup();
+                return View(gle);
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
+          
         }
 
         public JsonResult Checkdetails(int grouptype_id)

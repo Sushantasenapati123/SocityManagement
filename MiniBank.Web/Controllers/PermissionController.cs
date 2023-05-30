@@ -2,6 +2,7 @@
 using Bank.Irepository.Employee;
 using Bank.IRepository.SubMenuMaster;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -30,8 +31,18 @@ namespace MiniBank.Web.Controllers
         }
         public IActionResult AddPermission()
         {
-            ViewBag.DesignationName = _designationRepository.bindDesigNation().Result;
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.DesignationName = _designationRepository.bindDesigNation().Result;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpPost]
         public IActionResult CreatePermission([FromBody] List<Permission> entity)
@@ -61,11 +72,22 @@ namespace MiniBank.Web.Controllers
 
         public IActionResult GetSelectedPermissions(int UserId, int DesignationId)
         {
-            ViewBag.DesignationId = DesignationId;
-            ViewBag.UserId = UserId;
-            ViewBag.DesignationName = _designationRepository.bindDesigNation().Result;
-            ViewBag.SubMenu = _permissionRepository.GetSelectedSubMenus(DesignationId, UserId).Result;
-            return View("AddPermission");
+            var UserIde = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserIde.ToString()))
+            {
+
+
+                ViewBag.DesignationId = DesignationId;
+                ViewBag.UserId = UserId;
+                ViewBag.DesignationName = _designationRepository.bindDesigNation().Result;
+                ViewBag.SubMenu = _permissionRepository.GetSelectedSubMenus(DesignationId, UserId).Result;
+                return View("AddPermission");
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+
         }
         public IActionResult GetSelectedMenuByDesig(int DesignationId, int UserId)
         {

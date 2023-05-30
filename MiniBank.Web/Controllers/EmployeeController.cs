@@ -44,17 +44,27 @@ namespace MiniBank.Web.Controllers
 
         public async Task<IActionResult> AddEmployee()
         {
-            List<BranchEntity> pc5 = new List<BranchEntity>();
-            pc5 = await _Branch.getbranch();
-            pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "---Select---" });
-            ViewBag.Branch = pc5;
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
 
-            List<EmployeeEntity> pc4 = new List<EmployeeEntity>();
-            pc4 = await _Emp.bindDesigNation();
-            pc4.Insert(0, new EmployeeEntity { DesgId = 0, DesgName = "---Select---" });
-            ViewBag.Designation = pc4;
+                List<BranchEntity> pc5 = new List<BranchEntity>();
+                pc5 = await _Branch.getbranch();
+                pc5.Insert(0, new BranchEntity { branch_id = 0, Branch_Name = "---Select---" });
+                ViewBag.Branch = pc5;
 
-            return View();
+                List<EmployeeEntity> pc4 = new List<EmployeeEntity>();
+                pc4 = await _Emp.bindDesigNation();
+                pc4.Insert(0, new EmployeeEntity { DesgId = 0, DesgName = "---Select---" });
+                ViewBag.Designation = pc4;
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpGet]
         public IActionResult GetByIdEmployee(int id)
@@ -67,51 +77,80 @@ namespace MiniBank.Web.Controllers
         public async Task<IActionResult> AddEmployee(EmployeeEntity custe)
         {
 
-
-
-            string[] files = custe.Photo.Split('\\');
-            custe.Photo = "prodimage/" + files[files.Length - 1];
-
-            int retMsg = _Emp.insertEmployee(custe);
-
-            if (retMsg == 1)
+              var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                return Json("Record Saved Successfully");
-            }
-            else if (retMsg == 2)
-            {
-                return Json("Record Updated Successfully");
-            }
-            else if (retMsg == 3)
-            {
-                return Json("Record Deleted Successfully");
+
+                string[] files = custe.Photo.Split('\\');
+                custe.Photo = "prodimage/" + files[files.Length - 1];
+
+                int retMsg = _Emp.insertEmployee(custe);
+
+                if (retMsg == 1)
+                {
+                    return Json("Record Saved Successfully");
+                }
+                else if (retMsg == 2)
+                {
+                    return Json("Record Updated Successfully");
+                }
+                else if (retMsg == 3)
+                {
+                    return Json("Record Deleted Successfully");
+                }
+                else
+                {
+                    return Json("Record Already Exist");
+                }
+
             }
             else
             {
-                return Json("Record Already Exist");
+                return RedirectToAction("loginpage", "Login");
             }
 
+         
         }
         public async Task<IActionResult> ViewEmployee()
         {
-            List<EmployeeEntity> pc4 = new List<EmployeeEntity>();
-            pc4 = await _Emp.bindDesigNation();
-            pc4.Insert(0, new EmployeeEntity { DesgId = 0, DesgName = "---Select---" });
-            ViewBag.Designation = pc4;
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
 
-            ViewBag.Result = await _Emp.listcustmer(new EmployeeEntity());
-            return View();
+                List<EmployeeEntity> pc4 = new List<EmployeeEntity>();
+                pc4 = await _Emp.bindDesigNation();
+                pc4.Insert(0, new EmployeeEntity { DesgId = 0, DesgName = "---Select---" });
+                ViewBag.Designation = pc4;
+
+                ViewBag.Result = await _Emp.listcustmer(new EmployeeEntity());
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
         }
         [HttpPost]
         public async Task<IActionResult> ViewEmployee(EmployeeEntity e)
         {
-            List<EmployeeEntity> pc4 = new List<EmployeeEntity>();
-            pc4 = await _Emp.bindDesigNation();
-            pc4.Insert(0, new EmployeeEntity { DesgId = 0, DesgName = "---Select---" });
-            ViewBag.Designation = pc4;
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
 
-            ViewBag.Result = await _Emp.listcustmer(e);
-            return View();
+                List<EmployeeEntity> pc4 = new List<EmployeeEntity>();
+                pc4 = await _Emp.bindDesigNation();
+                pc4.Insert(0, new EmployeeEntity { DesgId = 0, DesgName = "---Select---" });
+                ViewBag.Designation = pc4;
+
+                ViewBag.Result = await _Emp.listcustmer(e);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpPost]
         public IActionResult DeleteEmployee(int id)

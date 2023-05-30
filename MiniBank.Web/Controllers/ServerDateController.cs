@@ -20,75 +20,125 @@ namespace MiniBank.Web.Controllers
         [HttpGet]
         public IActionResult AddServerDate()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.BranchName = _isdr.listBranch().Result;
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.BranchName = _isdr.listBranch().Result;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+          
             //return RedirectToAction("AddServerDate", "ServerDate");
         }
         [HttpPost]
         public IActionResult AddServerDate(ServerDateEntity svrDt)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.BranchName = _isdr.listBranch().Result;
-            //int res = _isdr.AddServerDate(svrDt);
-            if (svrDt.Server_id == 0)
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                ViewBag.res = _isdr.AddServerDate(svrDt);
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.BranchName = _isdr.listBranch().Result;
+                //int res = _isdr.AddServerDate(svrDt);
+                if (svrDt.Server_id == 0)
+                {
+                    ViewBag.res = _isdr.AddServerDate(svrDt);
+                }
+                if (ViewBag.res == 1)
+                {
+                    ViewBag.msg = "Server Date Added Successfully.";
+                }
+                //if (res != 0)
+                //{
+                //    ViewBag.msg = "Server Date Added Successfully.";
+                //}
+                else
+                {
+                    ViewBag.msg = "Some Error Occured in Insertion";
+                }
+                return View();
             }
-            if (ViewBag.res == 1)
-            {
-                ViewBag.msg = "Server Date Added Successfully.";
-            }
-            //if (res != 0)
-            //{
-            //    ViewBag.msg = "Server Date Added Successfully.";
-            //}
             else
             {
-                ViewBag.msg = "Some Error Occured in Insertion";
+                return RedirectToAction("loginpage", "Login");
             }
-            return View();
+           
             //return RedirectToAction("AddServerDate", "ServerDate");
         }
         [HttpGet]
         public IActionResult ViewServerDate()
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.Datelist = _isdr.GetServerDate();
-            return View();
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.Datelist = _isdr.GetServerDate();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpGet]
         public IActionResult EditServerDate(int id)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.BranchName = _isdr.listBranch().Result;
-            ServerDateEntity sr = new ServerDateEntity();
-            sr = _isdr.GetDate(id).Result;
-            return View(sr);
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
+            {
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.BranchName = _isdr.listBranch().Result;
+                ServerDateEntity sr = new ServerDateEntity();
+                sr = _isdr.GetDate(id).Result;
+                return View(sr);
+            }
+            else
+            {
+                return RedirectToAction("loginpage", "Login");
+            }
+           
         }
         [HttpPost]
         public IActionResult EditServerDate(ServerDateEntity sd)
         {
-            ViewBag.Role = HttpContext.Session.GetString("Role");
-            ViewBag.BranchName = _isdr.listBranch().Result;
-            if (sd.Server_id != 0)
+            var UserId = HttpContext.Session.GetString("Userid");
+            if (!string.IsNullOrEmpty(UserId.ToString()))
             {
-                ViewBag.res = _isdr.UpdateServerDate(sd);
-            }
-            if (ViewBag.res == 2)
-            {
-                ViewBag.msg = "Server Date Updated Successfully.";
+
+                ViewBag.Role = HttpContext.Session.GetString("Role");
+                ViewBag.BranchName = _isdr.listBranch().Result;
+                if (sd.Server_id != 0)
+                {
+                    ViewBag.res = _isdr.UpdateServerDate(sd);
+                }
+                if (ViewBag.res == 2)
+                {
+                    ViewBag.msg = "Server Date Updated Successfully.";
+                }
+                else
+                {
+                    ViewBag.msg = "Some error in updation.";
+                }
+                //int res = _isdr.UpdateServerDate(sd);
+                //if (res != 0)
+                //{
+                //    return RedirectToAction("ViewServerDate");
+                //}
+                return View();
             }
             else
             {
-                ViewBag.msg = "Some error in updation.";
+                return RedirectToAction("loginpage", "Login");
             }
-            //int res = _isdr.UpdateServerDate(sd);
-            //if (res != 0)
-            //{
-            //    return RedirectToAction("ViewServerDate");
-            //}
-            return View();
+           
         }
         [HttpGet]
         public IActionResult DeleteServerDate(int id)
